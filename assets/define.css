@@ -1,0 +1,338 @@
+/*
+|--------------------------------------------------------------------------
+| Property Definitions
+|--------------------------------------------------------------------------
+| We use an order that is beneficial for a 'settings' file
+|
+*/
+/* stylelint-disable */
+/* prettier-ignore */
+:root {
+  /*
+  |--------------------------------------------------------------------------
+  | Colours
+  |--------------------------------------------------------------------------
+  |
+  */
+  --Color_Anchor: #c2002f;
+  --Color_Brand: #0a1e2d;
+
+  --Color_Red: #f7335e;
+  --Color_Red-dark: #b12435;
+  --Color_Green: #08b77d;
+  --Color_Grey: #f0f0f0;
+  --Color_Grey-dark: #f4f1ee;
+  --Color_Grey-light: #f9f8f7;
+  --Color_DarkMode: #222;
+  --Color_Purple: #515d89;
+
+  --Color_Body: #696969;
+  --Color_Border: #eee;
+  --Color_Error: #f7335e;
+  --Color_Success: #08b77d;
+
+  --ThemeColor_Background: #fff;
+  --ThemeColor_Title: #0a1e2d;
+  --ThemeColor_Subtitle: #c2002f;
+
+  /*
+  |--------------------------------------------------------------------------
+  | Families
+  |--------------------------------------------------------------------------
+  |
+  */
+  --Font_Family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', sans-serif;
+  --Font_Family-sentinel: 'Sentinel', var(--Font_Family);
+  --Font_Family-ballingerXCondensed: ballinger-x-condensed, var(--Font_Family);
+  --Font_Family-aktivGrotesk: aktiv-grotesk, var(--Font_Family);
+
+  --Font_Family-body: var(--Font_Family-sentinel);
+  --Font_Family-headings: var(--Font_Family-ballingerXCondensed);
+
+  /*
+  |--------------------------------------------------------------------------
+  | Grid
+  |--------------------------------------------------------------------------
+  |
+  */
+  --Grid_Container: 1440px;
+  --Grid_Gutter: 30px;
+
+  /*
+  |--------------------------------------------------------------------------
+  | Navigation
+  |--------------------------------------------------------------------------
+  |
+  */
+  --Desktop_NavTopHeight: 80px;
+  --Desktop_NavBottomHeight: 50px;
+  --Mobile_NavHeight: 60px;
+  --PromoBarHeight: 0px;
+
+  /*
+  |--------------------------------------------------------------------------
+  | Transitions
+  |--------------------------------------------------------------------------
+  |
+  */
+  --Global_Transition: 0.2s;
+  --Transition_EaseOutBack: cubic-bezier(0.175, 0.885, 0.32, 1.075);
+
+  /*
+  |--------------------------------------------------------------------------
+  | Blog Hero
+  |--------------------------------------------------------------------------
+  | @namespace:
+  |
+  */
+
+  --HeroOverlayColour: #0a1e2d;
+  --HeroOverlayOpacity: 0.5;
+
+  /*
+  |--------------------------------------------------------------------------
+  | Styles
+  |--------------------------------------------------------------------------
+  |
+  */
+  font: 16px / 1.5 var(--Font_Family-body);
+
+  font-weight: 300;
+
+  cursor: auto;
+}
+/* stylelint-enable */
+
+/* This is used for multiple base styles so we need selector types */
+/* stylelint-disable */
+/*
+|--------------------------------------------------------------------------
+| Define
+|--------------------------------------------------------------------------
+| Global resets to make life easier
+|
+*/
+[hidden] {
+  display: none !important;
+}
+
+[disabled] {
+  cursor: not-allowed;
+}
+
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+a,
+area,
+button,
+[role='button'],
+input:not([type='range']),
+label,
+select,
+summary,
+textarea {
+  /* Enable panning and pinch zoom gestures, but disable additional
+  non-standard gestures such as double-tap to zoom. Disabling double-tap to
+  zoom removes the need for browsers to delay the generation of click events
+  when the user taps the screen. This is an alias for "pan-x pan-y pinch-zoom"
+  (which, for compatibility, is itself still valid). */
+  -ms-touch-action: manipulation;
+  touch-action: manipulation;
+}
+
+input,
+select,
+textarea {
+  /* Older iOS puts a border radius on inputs by default. */
+  border-radius: 0;
+}
+
+button {
+  padding: 0;
+
+  font-family: inherit;
+  font-size: inherit;
+
+  background-color: transparent;
+  border: 0;
+  border-radius: 0;
+}
+
+body:not(.util-IsTabbing) button:focus,
+body:not(.util-IsTabbing) input:focus,
+body:not(.util-IsTabbing) select:focus,
+body:not(.util-IsTabbing) textarea:focus {
+  outline: none;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+details,
+details summary {
+  display: flex;
+
+  outline: 0;
+}
+details summary::-webkit-details-marker {
+  display: none;
+}
+
+/*
+|--------------------------------------------------------------------------
+| Viewports
+|--------------------------------------------------------------------------
+|
+*/
+  @viewport {
+    width: device-width;
+  }
+
+/*
+|--------------------------------------------------------------------------
+| HTML / Body Resets
+|--------------------------------------------------------------------------
+|
+*/
+html {
+  /* Sets a specific default `font-size` for user with `rem` type scales. */
+  font-size: 16px;
+  /* Changes the default tap highlight to be completely transparent in iOS. */
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+body {
+  font-size: 15px;
+  line-height: 24px;
+
+  text-rendering: optimizeLegibility;
+
+  /* By default, `<body>` has no `background-color` so we set one as a best practice. */
+  background-color: #fff;
+  color: var(--Color_Body);
+
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+
+  transition: background-color 1s ease;
+}
+
+@media screen and (min-width: 900px) {
+  body {
+    font-size: 16px;
+    line-height: 24px;
+  }
+}
+
+button {
+  cursor: pointer;
+}
+
+/*
+|--------------------------------------------------------------------------
+| Typography - Headings
+|--------------------------------------------------------------------------
+|
+*/
+:--headings {
+  margin-top: 0;
+  margin-bottom: 0;
+  font-family: var(--Font_Family-headings);
+}
+
+/*
+|--------------------------------------------------------------------------
+| Typography - Keyline
+|--------------------------------------------------------------------------
+|
+*/
+hr {
+  border: 0;
+  border-top: 1px solid var(--Color_Border);
+}
+
+/*
+|--------------------------------------------------------------------------
+| Typography - Lists
+|--------------------------------------------------------------------------
+|
+*/
+ul {
+  margin: 0;
+  padding: 0;
+
+  list-style: none;
+}
+
+/*
+|--------------------------------------------------------------------------
+| Typography - Paragraph
+|--------------------------------------------------------------------------
+|
+*/
+p {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+/*
+|--------------------------------------------------------------------------
+| Typography - Anchors
+|--------------------------------------------------------------------------
+| It is more comment that we *don't* want any kind of default styling on
+| <a> elements. We'll unset any browser styling on <a>, then give some
+| defaults for unclassed <a> elements.
+|
+*/
+a {
+  font-weight: inherit;
+  text-decoration: none;
+
+  color: currentColor;
+}
+
+/*
+|--------------------------------------------------------------------------
+| Form
+|--------------------------------------------------------------------------
+|
+*/
+input,
+select,
+textarea {
+  font-family: inherit;
+}
+
+/*
+|--------------------------------------------------------------------------
+| Images
+|--------------------------------------------------------------------------
+|
+*/
+img {
+  max-width: 100%;
+}
+
+svg {
+  display: block;
+  width: inherit;
+  height: inherit;
+}
+
+/*
+|--------------------------------------------------------------------------
+| Tables
+|--------------------------------------------------------------------------
+|
+*/
+table {
+  width: 100%;
+
+  table-layout: fixed;
+}
+/* stylelint-enable */

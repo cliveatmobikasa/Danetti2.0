@@ -57,6 +57,7 @@
       {
         "type": "color_scheme_group",
         "id": "color_schemes",
+        "label": "Color Schemes",
         "definition": [
           {
             "type": "color",
