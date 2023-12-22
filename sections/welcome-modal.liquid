@@ -1,0 +1,73 @@
+{%- if section.settings.enabled -%}
+  <div
+    class="mod-Modal"
+    aria-expanded="false"
+    data-module="modal"
+  >
+    <div class="mod-Modal_Modal mod-Modal_Modal-thin">
+      <button class="mod-Modal_Close" type="button" data-el="modal.close">
+        {%- render 'bao-icon-close' -%}
+      </button>
+
+      <div class="mod-Modal_Inner">
+        <div class="mod-Modal_Body" data-el="modal.body">
+          <div class="mod-Modal_Content">
+            <div class="mod-Welcome">
+              <div class="mod-Welcome_Logo">
+                {%- render 'bao-danetti-logo-small' -%}
+              </div>
+
+              {%- if section.settings.title != blank -%}
+                <h4 class="mod-Welcome_Title">{{ section.settings.title }}</h4>
+              {%- endif -%}
+
+              {%- if section.settings.text != blank -%}
+                <div class="mod-Welcome_Text rte-RichText">
+                  {{ section.settings.text }}
+                </div>
+              {%- endif -%}
+
+              {%- if section.settings.button_text != blank -%}
+                <button type="button" class="mod-Welcome_Button btn-Primary" data-el="modal.close">
+                  {{ section.settings.button_text }}
+                </button>
+              {%- endif -%}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{%- endif -%}
+
+{% schema %}
+  {
+    "name": "Welcome modal",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "enabled",
+        "label": "Enabled?",
+        "default": false
+      },
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Title",
+        "default": "New Website, Same Danetti."
+      },
+      {
+        "type": "richtext",
+        "id": "text",
+        "label": "Text",
+        "default": "<p>Welcome to our new website!</p><p>We’ve been busy working on a new home for our exclusive products . Be our guest and take a look around...</p>"
+      },
+      {
+        "type": "text",
+        "id": "button_text",
+        "label": "Button text",
+        "default": "Explore Danetti"
+      }
+    ]
+  }
+{% endschema %}

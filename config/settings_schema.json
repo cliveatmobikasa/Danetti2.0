@@ -30,6 +30,24 @@
         "id": "favicon",
         "label": "t:settings_schema.logo.settings.favicon.label",
         "info": "t:settings_schema.logo.settings.favicon.info"
+      },
+      {
+        "type": "image_picker",
+        "id": "favicon_small",
+        "label": "Favicon (small)",
+        "info": "Size: 16 x 16 px"
+      },
+      {
+        "type": "image_picker",
+        "id": "favicon_medium",
+        "label": "Favicon (medium)",
+        "info": "Size: 32 x 32 px"
+      },
+      {
+        "type": "image_picker",
+        "id": "favicon_large",
+        "label": "Favicon (large)",
+        "info": "Size: 194 x 194 px"
       }
     ]
   },
@@ -1310,6 +1328,44 @@
         "content": "t:settings_schema.social-media.settings.header.content"
       },
       {
+        "type": "image_picker",
+        "id": "share_image",
+        "label": "Image",
+        "info": "Shown when sharing a link on social media. [Learn more](https://help.shopify.com/manual/using-themes/troubleshooting/showing-social-media-thumbnail-images/) about image thumbnails."
+      },
+      {
+        "type": "header",
+        "content": "Social sharing options"
+      },
+      {
+        "type": "checkbox",
+        "id": "social_sharing_blog",
+        "label": "Enable sharing for blog articles",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "share_facebook",
+        "label": "Share on Facebook",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "share_twitter",
+        "label": "Tweet on Twitter",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "share_pinterest",
+        "label": "Pin on Pinterest",
+        "default": true
+      },
+      {
+        "type": "header",
+        "content": "Sharing links"
+      },
+      {
         "type": "text",
         "id": "social_facebook_link",
         "label": "t:settings_schema.social-media.settings.social_facebook_link.label",
@@ -1326,12 +1382,6 @@
         "id": "social_youtube_link",
         "label": "t:settings_schema.social-media.settings.social_youtube_link.label",
         "placeholder": "t:settings_schema.social-media.settings.social_youtube_link.info"
-      },
-      {
-        "type": "text",
-        "id": "social_tiktok_link",
-        "label": "t:settings_schema.social-media.settings.social_tiktok_link.label",
-        "placeholder": "t:settings_schema.social-media.settings.social_tiktok_link.info"
       },
       {
         "type": "text",
@@ -1463,6 +1513,94 @@
         "id": "cart_color_scheme",
         "label": "t:sections.all.colors.label",
         "default": "background-1"
+      }
+    ]
+  },
+  {
+    "name": "Site Settings",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Sales"
+      },
+      {
+        "type": "checkbox",
+        "id": "sales_messaging_enable",
+        "label": "Enable Sales Messaging",
+        "default": false
+      },
+      {
+        "type": "text",
+        "id": "countdown",
+        "label": "Sale End Date",
+        "info": "Date format: yyyy-mm-dd hh:mm:ss"
+      },
+      {
+        "type": "number",
+        "id": "sale_threshold",
+        "label": "Sale Threshold",
+        "default": 10,
+        "info": "Controls the X Left In Stock Threshold"
+      },
+      {
+        "type": "header",
+        "content": "Theme"
+      },
+      {
+        "type": "checkbox",
+        "id": "dark_mode",
+        "label": "Dark Mode",
+        "default": false
+      },
+      {
+        "type": "header",
+        "content": "Contact Details"
+      },
+      {
+        "type": "text",
+        "id": "customer_service_telephone",
+        "label": "Customer Service Telephone",
+        "default": "020 3588 1380"
+      }
+    ]
+  },
+  {
+    "name": "Stock Management",
+    "settings": [
+      {
+        "type": "text",
+        "id": "sold_out_tag",
+        "label": "Sold Out Tag",
+        "info": "The tag to use to determine whether a product is sold out",
+        "default": "stock-available: 12+ weeks"
+      }
+    ]
+  },
+  {
+    "name": "Google Tag Manager",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "enable_gtm_main",
+        "label": "Enable GTM - main site",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_gtm_checkout",
+        "label": "Enable GTM - checkout",
+        "default": true
+      }
+    ]
+  },
+  {
+    "name": "Swym Wishlist",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "enable_wishlist",
+        "label": "Enable Swym Wishlist",
+        "default": true
       }
     ]
   }

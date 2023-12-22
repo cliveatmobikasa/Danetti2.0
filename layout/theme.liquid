@@ -1,32 +1,158 @@
 <!doctype html>
 <html class="no-js" lang="{{ request.locale.iso_code }}">
   <head>
+    <link rel="preconnect" href="https://cdn.shopify.com">
+    <!-- OneTrust Cookies Consent Notice start for danetti.com -->
+    <script src="https://cdn-ukwest.onetrust.com/scripttemplates/otSDKStub.js" type="text/javascript" charset="UTF-8" data-domain-script="15f37575-c9e8-4f7b-a567-5e92c461f124"></script>
+    <script type="text/javascript">
+      function OptanonWrapper() { }
+    </script>
+    <!-- OneTrust Cookies Consent Notice end for danetti.com -->
+
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+    <meta name="author" content="By Mobikasa Only" />
     <meta name="theme-color" content="">
-    <link rel="canonical" href="{{ canonical_url }}">
 
-    {%- if settings.favicon != blank -%}
-      <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 32, height: 32 }}">
+    
+    {%- capture contentForQuerystring -%}{{ content_for_header }}{%- endcapture -%}
+    {%- assign pageUrlWithParams = contentForQuerystring | split:'"pageurl":"' | last | split:'"' | first | split: request.host | last | replace:'\/','/' | replace:'%20',' ' | replace:'\u0026','&'  -%}
+
+    
+    {%- if request.path == '/collections/vendors' and collection.all_products_count == 0 -%}
+      <meta name="robots" content="noindex,nofollow">
+    {%- elsif template.name == 'collection' -%}
+      {%- liquid
+        assign active_filters = collection.filters | map: "active_values" | compact
+        assign is_sorted = collection.sort_by
+      -%}
+      {%- if collection.all_products_count < 4 -%}
+        <link rel="canonical" href="{{ shop.url }}{{ collection.url }}" />
+        <meta name="robots" content="noindex, follow" />
+      {%-elsif collection.metafields.nosto != blank -%}
+        {%- if current_page != 1 -%}
+          <link rel="canonical" href="{{shop.url}}/collections/{{collection.metafields.nosto.sourceHandle}}?page={{ current_page }}">
+          <meta name="robots" content="noindex, follow" />
+        {%- else -%}
+          <link rel="canonical" href="{{shop.url}}/collections/{{collection.metafields.nosto.sourceHandle}}">
+          {%- if active_filters.size > 0 or is_sorted != blank -%}
+            <meta name="robots" content="noindex, follow" />
+          {%- endif -%}
+        {%- endif -%}
+      {%- elsif current_page != 1 -%}
+        <link rel="canonical" href="{{ shop.url }}{{ collection.url }}?page={{ current_page }}" />
+        <meta name="robots" content="noindex, follow" />
+      {%- else -%}
+        <link rel="canonical" href="{{ shop.url }}{{ collection.url }}" />
+        {%- if active_filters.size > 0 or is_sorted != blank -%}
+          <meta name="robots" content="noindex, follow" />
+        {%- endif -%}
+      {%- endif %}
+    {%- elsif template == 'cart' -%}
+      <meta name="robots" content="noindex, follow" />
+    {%- elsif template.name == 'product' -%}
+      {%- liquid
+        assign is_delisted = false
+        if product.tags contains "delisted" or template contains 'delisted'
+          assign is_delisted = true
+        endif
+      -%}
+      {%- if is_delisted -%}
+        <meta name="robots" content="noindex, follow" {{is_delisted}}/>
+      {%- endif -%}
+      {% if product.metafields.seo.canonical_url != blank %}
+        
+        {% if product.metafields.seo.canonical_url != product.handle %}
+          
+        <meta name="robots" content="noindex, follow" {{product.handle}}/>
+        {% endif %}
+        <link rel="canonical" href="{{ shop.url }}/products/{{ product.metafields.seo.canonical_url }}" />
+      {% endif %}
+    {%- else -%}
+      <link rel="canonical" href="{{ canonical_url }}" />
     {%- endif -%}
+
+    
+    {%- if settings.enable_gtm_main == true -%}
+      {%- render 'google-tag-manager-head' -%}
+    {%- endif -%}
+    <meta name="google-site-verification" content="_NgcYuaOFvvxOcqiF_IW4jiCVRdD5dqyzIJW7VVy2Tg" />
+    
+    <!-- Bing -->
+    <script>
+      (function(w, d, t, r, u) {
+        var f,
+          n,
+          i;
+        w[u] = w[u] || [],
+        f = function() {
+          var o = {
+            ti: "26335439"
+          };
+          o.q = w[u],
+          w[u] = new UET(o),
+          w[u].push("pageLoad")
+        },
+        n = d.createElement(t),
+        n.src = r,
+        n.async = 1,
+        n.onload = n.onreadystatechange = function() {
+          var s = this.readyState;
+          s && s !== "loaded" && s !== "complete" || (f(), n.onload = n.onreadystatechange = null)
+        },
+        i = d.getElementsByTagName(t)[0],
+        i.parentNode.insertBefore(n, i)
+      })(window, document, "script", "//bat.bing.com/bat.js", "uetq");
+    </script>
+    <!-- End Bing -->
+
+    {% render 'favicons' %}
+
+    {%- capture seo_title -%}
+      {{ page_title }}
+      {%- if current_tags -%}
+        {%- assign meta_tags = current_tags | join: ', ' -%} &ndash; {{ 'general.meta.tags' | t: tags: meta_tags -}}
+      {%- endif -%}
+      {%- if current_page != 1 -%}
+        &ndash; {{ 'general.meta.page' | t: page: current_page }}
+      {%- endif -%}
+      {%- assign escaped_page_title = page_title | escape -%}
+      {%- unless escaped_page_title contains shop.name -%}
+        &ndash; {{ shop.name }}
+      {%- endunless -%}
+    {%- endcapture -%}
 
     {%- unless settings.type_header_font.system? and settings.type_body_font.system? -%}
       <link rel="preconnect" href="https://fonts.shopifycdn.com" crossorigin>
     {%- endunless -%}
 
-    <title>
-      {{ page_title }}
-      {%- if current_tags %} &ndash; tagged "{{ current_tags | join: ', ' }}"{% endif -%}
-      {%- if current_page != 1 %} &ndash; Page {{ current_page }}{% endif -%}
-      {%- unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless -%}
-    </title>
+    {%- if request.path == '/collections/vendors' and collection.all_products_count == 0 %}
+      <title>{{ 'pages.404.title' | t }}</title>
+    {%- else %}
+      <title>{{ seo_title | strip }}</title>
+    {% endif %}
 
     {% if page_description %}
       <meta name="description" content="{{ page_description | escape }}">
     {% endif %}
 
-    {% render 'meta-tags' %}
+    {%- render 'social-meta-tags' -%}
+    
+    {%- render 'typekit' -%}
+
+    {%- render 'tiledesk' -%}
+
+    {%- render 'okendo-head-scripts' -%}
+    {%- render 'hotjar-head-scripts' -%}
+    
+    {%- include 'nosto-script' with 'shopify-41890807961' -%}
+    <meta name="p:domain_verify" content="4387a1d3bdc682f3e69c9afe1ab6ef20" />
+    
+    {% comment %} Bing UET GA4 Tag {% endcomment %}
+    <script>
+      (function(w,d,t,r,u) { var f,n,i; w[u]=w[u]||[],f=function() { var o={ti:"26335439", enableAutoSpaTracking: true}; o.q=w[u],w[u]=new UET(o),w[u].push("pageLoad") }, n=d.createElement(t),n.src=r,n.async=1,n.onload=n.onreadystatechange=function() { var s=this.readyState; s&&s!=="loaded"&&s!=="complete"||(f(),n.onload=n.onreadystatechange=null) }, i=d.getElementsByTagName(t)[0],i.parentNode.insertBefore(n,i) }) (window,document,"script","//bat.bing.com/bat.js","uetq");
+    </script>
 
     <script src="{{ 'constants.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'pubsub.js' | asset_url }}" defer="defer"></script>
@@ -35,7 +161,7 @@
       <script src="{{ 'animations.js' | asset_url }}" defer="defer"></script>
     {%- endif -%}
 
-    {{ content_for_header }}
+    {{ content_for_header | replace: '536968469778297', '' }}
 
     {%- liquid
       assign body_font_bold = settings.type_body_font | font_modify: 'weight', 'bold'
@@ -282,7 +408,65 @@
     </script>
   </head>
 
-  <body class="gradient{% if settings.animations_hover_elements != 'none' %} animate--hover-{{ settings.animations_hover_elements }}{% endif %}">
+  {%- liquid
+    assign siteClasses = 'lyt-Site_Header-solid'
+
+    if template == 'index' or template == 'collection' or template == 'blog' or template == 'article'
+      assign siteClasses = 'lyt-Site_Header-clear'
+
+      if template == 'index' or settings.dark_mode == true
+        assign siteClasses = siteClasses | append: ' lyt-Site_Header-whiteContent'
+      elsif template == 'collection'
+        assign collection_for_metafields = collection
+
+        if collection.metafields.nosto.sourceHandle != blank
+          assign collection_for_metafields = collections[collection.metafields.nosto.sourceHandle]
+        endif
+
+        assign collection_style_lower = collection_for_metafields.metafields.collection_banner.text_colour | downcase
+
+        if collection_style_lower == 'white'
+          assign siteClasses = siteClasses | append: ' lyt-Site_Header-whiteContent'
+        endif
+      elsif template == 'blog'
+        assign blog_style_lower = blog.metafields.header.nav_colour | downcase
+
+        if blog_style_lower == 'white'
+          assign siteClasses = siteClasses | append: ' lyt-Site_Header-whiteContent'
+        endif
+      elsif template == 'article'
+        assign article_style_lower = article.metafields.header.text_colour | downcase
+
+        if article_style_lower == 'white'
+          assign siteClasses = siteClasses | append: ' lyt-Site_Header-whiteContent'
+        endif
+      endif
+
+    elsif template contains 'page.landing-page'
+      if page.metafields.main_nav.background == 'Clear'
+        assign siteClasses = 'lyt-Site_Header-clear'
+
+        assign page_style_lower = page.metafields.main_nav.text_colour | downcase
+
+        if page_style_lower == 'white'
+          assign siteClasses = siteClasses | append: ' lyt-Site_Header-whiteContent'
+        endif
+      endif
+    endif
+
+    if settings.dark_mode == true
+      assign siteClasses = siteClasses | append: ' lyt-Site-dark'
+    endif
+  -%}
+
+  <body class="gradient{% if settings.animations_hover_elements != 'none' %} animate--hover-{{ settings.animations_hover_elements }}{% endif %} lyt-Site {{ siteClasses }} template-{{ template.name | handle }}">
+    
+    <script async data-environment="production" src="https://js.klarna.com/web-sdk/v1/klarna.js" data-client-id="1b46487a-ca6f-505f-8987-3c75f00da5ac"></script>
+
+    {%- if settings.enable_gtm_main == true -%}
+      {%- render 'google-tag-manager-body' -%}
+    {%- endif -%}
+
     <a class="skip-to-content-link button visually-hidden" href="#MainContent">
       {{ 'accessibility.skip_to_text' | t }}
     </a>
@@ -348,5 +532,25 @@
     {%- if settings.predictive_search_enabled -%}
       <script src="{{ 'predictive-search.js' | asset_url }}" defer="defer"></script>
     {%- endif -%}
+    
+    {%- comment -%}Wishlist Plus App{%- endcomment -%}
+    {%- if settings.enable_wishlist -%}
+      {%- render 'swymSnippet' -%}
+    {%- endif -%}
+
+    {%- section 'welcome-modal' -%}
+
+    {%- comment -%} Nosto Start {%- endcomment -%}
+    {%- render 'nosto-tagging' -%}
+    {%- comment -%} Nosto End {%- endcomment -%}
+
+    <script
+      async
+      type="text/javascript"
+      src="https://static.klaviyo.com/onsite/js/klaviyo.js?company_id=JkKgYN"></script>
+
+    {{ 'klevu-user-customization-159724343438812609.js' | asset_url | script_tag }}
+
+    {% include 'smile-initializer' %}
   </body>
 </html>
