@@ -336,3 +336,53 @@ table {
   table-layout: fixed;
 }
 /* stylelint-enable */
+
+.font_14-22 {
+  font-size: 14px;
+  line-height: 22px;
+}
+
+
+@font-face {
+  font-family: 'Sentinel';
+  font-style: normal;
+  font-weight: 300;
+  src:
+    url('../fonts/sentinel-light.woff2') format('woff2'),
+    url('../fonts/sentinel-light.woff') format('woff'),
+    url('../fonts/sentinel-light.ttf') format('truetype');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Sentinel';
+  font-style: italic;
+  font-weight: 300;
+  src:
+    url('../fonts/sentinel-light-italic.woff2') format('woff2'),
+    url('../fonts/sentinel-light-italic.woff') format('woff'),
+    url('../fonts/sentinel-light-italic.ttf') format('truetype');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Sentinel';
+  font-style: normal;
+  font-weight: 400;
+  src:
+    url('../fonts/sentinel-book.woff2') format('woff2'),
+    url('../fonts/sentinel-book.woff') format('woff'),
+    url('../fonts/sentinel-book.ttf') format('truetype');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Sentinel';
+  font-style: italic;
+  font-weight: 400;
+  src:
+    url('../fonts/sentinel-book-italic.woff2') format('woff2'),
+    url('../fonts/sentinel-book-italic.woff') format('woff'),
+    url('../fonts/sentinel-book-italic.ttf') format('truetype');
+  font-display: swap;
+}

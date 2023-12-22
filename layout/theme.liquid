@@ -3,7 +3,7 @@
   <head>
     <link rel="preconnect" href="https://cdn.shopify.com">
     <!-- OneTrust Cookies Consent Notice start for danetti.com -->
-    <script src="https://cdn-ukwest.onetrust.com/scripttemplates/otSDKStub.js" type="text/javascript" charset="UTF-8" data-domain-script="15f37575-c9e8-4f7b-a567-5e92c461f124"></script>
+    {% comment %} <script src="https://cdn-ukwest.onetrust.com/scripttemplates/otSDKStub.js" type="text/javascript" charset="UTF-8" data-domain-script="15f37575-c9e8-4f7b-a567-5e92c461f124"></script> {% endcomment %}
     <script type="text/javascript">
       function OptanonWrapper() { }
     </script>
@@ -379,6 +379,7 @@
 
     {{ 'base.css' | asset_url | stylesheet_tag }}
     {{ 'define.css' | asset_url | stylesheet_tag }}
+    {{ 'global.css' | asset_url | stylesheet_tag }}
 
     {%- unless settings.type_body_font.system? -%}
       <link rel="preload" as="font" href="{{ settings.type_body_font | font_url }}" type="font/woff2" crossorigin>
