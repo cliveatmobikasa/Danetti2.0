@@ -1,0 +1,179 @@
+<div class="hd-NavList">
+  <div class="hd-NavList_Columns">
+    {%- for child_link in link.links -%}
+      <div class="hd-NavList_Column hd-NavList_Column-navigation">
+        <div class="hd-NavList_Section">
+          <div class="hd-NavList_Heading">
+            <h3>
+              {%- liquid
+                assign child_link_title = child_link.title | downcase
+
+                assign child_link_highlight = false
+                if child_link_title contains ':: highlight'
+                  assign child_link_highlight = true
+                endif
+
+                assign child_link_sale_tag = false
+                if child_link_title contains ':: sale'
+                  assign child_link_sale_tag = true
+                endif
+
+                assign child_link_new_tag = false
+                if child_link_title contains ':: new'
+                  assign child_link_highlight = false
+                  assign child_link_new_tag = true
+                endif
+              -%}
+
+              <span class="hd-NavList_Title{% if child_link_highlight %} hd-NavList_Title-highlight{% endif %}">
+                {{ child_link.title | remove: ':: SALE' | remove: ':: HIGHLIGHT' | remove: ':: NEW' }}
+
+                {%- if child_link_sale_tag -%}
+                  <span class="hd-NavList_LinkTag hd-NavList_LinkTag-sale">{{ 'layout.navigation.sale_tag' | t }}</span>
+                {%- endif -%}
+
+                {%- if child_link_new_tag -%}
+                  <span class="hd-NavList_LinkTag hd-NavList_LinkTag-new">New</span>
+                {%- endif -%}
+              </span>
+            </h3>
+          </div>
+
+          <ul class="hd-NavList_Items">
+            {%- for grand_child_link in child_link.links -%}
+              {%- liquid
+                assign link_object = grand_child_link.object
+                assign nav_image = blank
+
+                if link_object != blank and link_object.metafields != blank and link_object.metafields.navigation != blank
+                  assign nav_image = link_object.metafields.navigation.image
+                endif
+
+                assign grand_child_link_title = grand_child_link.title | downcase
+
+                assign grand_child_link_highlight = false
+                if grand_child_link_title contains ':: highlight'
+                  assign grand_child_link_highlight = true
+                endif
+
+                assign grand_child_link_sale_tag = false
+                if grand_child_link_title contains ':: sale'
+                  assign grand_child_link_sale_tag = true
+                endif
+
+                assign grand_child_link_new_tag = false
+                if grand_child_link_title contains ':: new'
+                  assign grand_child_link_highlight = false
+                  assign grand_child_link_new_tag = true
+                endif
+              -%}
+
+              <li class="hd-NavList_Item">
+                <a href="{{ grand_child_link.url }}" class="hd-NavList_Link">
+                  <span class="hd-NavList_LinkText{% if grand_child_link_highlight %} hd-NavList_LinkText-highlight{% endif %}">
+                    {{ grand_child_link.title | remove: ':: SALE' | remove: ':: HIGHLIGHT' | remove: ':: NEW' }}
+                  </span>
+
+                  {%- if grand_child_link_sale_tag -%}
+                    <span class="hd-NavList_LinkTag hd-NavList_LinkTag-sale">{{ 'layout.navigation.sale_tag' | t }}</span>
+                  {%- endif -%}
+
+                  {%- if grand_child_link_new_tag -%}
+                    <span class="hd-NavList_LinkTag hd-NavList_LinkTag-new">NEW</span>
+                  {%- endif -%}
+                </a>
+              </li>
+            {%- endfor -%}
+          </ul>
+
+          {% comment %} <a href="{{ child_link.url }}" class="hd-NavList_ShopAll">Shop All</a> {% endcomment %}
+        </div>
+      </div>
+    {%- endfor -%}
+    {% assign tab_title = link.title | downcase %}
+    {%- for block in section.blocks -%}
+      {% assign mega_menu_link = block.settings.mega_menu_link | downcase %}
+      {% if mega_menu_link == tab_title %}
+         {% if block.settings.mega_image %}
+          <div class="hd-NavList_Column hd-NavList_Column-navigation">
+            <a href="{{block.settings.mega_menu_url}}">
+              {%- render 'responsive-image',
+                image: block.settings.mega_image,
+                width: 210,height:210,
+                size_by_width: true
+              -%}
+              {% if block.settings.mega_promo_tag != blank %}
+                {% if block.settings.mega_promo_tag_color %}
+                    {% assign text_color = false %}
+                  {% else %}
+                    {% assign text_color = true %}
+                {% endif %}
+                <div class="prd-Card_Tags">
+                    {%- render 'product-tag',
+                      hex:  block.settings.mega_promo_tag_bgcolor,
+                      light_text: text_color,
+                      text: block.settings.mega_promo_tag
+                    -%}
+                </div>
+              {% endif %}
+              <p class="hd-NavList_Text-bold">{{ block.settings.mega_menu_text }}</p>
+            </a>
+          </div>
+         {% endif %}
+         {% if block.settings.mega_image_2 %}
+          <div class="hd-NavList_Column hd-NavList_Column-navigation">
+            <a href="{{ block.settings.mega_menu_url_2 }}">
+            {%- render 'responsive-image',
+              image: block.settings.mega_image_2,
+              width: 210,height:210,
+              size_by_width: true
+            -%}
+            {% if block.settings.mega_promo_tag_2 != blank %}
+              {% if block.settings.mega_promo_tag_color_2 %}
+                  {% assign text_color_2 = false %}
+                {% else %}
+                  {% assign text_color_2 = true %}
+              {% endif %}
+              <div class="prd-Card_Tags">
+                  {%- render 'product-tag',
+                    hex:  block.settings.mega_promo_tag_bgcolor_2,
+                    light_text: text_color_2,
+                    text: block.settings.mega_promo_tag_2
+                  -%}
+              </div>
+            {% endif %}
+           <p class="hd-NavList_Text-bold">{{ block.settings.mega_menu_text_2 }}</p>
+            </a>
+          </div>
+         {% endif %}
+         {% if block.settings.mega_image_3 %}
+          <div class="hd-NavList_Column hd-NavList_Column-navigation">
+            <a href="{{ block.settings.mega_menu_url_3 }}">
+            {%- render 'responsive-image',
+              image: block.settings.mega_image_3,
+              width: 210,height:210,
+              size_by_width: true
+            -%}
+            {% if block.settings.mega_promo_tag_3 != blank %}
+              {% if block.settings.mega_promo_tag_color_3 %}
+                  {% assign text_color_3 = false %}
+                {% else %}
+                  {% assign text_color_3 = true %}
+              {% endif %}
+              <div class="prd-Card_Tags">
+                  {%- render 'product-tag',
+                    hex:  block.settings.mega_promo_tag_bgcolor_3,
+                    light_text: text_color_3,
+                    text: block.settings.mega_promo_tag_3
+                  -%}
+              </div>
+            {% endif %}
+           <p class="hd-NavList_Text-bold">{{ block.settings.mega_menu_text_3 }}</p>
+            </a>
+          </div>
+         {% endif %}
+      {% endif %}
+    {% endfor %}
+    
+  </div>
+</div>

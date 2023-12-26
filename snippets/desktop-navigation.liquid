@@ -1,0 +1,71 @@
+<ul class="hd-Banner_Items">
+  {%- assign navigation_linklist = settings.navigation_linklist -%}
+
+  {%- for link in linklists[navigation_linklist].links -%}
+    {%- liquid
+      assign link_title = link.title | downcase
+      assign nav_remove = settings.remove_link | downcase | split: ',' | strip
+
+      assign link_highlight = false
+      if link_title contains ':: highlight'
+        assign link_highlight = true
+      endif
+
+      assign link_sale_tag = false
+      if link_title contains ':: sale'
+        assign link_sale_tag = true
+      endif
+
+      assign link_new = false
+      if link_title contains ':: new'
+        assign link_highlight = false
+        assign link_new = true
+      endif
+
+      if nav_remove contains link_title
+        continue
+      endif
+    -%}
+
+    {%- if link.links != blank -%}
+      <li class="hd-Banner_Item">
+        <a href="{{ link.url }}" class="hd-Banner_Link{% if link.active %} hd-Banner_Link-active{% endif %}{% if link_highlight %} hd-Banner_Link-highlight{% endif %}">
+          {{ link.title | remove: ':: SALE' | remove: ':: HIGHLIGHT' | remove: ':: NEW' }}
+
+          {%- if link_sale_tag -%}
+            <span class="hd-Banner_LinkTag hd-Banner_LinkTag-sale font_10-18">{{ 'layout.navigation.sale_tag' | t }}</span>
+          {%- endif -%}
+
+          {%- if link_new -%}
+            <span class="hd-Banner_LinkTag hd-Banner_LinkTag-new font_10-18">New</span>
+          {%- endif -%}
+        </a>
+
+        <div class="hd-Dropdown">
+          <div class="hd-Dropdown_Inner lyt-Container lyt-Container-wide">
+            <div class="hd-Dropdown_Body">
+              {%- render "navigation-list" link: link -%}
+            </div>
+          </div>
+        </div>
+      </li>
+    {%- else -%}
+      <li class="hd-Banner_Item">
+        <a
+          href="{{ link.url }}"
+          class="hd-Banner_Link{% if link.active %} hd-Banner_Link-active{% endif %}{% if link_highlight %} hd-Banner_Link-highlight{% endif %}"
+        >
+          {{ link.title | remove: ':: SALE' | remove: ':: HIGHLIGHT' | remove: ':: NEW' }}
+
+          {%- if link_sale_tag -%}
+            <span class="hd-Banner_LinkTag hd-Banner_LinkTag-sale font_10-18">{{ 'layout.navigation.sale_tag' | t }}</span>
+          {%- endif -%}
+
+          {%- if link_new -%}
+            <span class="hd-Banner_LinkTag hd-NavList_LinkTag-new font_10-18">New</span>
+          {%- endif -%}
+        </a>
+      </li>
+    {%- endif -%}
+  {%- endfor -%}
+</ul>

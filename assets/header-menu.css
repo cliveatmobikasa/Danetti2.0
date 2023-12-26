@@ -1,0 +1,517 @@
+/*
+|--------------------------------------------------------------------------
+| Banner
+|--------------------------------------------------------------------------
+| @namespace: hd-
+|
+*/
+.hd-Banner {
+  --ContentColor: var(--Color_Brand);
+  --LogoColor: var(--Color_Anchor);
+
+  top: 0;
+  left: 0;
+  z-index: 8;
+
+  width: 100%;
+
+  transform: none;
+  transition: transform 0.5s ease;
+}
+
+.hd-Banner-hidden {
+  transform: translateY(-100%);
+}
+
+.hd-Banner_Holder {
+  width: 100%;
+  background-color: #fff;
+}
+
+.hd-Banner_Top {
+  align-items: center;
+  justify-content: space-between;
+
+  display: flex;
+}
+
+.hd-BannerTop_Body {
+  align-items: center;
+  justify-content: space-between;
+
+  display: flex;
+  height: var(--Mobile_NavHeight);
+}
+
+.hd-BannerBottom_Body {
+  align-items: flex-start;
+  justify-content: center;
+
+  display: flex;
+  height: var(--Mobile_NavHeight);
+}
+
+.hd-Banner_Logo {
+  position: relative;
+  flex: 33% 0 0;
+}
+
+.hd-Banner_Logo svg {
+  width: 100%;
+  height: 100%;
+  fill: var(--LogoColor);
+  transition: fill 0.3s ease 0.2s;
+}
+
+.hd-Banner_LogoLink {
+  display: block;
+  max-width: 95px;
+  height: 32px;
+  margin: 0 auto;
+}
+
+.hd-Banner_Nav {
+  display: none;
+}
+
+.hd-Banner_Items {
+  grid-gap: 20px;
+
+  display: flex;
+}
+
+.hd-Banner_Item {
+  align-items: center;
+  justify-content: center;
+
+  display: flex;
+  height: var(--Desktop_NavBottomHeight);
+}
+
+.hd-Banner_Link {
+  position: relative;
+  align-items: center;
+  display: flex;
+  height: 100%;
+  font-family: var(--Font_Family-aktivGrotesk);
+  font-size: 1rem;
+  white-space: nowrap;
+  font-weight: 400;
+  text-transform: capitalize;
+  color: var(--ContentColor);
+}
+.hd-Banner_Link:after {
+  content: '';
+  position: absolute;
+  bottom: 10px;
+  left: 0;
+  z-index: 0;
+  display: block;
+  width: 100%;
+  height: 1px;
+  transition: background-color 0.3s ease-in;
+}
+.hd-Banner_Link:hover:after {
+  background-color: var(--ContentColor);
+}
+.hd-Banner_Link-highlight {
+  font-weight: 500;
+  color: var(--Color_Red-dark);
+}
+.hd-Banner_Link-highlight:hover:after {
+  background-color: var(--Color_Red-dark);
+}
+.hd-Banner_LinkTag {
+  margin: 0 0 2px 7px;
+  padding: 2px 10px 3px;
+  font-family: var(--Font_Family-aktivGrotesk);
+  font-weight: 500;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  border-radius: 30px;
+}
+.hd-Banner_LinkTag-sale {
+  background-color: var(--Color_Red-dark);
+  color: #fff;
+}
+.hd-Banner_LinkTag-new {
+  background-color: var(--Color_Brand);
+  color: #fff;
+}
+
+/*
+|--------------------------------------------------------------------------
+| Icon links
+|--------------------------------------------------------------------------
+|
+*/
+.hd-Banner_Tools-left {
+  flex: 33% 0 0;
+  justify-content: flex-start;
+  display: flex;
+  max-width: unset;
+}
+
+.hd-Banner_Tools-right {
+  flex: 33% 0 0;
+  justify-content: flex-end;
+
+  display: flex;
+  max-width: unset;
+}
+
+.hd-Banner_Tool {
+  align-items: center;
+
+  height: var(--Mobile_NavHeight);
+
+  font-family: var(--Font_Family-aktivGrotesk);
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 14px;
+  text-transform: capitalize;
+  color: var(--Color_Brand);
+}
+.hd-Banner_Tool.hd-Banner_Tool-bag,
+.hd-Banner_Tool.hd-Banner_Tool-wishlist {
+  display: flex;
+}
+.hd-Banner_Tool-mobileMenu,
+.hd-Banner_Tool-mobileAccount {
+  display: flex;
+}
+.hd-Banner_Tool-contact,
+.hd-Banner_Tool-visit,
+.hd-Banner_Tool-account,
+.hd-Banner_Tool-search {
+  display: none;
+}
+.hd-Search {
+  align-items: center;
+  display: flex;
+  height: 100%;
+  margin: 0;
+}
+.hd-Banner_IconLink {
+  position: relative;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  grid-gap: 10px;
+  display: flex;
+}
+.hd-Banner_IconLink .hd-Banner_Icon-text {
+  display: none;
+}
+
+.hd-Banner_Icon {
+  display: block;
+  transition: transform 0.3s ease-in-out;
+}
+.hd-Banner_Icon svg {
+  width: 100%;
+}
+.hd-Banner_Bag {
+  position: relative;
+}
+.hd-Banner_Count {
+  position: absolute;
+  top: -4px;
+  right: -7px;
+  z-index: 1;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  width: 17px;
+  height: 17px;
+  font-family: var(--Font_Family-aktivGrotesk);
+  font-size: 11px;
+  font-weight: 500;
+  text-align: center;
+  background-color: #0a1e2d;
+  border-radius: 50%;
+  color: #fff;
+  transition: transform 0.3s ease-in-out;
+}
+.hd-Background {
+  position: fixed;
+  z-index: -2;
+  width: 100%;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  visibility: hidden;
+}
+
+/*
+|--------------------------------------------------------------------------
+| trust banners
+|--------------------------------------------------------------------------
+|
+*/
+
+.hd-Dflex {
+  display: flex;
+}
+.hd-Trustpilot-hidden {
+  position: relative;
+  z-index: -1;
+  transition: z-index 0s ease 0.2s;
+}
+.hd-Trustpilot {
+  padding: 0.75rem 0;
+  font-family: var(--Font_Family-aktivGrotesk);
+  background: #f0f1f1;
+}
+.hd-Trustpilot pre {
+  margin: 0;
+  font-family: var(--Font_Family-aktivGrotesk);
+  font-size: 12px;
+}
+.hd-Trustpilot .lyt-Container {
+  justify-content: space-between;
+}
+.hd-Trustpilot .hd-Dflex {
+  align-items: center;
+  justify-content: center;
+}
+.hd-Trustpilot b {
+  font-weight: 700;
+}
+.hd-Trustpilot img {
+  height: 15px;
+}
+.hd-Trustpilot span {
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 15.6px;
+
+  color: #0a1e2d;
+}
+.hd-Only-desktop {
+  display: none;
+}
+.hd-Dnone {
+  display: none;
+}
+
+/*
+|--------------------------------------------------------------------------
+| Search Form
+|--------------------------------------------------------------------------
+|
+*/
+.hd-Search_Form {
+  position: relative;
+
+  align-items: center;
+  border: 1px solid #0a1e2d;
+  border-radius: 25px;
+  display: none;
+}
+.hd-Search_Input {
+  width: 300px;
+  height: auto;
+
+  height: 40px;
+
+  font-family: var(--Font_Family-aktivGrotesk);
+  font-size: 12px;
+  line-height: 15px;
+  border: 0;
+  background: transparent;
+}
+
+.hd-Search_Button {
+  align-items: center;
+  justify-content: center;
+
+  display: flex;
+
+  width: 40px;
+  height: 40px;
+
+  border: 0;
+}
+.hd-Search_Button  svg {
+  width: 20px;
+  height: 20px;
+  margin-right: 5px;
+}
+.hd-MobileSearch {
+  display: block;
+  width: 100%;
+}
+.hd-MobileSearch_Form {
+  position: relative;
+  align-items: center;
+  display: flex;
+  border: 1px solid #0a1e2d;
+  border-radius: 25px;
+}
+.hd-MobileSearch_Input {
+  width: 100%;
+  height: 40px;
+  font-size: 12px;
+  line-height: 15.6px;
+  border: 0;
+  background: transparent;
+}
+.hd-MobileSearch_Input:placeholder {
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--ContentColor);
+  transition: color 0.3s ease 0.2s;
+}
+.hd-MobileSearch_Button {
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  width: 50px;
+  height: 40px;
+  border: 0;
+}
+.hd-MobileSearch_Button svg {
+  width: 20px;
+  height: 20px;
+  margin-right: 5px;
+}
+.hd-Header {
+  position: relative;
+  z-index: 10;
+}
+
+@media screen and (min-width: 351px) {
+  .hd-Banner_Tools-left {
+    grid-gap: 20px;
+  }
+  .hd-Banner_Tools-right {
+    grid-gap: 20px;
+  }
+}
+@media screen and (min-width: 901px) {
+  .hd-Trustpilot .lyt-Container {
+    padding-right: calc(var(--Grid_Gutter) * 1.9);
+    padding-left: calc(var(--Grid_Gutter) * 1.9);
+  }
+  
+  .hd-BannerTop .lyt-Container-wide ,
+  .hd-BannerBottom .lyt-Container-wide {
+    padding-right: calc(var(--Grid_Gutter) * 1.9);
+    padding-left: calc(var(--Grid_Gutter) * 1.9);
+  }
+}
+@media screen and (min-width: 1201px) {
+  
+  .lyt-Site_Header-whiteContent .hd-Banner-small {
+    --ContentColor: var(--Color_Brand);
+    --LogoColor: var(--Color_Anchor);
+  }
+  
+  .hd-Banner-small .hd-Banner_Holder:before,
+  .hd-Banner:hover .hd-Banner_Holder:before {
+    transform: none;
+    transition: transform 0.5s ease;
+  }
+
+  .hd-Banner_Top {
+    justify-content: flex-start;
+    height: auto;
+  }
+
+  .hd-BannerTop_Body {
+    height: 80px;
+    padding-top: 16px;
+  }
+
+  .hd-BannerBottom_Body {
+    align-items: center;
+    height: 30px;
+    margin-bottom: 12px;
+  }
+
+  .hd-Banner_LogoLink {
+    max-width: 130px;
+    height: 40px;
+    margin-bottom: 12px;
+  }
+
+  .hd-Banner_Nav {
+    display: block;
+    width: 100%;
+  }
+
+  .hd-Banner_Items {
+    justify-content: space-between;
+  }
+
+  .hd-Banner_Tools-left {
+    display: block;
+    max-width: 360px;
+  }
+  .hd-Banner_Tools-right {
+    max-width: 360px;
+  }
+  .hd-Banner_Tool {
+    height: var(--Desktop_NavTopHeight);
+  }
+  .hd-Banner_Tool-mobileMenu,
+  .hd-Banner_Tool-mobileAccount {
+    display: none;
+  }
+  .hd-Banner_Tool-contact,
+  .hd-Banner_Tool-visit,
+  .hd-Banner_Tool-account,
+  .hd-Banner_Tool-search {
+    display: flex;
+  }
+  .hd-Banner_IconLink:hover .hd-Banner_Icon,
+  .hd-Banner_IconLink:hover .hd-Banner_Count {
+    transform: translateY(-2px);
+  }
+  .hd-Banner_IconLink.hd-Banner_IconLink-search {
+    display: none;
+  }
+  .hd-Banner_IconLink .hd-Banner_Icon-text {
+    display: none;
+  }
+  .hd-Trustpilot {
+    margin-top: -4px;
+  }
+  .hd-Trustpilot .hd-Dflex {
+    justify-content: space-between;
+  }
+  .hd-Only-desktop {
+    display: block;
+  }
+  .hd-Search_Form {
+    display: flex;
+  }
+  .hd-Banner_Tool-mobileSearch .hd-Search_Input {
+    position: absolute;
+    left: 29px;
+
+    width: 100px;
+  }
+  .hd-Search_Input:placeholder {
+    letter-spacing: 0;
+    text-transform: none;
+
+    color: var(--ContentColor);
+
+    transition: color 0.3s ease 0.2s;
+  }
+  .hd-MobileSearch {
+    display: none;
+  }
+  .hd-Banner_Tool-mobileSearch .hd-MobileSearch_Input {
+    position: absolute;
+    left: 29px;
+
+    width: 100px;
+  }
+  .hd-Header {
+    margin-bottom: -10px;
+  }
+}

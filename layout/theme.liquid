@@ -530,10 +530,6 @@
         recipientFormCollapsed: `{{ 'recipient.form.collapsed' | t }}`,
       };
     </script>
-
-    {%- if settings.predictive_search_enabled -%}
-      <script src="{{ 'predictive-search.js' | asset_url }}" defer="defer"></script>
-    {%- endif -%}
     
     {%- comment -%}Wishlist Plus App{%- endcomment -%}
     {%- if settings.enable_wishlist -%}
@@ -552,6 +548,7 @@
       src="https://static.klaviyo.com/onsite/js/klaviyo.js?company_id=JkKgYN"></script>
 
     {{ 'klevu-user-customization-159724343438812609.js' | asset_url | script_tag }}
+    {{ 'header.js' | asset_url | script_tag }}
 
     {% include 'smile-initializer' %}
   </body>

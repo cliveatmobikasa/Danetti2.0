@@ -1,0 +1,19 @@
+<form action="/search" method="get" role="search" class="frm-Form hd-MobileSearch_Form">
+  <input type="search"
+    name="q"
+    id="Search"
+    class="frm-Form_Input hd-MobileSearch_Input"
+    data-el="header.mobileSearch"
+    value="{{ search.terms | escape }}"
+    placeholder="{{ 'general.search.mobile_header_placeholder' | t }}">
+
+  <button type="submit" class="hd-MobileSearch_Button">
+    {%- render 'bao-icon-search-latest' -%}
+
+    <span class="util-ScreenReaderOnly">{{ 'general.search.submit' | t }}</span>
+  </button>
+
+  <label for="Search" class="util-ScreenReaderOnly">
+    {{ 'general.search.mobile_header_placeholder' | t }}
+  </label>
+</form>

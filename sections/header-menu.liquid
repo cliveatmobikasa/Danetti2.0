@@ -1,0 +1,362 @@
+{{ 'header-menu.css' | asset_url | stylesheet_tag }}
+{{ 'nav-list.css' | asset_url | stylesheet_tag }}
+{{ 'dropdown.css' | asset_url | stylesheet_tag }}
+<header class="hd-Header" role="banner" data-section-id="{{ section.id }}" data-section-type="header">
+  <div class="hd-Banner" data-module="header" data-header-hidden-class="hd-Banner-hidden" data-header-size-class="hd-Banner-small" data-header-container-el>
+  
+    <div class="hd-Banner_Holder">
+      <div class="hd-BannerTop">
+        <div class="hd-BannerTop_Inner lyt-Container lyt-Container-wide">
+          <div class="hd-BannerTop_Body">
+            <ul class="hd-Banner_Tools hd-Banner_Tools-left">
+              <li class="hd-Banner_Tool hd-Banner_Tool-search">
+                <div class="hd-Search">
+                  {%- render 'search-form' -%}
+                </div>
+              </li>
+  
+              <li class="hd-Banner_Tool hd-Banner_Tool-mobileMenu">
+                <button class="hd-Banner_IconLink" data-module-drawers-trigger="menu">
+                  <span class="hd-Banner_Icon">
+                    {%- render "bao-icon-menu" -%}
+                  </span>
+  
+                  <span class="util-ScreenReaderOnly">
+                    {{ 'layout.header.cart' | t }}
+                  </span>
+                </button>
+              </li>
+  
+              {%- if shop.customer_accounts_enabled -%}
+                <li class="hd-Banner_Tool hd-Banner_Tool-mobileAccount">
+                  <a class="hd-Banner_IconLink" href="/account">
+                    <span class="hd-Banner_Icon">
+                      {%- render "bao-icon-account-new" -%}
+                    </span>
+  
+                    <span class="util-ScreenReaderOnly">
+                      {{ 'layout.header.account' | t }}
+                    </span>
+                  </a>
+                </li>
+              {%- endif -%}
+            </ul>
+  
+            {%- render 'logo' -%}
+  
+            <ul class="hd-Banner_Tools hd-Banner_Tools-right">
+              <li class="hd-Banner_Tool hd-Banner_Tool-visit">
+                <a class="hd-Banner_IconLink" href="/pages/ourshowroom">
+                  <span class="hd-Banner_Icon">
+                    {%- render "bao-icon-mapPin" -%}
+                  </span>
+  
+                  <span class="hd-Banner_Icon-text">{{ 'layout.header.visit' | t }}</span>
+                </a>
+              </li>
+  
+              {%- if settings.enable_wishlist -%}
+                <li class="hd-Banner_Tool hd-Banner_Tool-wishlist">
+                  <a class="hd-Banner_IconLink" href="/pages/swym-wishlist">
+                    <span class="hd-Banner_Icon">
+                      {%- render "bao-icon-wishlist-new" -%}
+                    </span>
+  
+                    <span class="hd-Banner_Icon-text">{{ 'layout.header.wishlist' | t }}</span>
+                  </a>
+                </li>
+              {%- else -%}
+                <li class="hd-Banner_Tool hd-Banner_Tool-contact">
+                  <a
+                    class="hd-Banner_IconLink"
+                    href="tel:{{ settings.customer_service_telephone }}"
+                    data-module="telephone-icon"
+                  >
+                    <span class="hd-Banner_Icon">
+                      {%- render 'bao-icon-telephone' -%}
+                    </span>
+  
+                    <span class="hd-Banner_Icon-text">{{ 'layout.header.contact' | t }}</span>
+                  </a>
+                </li>
+              {%- endif -%}
+  
+              {%- if shop.customer_accounts_enabled -%}
+                <li class="hd-Banner_Tool hd-Banner_Tool-account">
+                  <a class="hd-Banner_IconLink" href="/account">
+                    <span class="hd-Banner_Icon">
+                      {%- render "bao-icon-account-new" -%}
+                    </span>
+  
+                    <span class="hd-Banner_Icon-text">{{ 'layout.header.account' | t }}</span>
+                  </a>
+                </li>
+              {%- endif -%}
+  
+  
+              <li class="hd-Banner_Tool hd-Banner_Tool-bag">
+                <a class="hd-Banner_IconLink"
+                  href="/cart"{% unless page.request_type == 'cart' %} data-module-drawers-trigger="cart"{% endunless %}>
+                  <div class="hd-Banner_Bag">
+                    <span class="hd-Banner_Icon">
+                      {%- render "bao-icon-bag-new" -%}
+                    </span>
+  
+                    <span class="hd-Banner_Count" data-cart-count>{{ cart.item_count }}</span>
+                  </div>
+  
+                  <span class="hd-Banner_Icon-text">{{ 'layout.header.cart' | t }}</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+  
+      <div class="hd-BannerBottom">
+        <div class="hd-BannerBottom_Inner lyt-Container lyt-Container-wide">
+          <div class="hd-BannerBottom_Body">
+            <nav class="hd-Banner_Nav" role="navigation">
+              {% render 'desktop-navigation' %}
+            </nav>
+            <div class="hd-MobileSearch">
+              {%- render 'search-form-mobile' -%}
+            </div>
+          </div>
+        </div>     
+        {% if section.settings.trust_banner_enable %} 
+          <div class="hd-Trustpilot {% unless template contains 'index' %} {% unless section.settings.trust_banner_enable_all_pages %}Hd-Dnone {% endunless %} {% endunless %}">
+            <div class="hd-Dflex lyt-Container lyt-Container-wide">
+              <span class="hd-Only-desktop">{{section.settings.left_reviews}}</span>
+              <span class="hd-Dflex">
+                <img src="https://cdn.shopify.com/s/files/1/0418/9080/7961/files/Trustpilot_brandmark_gr-blk_RGB-576x144-XL.png?v=1699276124">
+                <img src="https://cdn.shopify.com/s/files/1/0418/9080/7961/files/Trustpilot_ratings_4halfstar-RGB-512x96.png?v=1699276123" style="margin: 0 8px;">
+                <span class="trust-icon"> {{section.settings.reviews}}</span>
+              </span>
+              <span class="hd-Only-desktop">{{section.settings.right_reviews}}</span>
+            </div>
+          </div>
+        {% endif %}  
+      </div>
+    </div>
+  
+    <div class="prd-Product_Loader js-Product_Loader"></div>
+    <div class="hd-Background"></div>
+  
+  </div>
+</header>
+
+
+{%- capture same_as -%}
+{%- if settings.social_twitter_link != blank -%}|{{ settings.social_twitter_link }}{%- endif -%}
+{%- if settings.social_facebook_link != blank -%}|{{ settings.social_facebook_link }}{%- endif -%}
+{%- if settings.social_pinterest_link != blank -%}|{{ settings.social_pinterest_link }}{%- endif -%}
+{%- if settings.social_instagram_link != blank -%}|{{ settings.social_instagram_link }}{%- endif -%}
+{%- if settings.social_tumblr_link != blank -%}|{{ settings.social_tumblr_link }}{%- endif -%}
+{%- if settings.social_snapchat_link != blank -%}|{{ settings.social_snapchat_link }}{%- endif -%}
+{%- if settings.social_youtube_link != blank -%}|{{ settings.social_youtube_link }}{%- endif -%}
+{%- if settings.social_vimeo_link != blank -%}|{{ settings.social_vimeo_link }}{%- endif -%}
+{%- endcapture -%}
+{%- assign same_as = same_as | remove_first: '|' | strip | split: '|' -%}
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Organization",
+  "name": "{{ shop.name }}",
+  "logo": "{{ section.settings.logo | img_url: '200x' }}",
+  {% if same_as != blank %}
+  "sameAs": [
+    {% for item in same_as %}
+    "{{ item }}"{% unless forloop.last %},{% endunless %}
+  {% endfor %}
+  ],
+  {% endif %}
+  "url": "{{ shop.url }}{{ page.url }}"
+}
+</script>
+
+{%- if template.name == 'index' -%}
+  <script type="application/ld+json">
+    {
+      "@context": "http://schema.org",
+      "@type": "WebSite",
+      "name": "{{ shop.name }}",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "{{ shop.url }}/search?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      },
+      "url": "{{ shop.url }}"
+    }
+  </script>
+{%- endif -%}
+
+{% schema %}
+  {
+    "name": "Header Menu",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "Menu configuration has been moved to the Navigation section in Theme Settings"
+      },
+      {
+        "type": "header",
+        "content": "Logo"
+      },
+      {
+        "type": "image_picker",
+        "id": "logo",
+        "label": "Logo (Google Schema)",
+        "info": "Recommended dimensions: 200px x any height"
+      },
+      {
+        "type": "header",
+        "content": "Trust Banners"
+      },
+      {
+        "type": "checkbox",
+        "id": "trust_banner_enable",
+        "label": "Enable Trust Banner",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "trust_banner_enable_all_pages",
+        "label": "Enable Trust Banner on Entire Website",
+        "default": false
+      },
+      {
+        "type": "html",
+        "id": "left_reviews",
+        "label": "Trust Banner content on desktop left "
+      },            
+      {
+        "type": "html",
+        "id": "reviews",
+        "label": "Trust Banner Reviews"
+      },
+      {
+        "type": "html",
+        "id": "right_reviews",
+        "label": "Trust Banner content on desktop right"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "nav_item",
+        "name": "Desktop nav item",
+        "settings": [
+          {
+            "type": "text",
+            "id": "mega_menu_link",
+            "label": "Linked Header Menu Title"
+          },
+          {
+            "type": "image_picker",
+            "id": "mega_image",
+            "label": "Mega Menu Image"
+          },
+          {
+            "type": "text",
+            "id": "mega_promo_tag",
+            "label": "Promo Tag"
+          },
+          {
+            "type": "checkbox",
+            "id": "mega_promo_tag_color",
+            "label": "Enable Promo Tag Dark Color",
+            "default": false
+          },
+          {
+            "type": "color",
+            "id": "mega_promo_tag_bgcolor",
+            "label": "Promo Tag Background",
+            "default": "#0A1E2D"
+          },
+          {
+            "type": "html",
+            "id": "mega_menu_text",
+            "label": "Mega Menu Content"
+          },
+          {
+            "type": "url",
+            "id": "mega_menu_url",
+            "label": "Mega Menu Url"
+          },
+          {
+            "type": "image_picker",
+            "id": "mega_image_2",
+            "label": "Mega Menu Image 2"
+          },
+          {
+            "type": "text",
+            "id": "mega_promo_tag_2",
+            "label": "Promo Tag 2"
+          },
+          {
+            "type": "checkbox",
+            "id": "mega_promo_tag_color_2",
+            "label": "Enable Promo Tag Dark Color",
+            "default": false
+          },
+          {
+            "type": "color",
+            "id": "mega_promo_tag_bgcolor_2",
+            "label": "Promo Tag Background",
+            "default": "#0A1E2D"
+          },
+          {
+            "type": "html",
+            "id": "mega_menu_text_2",
+            "label": "Mega Menu Content 2"
+          },
+          {
+            "type": "url",
+            "id": "mega_menu_url_2",
+            "label": "Mega Menu Url 2"
+          },
+          {
+            "type": "image_picker",
+            "id": "mega_image_3",
+            "label": "Mega Menu Image 3"
+          },
+          {
+            "type": "text",
+            "id": "mega_promo_tag_3",
+            "label": "Promo Tag 3"
+          },
+          {
+            "type": "checkbox",
+            "id": "mega_promo_tag_color_3",
+            "label": "Enable Promo Tag Dark Color",
+            "default": false
+          },
+          {
+            "type": "color",
+            "id": "mega_promo_tag_bgcolor_3",
+            "label": "Promo Tag Background",
+            "default": "#0A1E2D"
+          },
+          {
+            "type": "html",
+            "id": "mega_menu_text_3",
+            "label": "Mega Menu Content 3"
+          },
+          {
+            "type": "url",
+            "id": "mega_menu_url_3",
+            "label": "Mega Menu Url 3"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Header Menu",
+        "settings": {},
+        "blocks": []
+      }
+    ]
+  }
+{% endschema %}

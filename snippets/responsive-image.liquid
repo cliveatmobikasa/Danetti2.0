@@ -1,0 +1,52 @@
+{%- liquid
+  assign loading = loading | default: 'lazy'
+  assign width = width | default: image.width
+  assign height = height | default: null
+  assign sizes = sizes | default: null
+  assign preload = preload | default: false, allow_false: true
+  assign aspect_ratio = image.aspect_ratio | times: 100.0
+
+  if image.alt != blank
+  assign alt = alt | default: image.alt
+  
+  assign alt_parts = alt | split: "["
+  assign alt = alt_parts.first | strip | default: false
+  else
+  assign alt = alt | default: product.title
+
+  endif
+
+  if width != blank and height != blank
+    assign height_float = height | times: 1.0
+  else
+    assign height_float = width | divided_by: image.aspect_ratio
+  endif
+  assign aspect_ratio = height_float | divided_by: width | times: 100
+
+  if preload
+    assign loading = 'eager'
+  endif
+
+  unless sizes != blank
+    assign desktop_viewport = desktop_viewport | default: null
+    assign mobile_viewport = mobile_viewport | default: '100vw'
+
+    if desktop_viewport == blank and width > 1600
+      assign desktop_viewport = '(min-width: 768px) 100vw'
+    elsif desktop_viewport == blank and width > 1000
+      assign desktop_viewport = '(min-width: 768px) calc(100vw / 2)'
+    elsif desktop_viewport == blank
+      assign desktop_viewport = '(min-width: 768px) calc(100vw / 3)'
+    endif
+
+    assign sizes = '(max-width: 767px) ' | append: mobile_viewport | append: ', ' | append: desktop_viewport
+  endunless
+-%}
+
+<div class="rsp-Image" style="--Image_AspectRatio: {{ aspect_ratio }}%; aspect-ratio: {{ width }} / {{ height_float }};">
+  {{
+    image
+      | image_url: width: width
+      | image_tag: widths: '180,360,540,720,900,1080,1296,1512,1728,1944,2160,2376,2592,2880,3024,3440,3840,4472', sizes: sizes, preload: preload, loading: loading, class: 'rsp-Image_Image', alt: alt
+  }}
+</div>

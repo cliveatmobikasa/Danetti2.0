@@ -5,6 +5,9 @@
 | @namespace: hd-
 |
 */
+.shopify-header-bar {
+  z-index: 5;
+}
 .hd-TopBar {
   position: relative;
   z-index: 1;

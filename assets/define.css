@@ -342,6 +342,10 @@ table {
   line-height: 22px;
 }
 
+.font_10-18 {
+  font-size: 10px;
+  line-height: 18px;
+}
 
 @font-face {
   font-family: 'Sentinel';

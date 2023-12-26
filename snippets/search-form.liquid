@@ -1,0 +1,18 @@
+<form action="/pages/search-results" method="get" role="search" class="frm-Form hd-Search_Form">
+  <label for="Search" class="util-ScreenReaderOnly">
+    {{ 'general.search.header_placeholder' | t }}
+  </label>
+
+  <input type="search"
+    name="q"
+    id="Search"
+    class="frm-Form_Input hd-Search_Input"
+    value="{{ search.terms | escape }}"
+    placeholder="{{ 'general.search.header_placeholder' | t }}">
+
+  <button type="submit" class="hd-Search_Button">
+    {%- render 'bao-icon-search-latest' -%}
+
+    <span class="util-ScreenReaderOnly">{{ 'general.search.submit' | t }}</span>
+  </button>
+</form>
