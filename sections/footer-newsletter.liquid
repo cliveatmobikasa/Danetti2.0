@@ -1,0 +1,51 @@
+{%- unless template contains "customers/" or template == "cart" -%}
+  {%- if section.settings.enable == true -%}
+    {{ 'section-footer-newsletter.css' | asset_url | stylesheet_tag }}
+    <section class="sec-Newsletter" data-in-view-lower>
+      <div class="sec-Newsletter_Inner lyt-Container">
+        <div class="sec-Newsletter_Body">
+          <div class="sec-Newsletter_Content">
+            <h2 class="sec-Newsletter_Title">
+              {{ section.settings.title }}
+            </h2>
+
+            {%- if section.settings.subtitle != blank -%}
+              <p class="sec-Newsletter_Text">
+                {{ section.settings.subtitle }}
+              </p>
+            {%- endif -%}
+          </div>
+
+          <div class="sec-Newsletter_Form">
+            <div class="klaviyo-form-SQFGdx"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  {%- endif -%}
+{%- endunless -%}
+
+{% schema %}
+  {
+    "name": "Newsletter",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "enable",
+        "label": "Enable"
+      },
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Title",
+        "default": "Don’t miss a thing!"
+      },
+      {
+        "type": "text",
+        "id": "subtitle",
+        "label": "Subtitle",
+        "default": "Simply pop in your email address to get discount codes, new product launches and exclusive content delivered straight to your inbox."
+      }
+    ]
+  }
+{% endschema %}

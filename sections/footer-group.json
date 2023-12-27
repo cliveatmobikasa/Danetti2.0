@@ -2,6 +2,14 @@
   "name": "t:sections.footer.name",
   "type": "footer",
   "sections": {
+    "footer-newsletter": {
+      "type": "footer-newsletter",
+      "settings": {
+        "enable": true,
+        "title": "Stay in touch",
+        "subtitle": "Sign up to our newsletter for exclusive offers and new products"
+      }
+    },
     "footer": {
       "type": "footer",
       "settings": {
@@ -21,6 +29,7 @@
     }
   },
   "order": [
+    "footer-newsletter",
     "footer"
   ]
 }
