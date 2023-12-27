@@ -1,0 +1,261 @@
+{{ 'section-cta-grid.css' | asset_url | stylesheet_tag }}
+{%- liquid
+  assign section_foreground = 'standard'
+  assign section_background = '#fff'
+
+  if section.settings.text_colour != blank
+    assign section_foreground = section.settings.text_colour
+  endif
+
+  if section.settings.bg_colour != blank
+    assign section_background = section.settings.bg_colour
+  endif
+-%}
+
+<section class="sec-Section sec-CtaGrid sec-Style-{{ section_foreground }}" style="--StyleBackground: {{ section_background }};">
+  <div class="sec-CtaGrid_Inner lyt-Container">
+    {%- if section.settings.title != blank -%}
+      <div class="sec-CtaGrid_Header">
+        {%- if section.settings.show_logo -%}
+          <div class="sec-Section_Logo">
+            {%- render 'bao-danetti-logo-small' -%}
+          </div>
+        {%- endif -%}
+
+        <h2 class="sec-Section_Title">
+          {{ section.settings.title }}
+        </h2>
+
+        {%- if section.settings.subtitle != blank -%}
+          <p class="sec-Section_Subtitle">
+            {{ section.settings.subtitle }}
+          </p>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+
+    <div class="sec-CtaGrid_Body">
+      <div class="sec-CtaGrid_BlockList">
+        <ul class="sec-CtaGrid_Blocks">
+          {%- for block in section.blocks -%}
+            <li class="sec-CtaGrid_Block">
+              <div class="sec-CtaGrid_ImageContainer">
+                <div class="sec-CtaGrid_Image">
+                  {%- if block.settings.mobile_image != blank -%}
+                    {%- assign grid_image = block.settings.mobile_image -%}
+                  {%- else -%}
+                    {%- assign grid_image = block.settings.desktop_image -%}
+                  {%- endif -%}
+
+                  {%- if grid_image != blank -%}
+                    {%- render 'responsive-image' with
+                        image: grid_image,
+                        width: 200,
+                        height: 200
+                    -%}
+                  {%- endif -%}
+                </div>
+              </div>
+
+              <div class="sec-CtaGrid_Content">
+                <h3 class="sec-CtaGrid_Title">
+                  {{ block.settings.title }}
+                </h3>
+              </div>
+
+              {%- if block.settings.button_url != blank -%}
+                <a href="{{ block.settings.button_url }}" class="sec-CtaGrid_FauxLink">
+                  <span class="util-ScreenReaderOnly">{{ block.settings.title }}</span>
+                </a>
+              {%- endif -%}
+            </li>
+          {%- endfor -%}
+        </ul>
+      </div>
+
+      <div class="sec-CtaGrid_Gradient"></div>
+
+      <ul class="sec-CtaGrid_Items">
+        {%- for block in section.blocks -%}
+          <li class="sec-CtaGrid_Item sec-CtaGrid_Item-{{ block.settings.block_style }}">
+            <div class="sec-CtaGrid_Image">
+              {%- render 'responsive-image' with
+                  image: block.settings.desktop_image,
+                  width: 750,
+                  height: 880
+              -%}
+            </div>
+
+            <div class="sec-CtaGrid_Content">
+              {%- if block.settings.promo_tag != blank -%}
+                <div class="sec-CtaGrid_Tags">
+                  <div class="prd-Tag prd-Tag-light" style="--Tag_Background: #c2002f;">
+                    {{ block.settings.promo_tag }}
+                  </div>
+                </div>
+              {%- endif -%}
+              <h3 class="sec-CtaGrid_Title">
+                {{ block.settings.title }}
+              </h3>
+
+              {%- if block.settings.button_text != blank and block.settings.button_url != blank -%}
+                <a href="{{ block.settings.button_url }}" class="sec-CtaGrid_Button btn-Secondary">
+                  {{ block.settings.button_text }}
+                </a>
+              {%- endif -%}
+            </div>
+
+            {%- if block.settings.button_url != blank -%}
+              <a href="{{ block.settings.button_url }}" class="sec-CtaGrid_FauxLink">
+                <span class="util-ScreenReaderOnly">{{ block.settings.title }}</span>
+              </a>
+            {%- endif -%}
+          </li>
+        {%- endfor -%}
+      </ul>
+    </div>
+
+    {%- if section.settings.button_text != blank and section.settings.button_url != blank -%}
+      <div class="sec-CtaGrid_Footer">
+        <a href="{{ section.settings.button_url }}" class="{{ section.settings.button_style }}">
+          {{ section.settings.button_text }}
+        </a>
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+  {
+    "name": "CTA Grid",
+    "settings": [
+      {
+        "type": "color",
+        "id": "bg_colour",
+        "label": "Background"
+      },
+      {
+        "type": "select",
+        "id": "text_colour",
+        "label": "Text Colour",
+        "options": [
+          {
+            "value": "standard",
+            "label": "Standard"
+          },
+          {
+            "value": "white",
+            "label": "White"
+          },
+          {
+            "value": "blue",
+            "label": "Blue"
+          }
+        ]
+      },
+      {
+        "type": "checkbox",
+        "id": "show_logo",
+        "label": "Show Logo"
+      },
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Title"
+      },
+      {
+        "type": "text",
+        "id": "subtitle",
+        "label": "Subtitle"
+      },
+      {
+        "type": "text",
+        "id": "button_text",
+        "label": "Button text"
+      },
+      {
+        "type": "url",
+        "id": "button_url",
+        "label": "Button url"
+      },
+      {
+        "type": "select",
+        "id": "button_style",
+        "label": "Button Style",
+        "options": [
+          {
+            "value": "btn-Primary",
+            "label": "Primary"
+          },
+          {
+            "value": "btn-Secondary",
+            "label": "Secondary"
+          }
+        ],
+        "default": "btn-Primary"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "grid_item",
+        "name": "Grid item",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "desktop_image",
+            "label": "Desktop Image",
+            "info": "Recommended size: 750px x 880px"
+          },
+          {
+            "type": "image_picker",
+            "id": "mobile_image",
+            "label": "Mobile Image",
+            "info": "Recommended size: 200px x 200px"
+          },
+          {
+            "type": "select",
+            "id": "block_style",
+            "label": "Text Colour",
+            "options": [
+              {
+                "value": "light",
+                "label": "Light"
+              },
+              {
+                "value": "dark",
+                "label": "Dark"
+              }
+            ],
+            "default": "light"
+          },
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Title"
+          },
+          {
+            "type": "text",
+            "id": "promo_tag",
+            "label": "Tag"
+          },
+          {
+            "type": "text",
+            "id": "button_text",
+            "label": "Button text"
+          },
+          {
+            "type": "url",
+            "id": "button_url",
+            "label": "Button url"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "category": "Homepage",
+        "name": "CTA Grid"
+      }
+    ]
+  }
+{% endschema %}

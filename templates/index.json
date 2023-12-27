@@ -128,37 +128,107 @@
         "autoplay_delay": 4
       }
     },
-    "featured_collection": {
-      "type": "featured-collection",
+    "cta_grid": {
+      "type": "home-cta-grid",
+      "blocks": {
+        "1594286222636": {
+          "type": "grid_item",
+          "settings": {
+            "desktop_image": "shopify:\/\/shop_images\/DiningSets_May23_Desktop.jpg",
+            "mobile_image": "shopify:\/\/shop_images\/DiningSets_May23_Mobile.jpg",
+            "block_style": "light",
+            "title": "Dining Sets",
+            "promo_tag": "",
+            "button_text": "Shop now",
+            "button_url": "shopify:\/\/collections\/large-dining-sets"
+          }
+        },
+        "1594286398325": {
+          "type": "grid_item",
+          "settings": {
+            "desktop_image": "shopify:\/\/shop_images\/Dining-Benches-Collection-Desktop.jpg",
+            "mobile_image": "shopify:\/\/shop_images\/Dining-Benches-Collection-Mobile.jpg",
+            "block_style": "light",
+            "title": "Dining Benches",
+            "promo_tag": "",
+            "button_text": "Shop now",
+            "button_url": "shopify:\/\/collections\/dining-benches"
+          }
+        },
+        "1594286394691": {
+          "type": "grid_item",
+          "settings": {
+            "desktop_image": "shopify:\/\/shop_images\/Sofas_May23_Desktop.jpg",
+            "mobile_image": "shopify:\/\/shop_images\/Sofas_May23_Mobile_9a4847dd-77e9-4c0f-af5f-6fdf52cf2789.jpg",
+            "block_style": "light",
+            "title": "Sofas",
+            "promo_tag": "",
+            "button_text": "Shop Now",
+            "button_url": "shopify:\/\/collections\/sofas"
+          }
+        },
+        "1594286121985": {
+          "type": "grid_item",
+          "settings": {
+            "desktop_image": "shopify:\/\/shop_images\/Desktop_Nav_tile_2.png",
+            "mobile_image": "shopify:\/\/shop_images\/mobile_nav_tile_2.png",
+            "block_style": "light",
+            "title": "Bar Stools",
+            "promo_tag": "",
+            "button_text": "Shop now",
+            "button_url": "shopify:\/\/collections\/bar-stools"
+          }
+        },
+        "19a11971-a8e5-48d6-9ccc-7535468e0a94": {
+          "type": "grid_item",
+          "settings": {
+            "desktop_image": "shopify:\/\/shop_images\/Desktop_Nav_tile_3.png",
+            "mobile_image": "shopify:\/\/shop_images\/mobile_nav_tile_3.png",
+            "block_style": "light",
+            "title": "Beds",
+            "promo_tag": "",
+            "button_text": "Shop Now",
+            "button_url": "shopify:\/\/collections\/beds"
+          }
+        },
+        "1594286310191": {
+          "type": "grid_item",
+          "settings": {
+            "desktop_image": "shopify:\/\/shop_images\/Storage_Desktop_3_d556c877-c046-42bf-a9a7-ddd0cc19f0c1.jpg",
+            "mobile_image": "shopify:\/\/shop_images\/Storage_Mobile_2_189930d3-6354-460d-955d-a24b1e756811.jpg",
+            "block_style": "light",
+            "title": "Storage",
+            "promo_tag": "",
+            "button_text": "Shop Now",
+            "button_url": "https:\/\/www.danetti.com\/collections\/storage"
+          }
+        }
+      },
+      "block_order": [
+        "1594286222636",
+        "1594286398325",
+        "1594286394691",
+        "1594286121985",
+        "19a11971-a8e5-48d6-9ccc-7535468e0a94",
+        "1594286310191"
+      ],
+      "custom_css": [
+        "p {color: #0a1e2d;}"
+      ],
       "settings": {
-        "title": "Featured products",
-        "heading_size": "h2",
-        "description": "",
-        "show_description": false,
-        "description_style": "body",
-        "collection": "all",
-        "products_to_show": 8,
-        "columns_desktop": 4,
-        "full_width": false,
-        "show_view_all": true,
-        "view_all_style": "solid",
-        "enable_desktop_slider": false,
-        "color_scheme": "background-1",
-        "image_ratio": "adapt",
-        "image_shape": "default",
-        "show_secondary_image": true,
-        "show_vendor": false,
-        "show_rating": false,
-        "enable_quick_add": false,
-        "columns_mobile": "2",
-        "swipe_on_mobile": false,
-        "padding_top": 44,
-        "padding_bottom": 36
+        "bg_colour": "",
+        "text_colour": "standard",
+        "show_logo": true,
+        "title": "The Danetti Range of Modern Contemporary Furniture for Your Home",
+        "subtitle": "Design for every room. Love for every home.",
+        "button_text": "Shop all",
+        "button_url": "shopify:\/\/collections\/all-products",
+        "button_style": "btn-Primary"
       }
     }
   },
   "order": [
     "hero",
-    "featured_collection"
+    "cta_grid"
   ]
 }

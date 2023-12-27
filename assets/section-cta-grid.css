@@ -1,0 +1,223 @@
+/*
+|--------------------------------------------------------------------------
+| Cta Grid
+|--------------------------------------------------------------------------
+| @namespace: sec-CtaGrid
+|
+*/
+
+.sec-CtaGrid {
+  padding-top: 30px;
+  padding-bottom: 30px;
+  background-color: var(--StyleBackground);
+}
+.sec-CtaGrid_Inner {
+  flex-direction: column-reverse;
+  display: flex;
+}
+.sec-CtaGrid_Header {
+  width: 100%;
+  text-align: center;
+}
+.sec-CtaGrid_Body {
+  position: relative;
+  margin-right: -15px;
+  margin-left: -15px;
+}
+.sec-CtaGrid_Gradient {
+  position: absolute;
+  top: -10px;
+  right: 0;
+  z-index: 1;
+  width: 30px;
+  height: 100%;
+  overflow: hidden;
+  pointer-events: none;
+}
+.sec-CtaGrid_Gradient::after {
+  content: '';
+  display: block;
+  width: 100%;
+  height: 100%;
+  margin-left: 15px;
+  background-color: var(--StyleBackground);
+  filter: blur(8px);
+}
+.sec-CtaGrid_Footer {
+  display: none;
+}
+/*
+|--------------------------------------------------------------------------
+| Mobile circle view
+|--------------------------------------------------------------------------
+|
+*/
+.sec-CtaGrid_BlockList {
+  margin-bottom: 30px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.sec-CtaGrid_BlockList::-webkit-scrollbar {
+  display: none;
+}
+.sec-CtaGrid_Blocks {
+  display: flex;
+  margin-right: auto;
+  margin-left: auto;
+  padding-left: 15px;
+}
+.sec-CtaGrid_Block {
+  position: relative;
+  flex-grow: 0;
+  flex-shrink: 0;
+  width: calc((1 / 3.5) * 100%);
+  padding-right: 20px;
+}
+.sec-CtaGrid_ImageContainer {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  width: 100%;
+  border-radius: 50%;
+  overflow: hidden;
+}
+.sec-CtaGrid_ImageContainer::after {
+  content: '';
+  display: block;
+  width: 0;
+  padding-top: 100%;
+}
+/*
+|--------------------------------------------------------------------------
+| Deskop grid view
+|--------------------------------------------------------------------------
+|
+*/
+.sec-CtaGrid_Items {
+  display: none;
+}
+.sec-CtaGrid_Item {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  overflow: hidden;
+}
+.sec-CtaGrid_Item::after {
+  content: '';
+  display: block;
+  width: 0;
+  padding-top: 120%;
+}
+.sec-CtaGrid_Image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+.sec-CtaGrid_Content {
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  display: flex;
+  width: 100%;
+  margin-top: 10px;
+  text-align: center;
+}
+.sec-CtaGrid_Title {
+  font-family: var(--Font_Family-aktivGrotesk);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  line-height: 14px;
+  text-transform: uppercase;
+  color: var(--Color_Brand);
+}
+.sec-CtaGrid_Item-dark .sec-CtaGrid_Title {
+  color: var(--Color_Brand);
+}
+.sec-CtaGrid_Button {
+  --Button_Border: #fff;
+  --Button_Color: #fff;
+  --Button_HoverBackground: #fff;
+  --Button_HoverBorder: #fff;
+  --Button_HoverColor: var(--Color_Brand);
+  margin-top: 15px;
+}
+.sec-CtaGrid_Item-dark .sec-CtaGrid_Button {
+  --Button_Border: var(--Color_Brand);
+  --Button_Color: var(--Color_Brand);
+  --Button_HoverBackground: var(--Color_Brand);
+  --Button_HoverBorder: var(--Color_Brand);
+  --Button_HoverColor: #fff;
+}
+.sec-CtaGrid_FauxLink {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.sec-CtaGrid_Tags {
+  margin-bottom: 10px;
+}
+@media screen and (min-width: 768px) {
+  .sec-CtaGrid_Inner {
+    flex-direction: column;
+  }
+  .sec-CtaGrid_Header {
+    width: calc((7 / 12) * 100%);
+    margin-right: auto;
+    margin-bottom: 40px;
+    margin-left: auto;
+  }
+  .sec-CtaGrid_Body {
+    margin-right: 0;
+    margin-left: 0;
+  }
+  .sec-CtaGrid_Gradient {
+    display: none;
+  }
+  .sec-CtaGrid_Footer {
+    display: block;
+    margin-top: 40px;
+    text-align: center;
+  }
+  .sec-CtaGrid_BlockList {
+    display: none;
+  }
+  .sec-CtaGrid_Items {
+    grid-gap: var(--Grid_Gutter);
+    grid-template-columns: repeat(3, 1fr);
+    display: grid;
+  }
+  .sec-CtaGrid_Image {
+    transform: scale(1.05);
+    transition: transform 0.5s ease;
+  }
+  .sec-CtaGrid_Item:hover .sec-CtaGrid_Image {
+    transform: none;
+  }
+  .sec-CtaGrid_Content {
+    margin-top: 0;
+  }
+  .sec-CtaGrid_Title {
+    font-family: var(--Font_Family-ballingerXCondensed);
+    font-size: 30px;
+    font-weight: 700;
+    letter-spacing: 0;
+    line-height: 30x;
+    text-transform: none;
+    color: #fff;
+  }
+}
+@media screen and (min-width: 1201px) {
+  .sec-CtaGrid {
+    padding-top: 50px;
+    padding-bottom: 50px;
+  }
+}
