@@ -1,0 +1,39 @@
+/*
+|--------------------------------------------------------------------------
+| Carousel
+|--------------------------------------------------------------------------
+| @namespace: car-Carousel
+|
+*/
+
+.car-Carousel_Slides {
+  position: relative;
+  display: flex;
+  overflow: hidden;
+  user-select: none;
+  -webkit-touch-callout: none;
+  -khtml-user-select: none;
+  -ms-touch-action: pan-y;
+  touch-action: pan-y;
+  -webkit-tap-highlight-color: transparent;
+}
+.car-Carousel_Slides[data-keen-slider-v] {
+  flex-wrap: wrap;
+}
+
+.car-Carousel_Slides[data-keen-slider-v] .car-Carousel_Slides__slide {
+  width: 100%;
+}
+
+.car-Carousel_Slides[data-keen-slider-moves] * {
+  pointer-events: none;
+}
+
+.car-Carousel_Slide {
+  position: relative;
+
+  min-height: 100%;
+  width: 100%;
+
+  overflow: hidden;
+}

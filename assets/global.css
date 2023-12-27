@@ -3,7 +3,8 @@
   width: 100%;
   margin-right: auto;
   margin-left: auto;
-  padding-right: calc(var(--Grid_Gutter) / 2);
+  padding-right: calc(var(--Grid_Gut
+  ter) / 2);
   padding-left: calc(var(--Grid_Gutter) / 2);
 }
 .util-ScreenReaderOnly {
@@ -37,12 +38,283 @@
   padding-right: calc(var(--Grid_Gutter) / 2);
   padding-left: calc(var(--Grid_Gutter) / 2);
 }
+
+.btn-Primary {
+  position: relative;
+  z-index: 0;
+  display: inline-block;
+  padding: 8px 30px 9px;
+  font-family: var(--Font_Family-aktivGrotesk);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 1.5px;
+  line-height: 24px;
+  text-align: center;
+  text-transform: uppercase;
+  background-color: transparent;
+  border: 1px solid transparent;
+  border-radius: 0;
+  color: #fff;
+  overflow: hidden;
+  --Button_Background: var(--Color_Brand);
+  --Button_Color: #fff;
+  --Button_HoverBackground: var(--Color_Anchor);
+  --Button_HoverColor: #fff;
+  border: 0;
+  color: var(--Button_Color);
+  transition: color 0.3s ease;
+
+}
+.btn-Primary::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: -2;
+  width: 100%;
+  height: 100%;
+  background-color: var(--Button_Background);
+}
+.btn-Primary::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  background-color: var(--Button_HoverBackground);
+  transform: scaleY(0);
+  transform-origin: 0 -1%;
+  transition: transform 0.3s ease;
+}
+.btn-Primary[disabled] {
+  cursor: not-allowed;
+  opacity: 0.3;
+}
+
+.clc-Card:hover .btn-Primary,
+.sec-Hero_Carousel:hover .btn-Primary,
+.hd-NavPromo:hover .btn-Primary,
+.btn-Primary:not([disabled]):hover {
+  color: var(--Button_HoverColor);
+
+  
+}
+.clc-Card:hover .btn-Primary::after,
+.sec-Hero_Carousel:hover .btn-Primary::after,
+.hd-NavPromo:hover .btn-Primary::after,
+.btn-Primary:not([disabled]):hover::after {
+  transform: none;
+  transform-origin: 0 101%;
+  transition: transform 0.4s ease;
+}
+
+.btn-Secondary {
+  position: relative;
+  z-index: 0;
+  display: inline-block;
+  padding: 8px 30px 9px;
+  font-family: var(--Font_Family-aktivGrotesk);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 1.5px;
+  line-height: 24px;
+  text-align: center;
+  text-transform: uppercase;
+  background-color: transparent;
+  border: 1px solid transparent;
+  border-radius: 0;
+  color: #fff;
+  overflow: hidden;
+  --Button_Background: #c2002f;
+  --Button_Color: #fff;
+  --Button_HoverBackground: var(--Color_Brand);
+  --Button_HoverColor: #fff;
+  border: 1px solid var(--Button_Border);
+  color: var(--Button_Color);
+  transition: border 0.4s ease, color 0.4s ease;
+}
+.btn-Secondary::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: -1;
+  width: 102%;
+  height: 100%;
+  background-color: var(--Button_HoverBackground);
+  transform: scaleY(0);
+  transform-origin: 0 -1%;
+  transition: transform 0.3s ease;
+}
+.prd-DoubleCta_Item:hover .btn-Secondary,
+.sec-CtaGrid_Item:hover .btn-Secondary,
+.btn-Secondary:not([disabled]):hover {
+  border-color: var(--Button_HoverBorder);
+  color: var(--Button_HoverColor);
+}
+.prd-DoubleCta_Item:hover .btn-Secondary::after,
+.sec-CtaGrid_Item:hover .btn-Secondary::after,
+.btn-Secondary:not([disabled]):hover::after {
+  transform: none;
+  transform-origin: 0 101%;
+  transition: transform 0.4s ease;
+}
+.btn-Tertiary {
+  position: relative;
+  z-index: 0;
+  display: inline-block;
+  padding: 8px 30px 9px;
+  font-family: var(--Font_Family-aktivGrotesk);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 1.5px;
+  line-height: 24px;
+  text-align: center;
+  text-transform: uppercase;
+  background-color: transparent;
+  border: 1px solid transparent;
+  border-radius: 0;
+  color: #fff;
+  overflow: hidden;
+  --Button_Background: var(--Color_Anchor);
+  --Button_Color: #fff;
+  --Button_HoverBackground: #fff;
+  --Button_HoverColor: var(--Color_Brand);
+  border: 0;
+  color: var(--Button_Color);
+  transition: color 0.3s ease;
+}
+.btn-Tertiary::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: -2;
+  width: 100%;
+  height: 100%;
+  background-color: var(--Button_Background);
+}
+.btn-Tertiary::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  background-color: var(--Button_HoverBackground);
+  transform: scaleY(0);
+  transform-origin: 0 -1%;
+  transition: transform 0.3s ease;
+}
+.btn-Tertiary[disabled] {
+  cursor: not-allowed;
+  opacity: 0.3;
+}
+.clc-Card:hover .btn-Tertiary,
+.sec-Hero_Carousel:hover .btn-Tertiary,
+.hd-NavPromo:hover .btn-Tertiary,
+.btn-Tertiary:not([disabled]):hover {
+  color: var(--Button_HoverColor);
+}
+.clc-Card:hover .btn-Tertiary::after,
+.sec-Hero_Carousel:hover .btn-Tertiary::after,
+.hd-NavPromo:hover .btn-Tertiary::after,
+.btn-Tertiary:not([disabled]):hover::after {
+  transform: none;
+  transform-origin: 0 101%;
+  transition: transform 0.4s ease;
+}
+/*
+|--------------------------------------------------------------------------
+| Responsive image
+|--------------------------------------------------------------------------
+| @namespace: rsp
+|
+*/
+.rsp-Image {
+  position: relative;
+  display: flex;
+  width: 100%;
+}
+@supports (aspect-ratio: 16 / 9) {
+  .rsp-Image_Image {
+    height: auto;
+    object-fit: cover;
+  }
+}
+@supports not (aspect-ratio: 16 / 9) {
+  .rsp-Image::after {
+    content: '';
+    display: block;
+    width: 0;
+    padding-top: var(--Image_AspectRatio);
+  }
+  .rsp-Image_Image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+}
+.rsp-Image_Metafield::before {
+  content: '';
+  display: block;
+  width: 100%;
+  padding-top: var(--Image_AspectRatio);
+}
+.rsp-Image_MetafieldImage {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+/*
+|--------------------------------------------------------------------------
+| Responsive image overrides
+|--------------------------------------------------------------------------
+*/
+.prd-ProductJourneyVariants_Image .rsp-Image,
+.prd-SwatchCard_Image .rsp-Image {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  overflow: hidden;
+}
+.prd-ProductJourneyVariants_Image .rsp-Image_Image,
+.prd-SwatchCard_Image .rsp-Image_Image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
 @media screen and (min-width: 901px) {
   .lyt-Container {
     max-width: var(--Grid_Container);
     padding-right: calc(var(--Grid_Gutter) * 3);
     padding-left: calc(var(--Grid_Gutter) * 3);
   }
+
   .lyt-Container-wide {
     padding-right: var(--Grid_Gutter);
     padding-left: var(--Grid_Gutter);

@@ -1,0 +1,253 @@
+{{ 'section-hero.css' | asset_url | stylesheet_tag }}
+{{ 'product-tag.css' | asset_url | stylesheet_tag }}
+{%- if section.blocks.size > 0 -%}
+  {%- assign first_block = section.blocks[0].settings -%}
+
+  <section class="sec-Hero"
+    data-section-id="{{ section.id }}"
+    data-section-type="hero"
+  >
+    <div class="sec-Hero_Inner">
+      <div
+        class="sec-Hero_Body"
+        {% if section.blocks.size > 1 %}
+          data-module="hero-slider"
+          data-hero-slider-autoplay="{{ section.settings.autoplay }}"
+          data-hero-slider-autoplay-delay="{{ section.settings.autoplay_delay }}"
+        {% endif %}
+      >
+      <div class="sec-Hero_Carousel">
+        <div class="sec-Hero_Slides car-Carousel_Slides" data-el="hero-slider.slides">
+          {%- for block in section.blocks -%}
+            {%- liquid
+              assign preload = false
+              if forloop.first
+                assign preload = true
+              endif
+            -%}
+            <div
+              class="sec-Hero_Slide car-Carousel_Slide"
+              data-el="hero-slider.slide"
+            >
+              {%- assign video_url_youtube = block.settings.video_url_youtube -%}
+              {%- if video_url_youtube != blank -%}
+                {%- liquid
+                  assign youtube_video_url_split = video_url_youtube | split: 'watch?v='
+                  assign youtube_video_id = youtube_video_url_split[1]
+                -%}
+
+                <div class="sec-Hero_Video" >
+                  <iframe class="sec-Hero_VideoIframe" type="text/html"
+                  src="https://www.youtube.com/embed/{{ video_url_youtube | remove: 'https://www.youtube.com/watch?v=' }}?autoplay=1&mute=1&loop=1&controls=0&origin=http://{{ shop.domain }}&playlist={{ youtube_video_id }}"
+                  frameborder="0"></iframe>
+                </div>
+              {%- elsif block.settings.video_url != blank -%}
+                <video class="sec-Hero_Video" autoplay loop muted playsinline>
+                  <source src="{{ block.settings.video_url }}" type="video/mp4">
+                </video>
+              {%- endif -%}
+
+              <div class="sec-Hero_Image sec-Hero_Image-desktop" data-el="hero-slider.image" data-slide="{{ forloop.index0 }}">
+                {%- if block.settings.desktop_image != blank -%}
+                  {%- render 'responsive-image' with
+                    image: block.settings.desktop_image,
+                    width: 2880,
+                    height: 1400,
+                    preload: preload
+                  -%}
+                {%- endif -%}
+              </div>
+
+              <div class="sec-Hero_Image sec-Hero_Image-mobile" data-el="hero-slider.image" data-slide="{{ forloop.index0 }}">
+                {%- if block.settings.mobile_image != blank -%}
+                  {%- render 'responsive-image' with
+                    image: block.settings.mobile_image,
+                    width: 750,
+                    height: 680,
+                    preload: preload
+                  -%}
+                {%- endif -%}
+              </div>
+
+              <div class="sec-Hero_ContentContainer lyt-Container lyt-Container-wide">
+                <div class="sec-Hero_Content{% if block.settings.section_style == 'dark' %} sec-Hero_Content-dark{% endif %}">
+
+                {%- if block.settings.hero_promo_tag != blank -%}
+                <div class="sec-Hero_Tag">
+                    <div class="prd-Tag prd-Tag-light" style="--Tag_Background: #c2002f;">
+                      {{ block.settings.hero_promo_tag }}
+                    </div>
+                </div>
+                {%- endif -%}
+
+                  <h1 class="sec-Hero_Title">
+                    {{ block.settings.title }}
+                  </h1>
+
+                  {%- if block.settings.content != blank -%}
+                    <p class="sec-Hero_Text">
+                      {{ block.settings.content }}
+                    </p>
+                  {%- endif -%}
+
+                  {%- if block.settings.hero_countdown_enable == true and settings.countdown != blank -%}
+                    <div class="sec-Hero_Countdown">
+                      {% render 'countdown' %}
+                    </div>
+                  {%- endif -%}
+
+                  {%- if block.settings.button_url != blank and block.settings.button_text != blank -%}
+                    <a href="{{ block.settings.button_url }}" class="sec-Hero_Button btn-Primary">
+                      {{ block.settings.button_text }}
+                    </a>
+                  {%- endif -%}
+                </div>
+              </div>
+
+              {%- if block.settings.overlay != blank -%}
+                <div class="sec-Hero_Overlay" style="background-color: {{ block.settings.overlay }}; opacity: {{ block.settings.overlay_opacity }};"></div>
+              {%- endif -%}
+
+              {%- if block.settings.button_url != blank -%}
+                <a href="{{ block.settings.button_url }}" class="sec-Hero_FauxLink">
+                  <span class="util-ScreenReaderOnly">{{ block.settings.title }}</span>
+                </a>
+              {%- endif -%}
+            </div>
+          {%- endfor -%}
+        </div>
+
+        {%- if section.blocks.size > 1 -%}
+          <div class="sec-Hero_Dots">
+            {%- for block in section.blocks -%}
+              <button type="button" class="sec-Hero_Dot" data-slide="{{ forloop.index0 }}" data-el="hero-slider.dot">
+                <span class="util-ScreenReaderOnly">Slide {{ forloop.index0 }}</span>
+              </button>
+            {%- endfor -%}
+          </div>
+        {%- endif -%}
+      </div>
+    </div>
+  </section>
+{%- endif -%}
+
+{% schema %}
+  {
+    "name": "Hero",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "autoplay",
+        "label": "Autoplay"
+      },
+      {
+        "type": "range",
+        "id": "autoplay_delay",
+        "label": "Autoplay delay (seconds)",
+        "min": 3,
+        "max": 10,
+        "step": 1,
+        "default": 6
+      }
+    ],
+    "blocks": [
+      {
+        "type": "hero_item",
+        "name": "Hero item",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "desktop_image",
+            "label": "Desktop Image",
+            "info": "Recommended size: 2880px x 1400px"
+          },
+          {
+            "type": "image_picker",
+            "id": "mobile_image",
+            "label": "Mobile Image",
+            "info": "Recommended size: 750px x 680px"
+          },
+          {
+            "type": "color",
+            "id": "overlay",
+            "label": "Image overlay"
+          },
+          {
+            "type": "range",
+            "id": "overlay_opacity",
+            "min": 0,
+            "max": 1,
+            "step": 0.1,
+            "label": "Set the overlay opacity",
+            "default": 0
+          },
+          {
+            "type": "text",
+            "id": "video_url",
+            "label": "Video URL"
+          },
+          {
+            "type": "video_url",
+            "id": "video_url_youtube",
+            "label": "Full Video (Youtube)",
+            "info": "Include the whole Youtube URL",
+            "accept": ["youtube"]
+          },
+          {
+            "type": "select",
+            "id": "section_style",
+            "label": "Text Colour",
+            "options": [
+              {
+                "value": "light",
+                "label": "Light"
+              },
+              {
+                "value": "dark",
+                "label": "Dark"
+              }
+            ],
+            "default": "light"
+          },
+          {
+            "type": "text",
+            "id": "hero_promo_tag",
+            "label": "Promo Tag"
+          },
+          {
+            "type": "checkbox",
+            "id": "hero_countdown_enable",
+            "label": "Enable Countdown Timer",
+            "default": true
+          },
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Title"
+          },
+          {
+            "type": "text",
+            "id": "content",
+            "label": "Text"
+          },
+          {
+            "type": "text",
+            "id": "button_text",
+            "label": "Button text"
+          },
+          {
+            "type": "url",
+            "id": "button_url",
+            "label": "Button url"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "category": "Homepage",
+        "name": "Hero"
+      }
+    ]
+  }
+{% endschema %}

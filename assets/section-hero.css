@@ -1,0 +1,234 @@
+/*
+|--------------------------------------------------------------------------
+| Hero
+|--------------------------------------------------------------------------
+| @namespace: sec-Hero
+|
+*/
+.sec-Hero_Body {
+  position: relative;
+}
+.sec-Hero_Carousel {
+  position: relative;
+}
+.sec-Hero_Slide {
+  position: relative;
+  z-index: 1;
+  flex-shrink: 0;
+  display: flex;
+  max-height: 700px;
+  width: 100%;
+  overflow: hidden;
+}
+.sec-Hero_Slide::after {
+  content: '';
+  display: block;
+  width: 0;
+  padding-top: 90%;
+}
+.sec-Hero_Video {
+  position: absolute;
+  top: -1%;
+  left: -1%;
+  z-index: -1;
+  display: flex;
+  width: 102%;
+  height: 102%;
+  object-fit: cover;
+}
+.sec-Hero_VideoIframe {
+  width: 100%;
+}
+.sec-Hero_Image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -2;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  background-color: var(--Color_Grey);
+  transform: scale(1.1);
+}
+.sec-Hero_Image-desktop {
+  display: none;
+}
+.sec-Hero_Image-mobile {
+  display: flex;
+}
+.sec-Hero_Overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+}
+.sec-Hero_FauxLink {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 3;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+/*
+|--------------------------------------------------------------------------
+| Content
+|--------------------------------------------------------------------------
+|
+*/
+.sec-Hero_Main {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  display: block;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+.sec-Hero_ContentContainer {
+  align-items: center;
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+.sec-Hero_Content {
+  width: 100%;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  text-align: center;
+  color: #fff;
+}
+.sec-Hero_Content.sec-Hero_Content-dark {
+  color: var(--Color_Brand);
+}
+.sec-Hero_Tag {
+  display: flex;
+  margin-bottom: 15px;
+}
+.sec-Hero_Title {
+  font-family: var(--Font_Family-ballingerXCondensed);
+  font-size: 45px;
+  font-weight: 700;
+  line-height: 45px;
+}
+.sec-Hero_Title-word {
+  display: inline-block;
+  margin-right: 10px;
+  overflow: hidden;
+}
+.sec-Hero_Title-letter {
+  display: inline-block;
+}
+.sec-Hero_Text {
+  font-size: 14px;
+  line-height: 18px;
+  margin-top: 10px;
+  font-style: italic;
+  font-weight: 400;
+}
+.sec-Hero_Countdown {
+  margin-top: 20px;
+  font-family: var(--Font_Family-aktivGrotesk);
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 1px;
+}
+.sec-Hero_Button {
+  --Button_Background: #fff;
+  --Button_Color: var(--Color_Brand);
+  --Button_HoverBackground: var(--Color_Brand);
+  --Button_HoverColor: #fff;
+  margin-top: 20px;
+  padding-right: 60px;
+  padding-left: 60px;
+}
+.sec-Hero_Content-dark .sec-Hero_Button {
+  --Button_Background: var(--Color_Brand);
+  --Button_Color: #fff;
+  --Button_HoverBackground: var(--Color_Anchor);
+  --Button_HoverColor: #fff;
+}
+
+/*
+|--------------------------------------------------------------------------
+| Controls
+|--------------------------------------------------------------------------
+|
+*/
+.sec-Hero_Dots {
+  position: absolute;
+  bottom: 20px;
+  left: 0;
+  z-index: 4;
+  justify-content: center;
+  display: flex;
+  width: 100%;
+  pointer-events: none;
+}
+.sec-Hero_Dot {
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  width: 20px;
+  height: 20px;
+  opacity: 0.4;
+  pointer-events: auto;
+  transition: opacity 0.3s ease;
+}
+.sec-Hero_Dot::before {
+  content: '';
+  display: block;
+  width: 5px;
+  height: 5px;
+  background-color: #fff;
+  border-radius: 50%;
+}
+
+.sec-Hero_Dot[aria-current='true'],
+.sec-Hero_Dot:hover {
+  opacity: 1;
+}
+@media screen and (max-width: 450px) {
+  .sec-Hero_Tag {
+    justify-content: center;
+  }
+}
+@media screen and (min-width: 768px) {
+  .sec-Hero_Slide::after {
+    padding-top: 50%;
+  }
+  .sec-Hero_Image-desktop {
+    display: flex;
+  }
+  .sec-Hero_Image-mobile {
+    display: none;
+  }
+  .sec-Hero_Content {
+    width: calc((6 / 12) * 100%);
+    padding-top: 100px;
+    padding-bottom: 100px;
+    text-align: left;
+  }
+  .sec-Hero_Button {
+    margin-top: 30px;
+  }
+}
+@media screen and (min-width: 901px) {
+  .sec-Hero_Title {
+    font-size: 60px;
+    line-height: 60px;
+  }
+  .sec-Hero_Text {
+    font-size: 18px;
+    line-height: 22px;
+    width: calc((4 / 6) * 100%);
+    margin-top: 15px;
+  }
+  .sec-Hero_Dots {
+    bottom: 30px;
+  }
+}

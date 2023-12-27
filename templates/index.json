@@ -1,42 +1,131 @@
 {
   "sections": {
-    "image_banner": {
-      "type": "image-banner",
+    "hero": {
+      "type": "homepage-hero",
       "blocks": {
-        "heading": {
-          "type": "heading",
+        "0557ba20-db3d-45de-9c2d-51b0dc58cbc7": {
+          "type": "hero_item",
           "settings": {
-            "heading": "Browse our latest products",
-            "heading_size": "h0"
+            "desktop_image": "shopify:\/\/shop_images\/Artboard_5Winter.jpg",
+            "mobile_image": "shopify:\/\/shop_images\/Artboard_1Winter.jpg",
+            "overlay": "",
+            "overlay_opacity": 0,
+            "video_url": "",
+            "video_url_youtube": "",
+            "section_style": "light",
+            "hero_promo_tag": "Up to 30% off",
+            "hero_countdown_enable": false,
+            "title": "Winter Sale",
+            "content": "Save on styles thoughtfully designed for your family",
+            "button_text": "Explore Offers",
+            "button_url": "shopify:\/\/collections\/promotion"
           }
         },
-        "button": {
-          "type": "buttons",
+        "4c8ede69-cb96-41f5-a875-ed9346362644": {
+          "type": "hero_item",
+          "disabled": true,
           "settings": {
-            "button_label_1": "Shop all",
-            "button_link_1": "shopify:\/\/collections\/all",
-            "button_style_secondary_1": true,
-            "button_label_2": "",
-            "button_link_2": "",
-            "button_style_secondary_2": false
+            "desktop_image": "shopify:\/\/shop_images\/sitewidesale_homepagehero_desktop.jpg",
+            "mobile_image": "shopify:\/\/shop_images\/sitewidesale_homepagehero_mobile_3394c028-e801-479f-90bd-72bd37325512.jpg",
+            "overlay": "",
+            "overlay_opacity": 0,
+            "video_url": "",
+            "video_url_youtube": "",
+            "section_style": "light",
+            "hero_promo_tag": "SITEWIDE SALE",
+            "hero_countdown_enable": true,
+            "title": "Extended Sale - Up to 30% off everything",
+            "content": "",
+            "button_text": "Shop up to 30% OFF",
+            "button_url": "shopify:\/\/collections\/promotion"
+          }
+        },
+        "d4bac810-6983-4341-a321-0b7c83607ee4": {
+          "type": "hero_item",
+          "disabled": true,
+          "settings": {
+            "desktop_image": "shopify:\/\/shop_images\/Early_Desktop.jpg",
+            "mobile_image": "shopify:\/\/shop_images\/Early_Mobile.jpg",
+            "overlay": "",
+            "overlay_opacity": 0,
+            "video_url": "",
+            "video_url_youtube": "",
+            "section_style": "light",
+            "hero_promo_tag": "Up to 30% off",
+            "hero_countdown_enable": false,
+            "title": "Black Friday Event",
+            "content": "Extended offers on your favourite styles",
+            "button_text": "Shop Collection",
+            "button_url": "shopify:\/\/collections\/promotion"
+          }
+        },
+        "0a080e17-324f-44a0-9db0-99ad6875d702": {
+          "type": "hero_item",
+          "disabled": true,
+          "settings": {
+            "desktop_image": "shopify:\/\/shop_images\/Monroe_HPH.jpg",
+            "mobile_image": "shopify:\/\/shop_images\/Monroe_Mobile_HPH.jpg",
+            "overlay": "",
+            "overlay_opacity": 0,
+            "video_url": "",
+            "video_url_youtube": "",
+            "section_style": "light",
+            "hero_promo_tag": "",
+            "hero_countdown_enable": false,
+            "title": "Need it in time for Christmas?",
+            "content": "Order by 10pm 15th December for guaranteed delivery on in stock items",
+            "button_text": "Shop in Stock",
+            "button_url": "https:\/\/www.danetti.com\/collections\/in-time-for-xmas"
+          }
+        },
+        "68aff874-4ac6-41db-9810-c3a7dfafecd4": {
+          "type": "hero_item",
+          "disabled": true,
+          "settings": {
+            "desktop_image": "shopify:\/\/shop_images\/New-Imagery-Lighting-Hero-Desktop.jpg",
+            "mobile_image": "shopify:\/\/shop_images\/New-Imagery-Lighting-Hero-Mobile.jpg",
+            "overlay": "#0a1e2d",
+            "overlay_opacity": 0,
+            "video_url": "",
+            "video_url_youtube": "",
+            "section_style": "light",
+            "hero_promo_tag": "",
+            "hero_countdown_enable": false,
+            "title": "Exclusive Lighting Range",
+            "content": "",
+            "button_text": "Shop Now",
+            "button_url": "shopify:\/\/collections\/lighting"
+          }
+        },
+        "6f373721-9177-4741-a6be-ac72841a843e": {
+          "type": "hero_item",
+          "disabled": true,
+          "settings": {
+            "overlay": "",
+            "overlay_opacity": 0,
+            "video_url": "",
+            "video_url_youtube": "",
+            "section_style": "light",
+            "hero_promo_tag": "",
+            "hero_countdown_enable": true,
+            "title": "",
+            "content": "",
+            "button_text": "",
+            "button_url": ""
           }
         }
       },
       "block_order": [
-        "heading",
-        "button"
+        "0557ba20-db3d-45de-9c2d-51b0dc58cbc7",
+        "4c8ede69-cb96-41f5-a875-ed9346362644",
+        "d4bac810-6983-4341-a321-0b7c83607ee4",
+        "0a080e17-324f-44a0-9db0-99ad6875d702",
+        "68aff874-4ac6-41db-9810-c3a7dfafecd4",
+        "6f373721-9177-4741-a6be-ac72841a843e"
       ],
       "settings": {
-        "image_overlay_opacity": 40,
-        "image_height": "large",
-        "desktop_content_position": "bottom-center",
-        "show_text_box": false,
-        "desktop_content_alignment": "center",
-        "color_scheme": "inverse",
-        "image_behavior": "none",
-        "mobile_content_alignment": "center",
-        "stack_images_on_mobile": false,
-        "show_text_below": false
+        "autoplay": true,
+        "autoplay_delay": 4
       }
     },
     "featured_collection": {
@@ -69,7 +158,7 @@
     }
   },
   "order": [
-    "image_banner",
+    "hero",
     "featured_collection"
   ]
 }
