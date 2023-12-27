@@ -5,20 +5,26 @@ const defineTargetEls = (constructor, module) => {
 
   targetNames.forEach(name =>
     defineLinkedProperties(module, {
-      [`${name}El`]: () => {
-        const target = module.find(name)
+      [`${name}El`]: {
+        get () {
+          const target = module.targets.find(name)
 
-        if (target) {
-          return target
-        }
+          if (target) {
+            return target
+          }
 
-        console.info(`Missing target element "${this.identifier}.${name}`)
+          console.info(`Missing target element "${module.identifier}.${name}`)
+        },
       },
-      [`${name}Els`]: () => {
-          return module.findAll(name)
+      [`${name}Els`]: {
+        get () {
+          return module.targets.findAll(name)
+        },
       },
-      [`has${capitalize(name)}El`]: () => {
-          return module.has(name)
+      [`has${capitalize(name)}El`]: {
+        get () {
+          return module.targets.has(name)
+        },
       },
     }),
   )
@@ -145,6 +151,14 @@ const addInitialState = (module, property) => {
   }
 }
 
+const attributeValueContainsToken = (attributeName, token) => {
+  return `[${attributeName}~="${token}"]`
+}
+
+const dasherize = (value) => {
+  return value.replace(/([A-Z])/g, (_, char) => `-${char.toLowerCase()}`)
+}
+
 const domReady = () => {
   return new Promise(resolve => {
     if (document.readyState === 'loading') {
@@ -162,14 +176,16 @@ const getElements = (selector, { context = document} = {}) => {
   return Array.from(items);
 }
 
-const handlize = (str) => str.split('-').map(el => el.charAt(0).toUpperCase() + el.slice(1)).join('');
+const handlize = name => name.split('-').map(subName => capitalize(subName)).join('');
 
-const createObject = (className, el) => {
+const uncapitalize = name => name.charAt(0).toLowerCase() + name.slice(1);
+
+const createObject = (className, el, application) => {
   const Class = window.MOBIKASA.modules[className];
   if (Class && typeof(Class?.build) === 'function') {
-    return Class.build(el);
+    return Class.build(el, application);
   } else if(typeof(Class) === 'function') {
-    return new Class(el);
+    return new Class(el, application);
   } else {
     return null;
   }

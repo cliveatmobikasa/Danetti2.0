@@ -4,7 +4,7 @@ window.MOBIKASA.constants = {
     moduleAttribute: 'data-module',
     elAttribute: 'data-el',
   },
-  drawers: {
+  'drawers': {
     matches : {
       trigger: '[data-module-drawers-trigger]',
       close: '[data-module-drawers-close]',
@@ -22,9 +22,17 @@ window.MOBIKASA.constants = {
       setHeight: 'util-SetHeight',
     }
   },
-  drawer: {
+  'drawer': {
     classes : {
       activeDrawerClass: 'drw-Drawer-active',
+    }
+  },
+  'mobile-nav': {
+    selectors : {
+      back: '[data-el="mobile-nav.back"]',
+      drawer: '[data-el="mobile-nav.drawer"]',
+      item: '[data-el="mobile-nav.item"]',
+      trigger: '[data-el="mobile-nav.trigger"]',
     }
   }
 }

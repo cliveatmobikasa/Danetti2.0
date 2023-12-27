@@ -70,7 +70,7 @@ class Application {
     await domReady();
     getElements(`[${this.schema.moduleAttribute}]`).forEach(el => {
       const name = el.getAttribute(this.schema.moduleAttribute);
-      createObject(handlize(name), el);
+      createObject(handlize(name), el, this);
     })
   }
   registerModule (el) {
@@ -81,25 +81,185 @@ class Application {
     getElements(`[${this.schema.moduleAttribute}]`, { context: el }).forEach(el => this.registerModule(el))
   }
 }
+class DataMap {
+  constructor (context) {
+    this.context = context
+  }
+
+  get element () {
+    return this.context.element
+  }
+
+  get identifier () {
+    return this.context.identifier
+  }
+
+  get state () {
+    return this.context.state
+  }
+
+  get (key) {
+    return this.element.getAttribute(this._getFormattedKey(key))
+  }
+
+  set (key, value) {
+    this.element.setAttribute(this._getFormattedKey(key), value)
+    if (!this.state.hasKey(key)) {
+      this.state.addKey(key, value)
+    }
+
+    this.state[key] = value
+
+    return this.get(key)
+  }
+
+  has (key) {
+    return this.element.hasAttribute(this._getFormattedKey(key))
+  }
+
+  delete (key) {
+    if (this.has(key)) {
+      this.element.removeAttribute(this._getFormattedKey(key))
+
+      return true
+    }
+
+    return false
+  }
+
+  _getFormattedKey (key) {
+    return `data-${this.identifier}-${dasherize(key)}`
+  }
+}
+class TargetSet {
+  constructor (context) {
+    this.context = context
+  }
+
+  get element () {
+    return this.context.element
+  }
+
+  get identifier () {
+    return this.context.identifier
+  }
+
+  get schema () {
+    return this.context.schema
+  }
+
+  has (targetName) {
+    return this.find(targetName) != null
+  }
+
+  find (...targetNames) {
+    const selector = this._getSelectorForTargetNames(targetNames)
+
+    return this.context.getElement(selector)
+  }
+
+  findAll (...targetNames) {
+    const selector = this._getSelectorForTargetNames(targetNames)
+
+    return this.context.getElements(selector)
+  }
+
+  _getSelectorForTargetNames (targetNames) {
+    return targetNames.map(targetName => this._getSelectorForTargetName(targetName)).join(', ')
+  }
+
+  _getSelectorForTargetName (targetName) {
+    const targetDescriptor = `${this.identifier}.${targetName}`
+
+    return attributeValueContainsToken(this.schema.elAttribute, targetDescriptor)
+  }
+}
+class Context {
+  constructor (element, application) {
+    this.element = element;
+    this.application = application;
+
+    this.state = {};
+    this.targets = new TargetSet(this);
+    this.data = new DataMap(this);
+  }
+
+  get identifier () {
+    return this.element.getAttribute(this.schema.moduleAttribute)
+  }
+
+  get schema () {
+    return this.application.schema
+  }
+
+  getElement (selector) {
+    return getElement(selector, { context: this.element })
+  }
+
+  getElements (selector) {
+    return getElements(selector, { context: this.element })
+  }
+}
 class Module {
-  static build(el) {
-    const module = new this(el);
+  static build(el, application) {
+    const context = new Context(el, application);
+
+    const module = new this(el, context);
+    module.initialize(el, context);
+
     defineTargetEls(this, module);
 
-    module.initialize();
     module.setupListeners();
     return module
   }
 
-  constructor (el) {
-    this.el = el;
+  constructor () {
     this.listeners = [];
-    this.state = {};
   }
 
-  initialize () {}
+  initialize (el, context) {
+    this.el = el;
+    this.context = context;
+    if(Object.keys(window.MOBIKASA.constants).find(key => key == this.identifier)) {
+      const key = uncapitalize(this.identifier);
+      if(window.MOBIKASA.constants[key]) {
+        for (const k in window.MOBIKASA.constants[key]) {
+          this[k] = window.MOBIKASA.constants[key][k];
+        }
+      }
+    }
+  }
 
   setupListeners () {}
+  
+  addListeners (element, event, fn) {
+    this.listeners.push({ element, event, fn });
+    element.addEventListener(event, fn);
+  }
+
+  get element () {
+    return this.context.element
+  }
+
+  get identifier () {
+    return this.context.identifier
+  }
+
+  get className () {
+    return this.context.className
+  }
+
+  get data () {
+    return this.context.data
+  }
+
+  get state () {
+    return this.context.state
+  }
+
+  get targets () {
+    return this.context.targets
+  }
 }
 class Drawer {
   constructor (key, drawers) {
@@ -157,17 +317,18 @@ class Drawer {
 class Drawers extends Module{
   static methods = ['handleClick']
   static targets = ['overHeader', 'underHeader'];
-  initialize () {
-    this.matches = window.MOBIKASA.constants.drawers.matches;
-    this.els = window.MOBIKASA.constants.drawers.els;
-    this.classes = window.MOBIKASA.constants.drawers.classes;
+  constructor () {
+    super();
+  }
+  initialize (el, context) {
+    super.initialize(el, context);
     this.keys = getElements(`[data-module-drawers-trigger]`)
       .map(el => el.getAttribute('data-module-drawers-trigger'))
       .filter((value, index, self) => {
         return self.indexOf(value) === index
-      })
-    this.drawers = this.keys.map(key => this.createDrawer(key))
-    window.MOBIKASA.drawers = this
+      });
+    this.drawers = this.keys.map(key => this.createDrawer(key));
+    window.MOBIKASA.drawers = this;
   }
   createDrawer (key) {
     return new Drawer(key, this);
@@ -209,10 +370,6 @@ class Drawers extends Module{
   setupListeners () {
     this.addListeners(document.documentElement, 'click', this.handleClick.bind(this));
   }
-  addListeners (element, event, fn) {
-    this.listeners.push({ element, event, fn });
-    element.addEventListener(event, fn);
-  }
   get activeDrawerKey () {
     return this.state.activeDrawerKey;
   }
@@ -242,6 +399,56 @@ class Drawers extends Module{
       this.overHeaderEl.classList.remove('drw-Drawers_OverHeader-active')
       this.underHeaderEl.classList.remove('drw-Drawers_UnderHeader-active')
     }
+  }
+}
+class MobileNav extends Module {
+  constructor () {
+    super();
+  }
+  initialize (el, context) {
+    super.initialize(el, context);
+  }
+
+  setupListeners () {
+    super.setupListeners();
+    this.onTriggerClick = this.onTriggerClick.bind(this);
+    this.onBackClick = this.onBackClick.bind(this);
+
+    this.addListeners(this.element, 'click', this.onTriggerClick);
+    this.addListeners(this.element, 'click', this.onBackClick);
+  }
+
+  onTriggerClick (event) {
+    const trigger = event.target.closest(selectors.trigger)
+    if (!trigger) return
+
+    this.getParentItem(trigger).setAttribute('aria-selected', 'true')
+
+    if (this.getParentDrawer(trigger)) {
+      this.getParentDrawer(trigger).setAttribute('aria-open', 'true')
+    }
+  }
+
+  onBackClick (event) {
+    const back = event.target.closest(selectors.back)
+    if (!back) return
+
+    const parentItem = this.getParentItem(back)
+    parentItem.setAttribute('aria-selected', 'false')
+
+    const parentDrawer = this.getParentDrawer(parentItem)
+
+    if (parentDrawer) {
+      parentDrawer.setAttribute('aria-open', 'false')
+    }
+  }
+
+  getParentItem (el) {
+    return el.closest(selectors.item)
+  }
+
+  getParentDrawer (el) {
+    return el.closest(selectors.drawer)
   }
 }
 window.MOBIKASA.modules = {
