@@ -414,6 +414,27 @@
   height: 18px;
   vertical-align: sub;
 }
+.sec-Style-standard {
+  --ThemeColor_Title: var(--Color_Brand);
+  --ThemeColor_Subtitle: var(--Color_Anchor);
+  --ThemeColor_Content: var(--Color_Body);
+  --ThemeColor_ButtonBorder: var(--Color_Border);
+  --ThemeColor_ButtonHover: #fff;
+}
+.sec-Style-white {
+  --ThemeColor_Title: #fff;
+  --ThemeColor_Subtitle: #fff;
+  --ThemeColor_Content: #fff;
+  --ThemeColor_ButtonBorder: #fff;
+  --ThemeColor_ButtonHover: var(--Color_Brand);
+}
+.sec-Style-blue {
+  --ThemeColor_Title: var(--Color_Brand);
+  --ThemeColor_Subtitle: var(--Color_Brand);
+  --ThemeColor_Content: var(--Color_Brand);
+  --ThemeColor_ButtonBorder: var(--Color_Brand);
+  --ThemeColor_ButtonHover: #fff;
+}
 @media screen and (min-width: 768px) {
   .sec-Section_Header {
     width: calc((7 / 12) * 100%);

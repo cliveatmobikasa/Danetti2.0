@@ -1,0 +1,249 @@
+/*
+|--------------------------------------------------------------------------
+| Image text
+|--------------------------------------------------------------------------
+| @namespace: sec-ImageText
+|
+*/
+.sec-ImageText {
+  padding-top: 50px;
+  padding-bottom: 50px;
+  background-color: var(--StyleBackground);
+}
+
+.sec-ImageText_Column-image {
+  position: relative;
+}
+.sec-ImageText_Column-image::after {
+  content: '';
+  display: block;
+  width: 0;
+  padding-top: 65%;
+}
+.sec-ImageText_Column-text {
+  margin-top: 60px;
+}
+.sec-ImageText_Title {
+  font-family: var(--Font_Family-ballingerXCondensed);
+  font-size: 35px;
+  font-weight: 700;
+  line-height: 35px;
+  color: var(--ThemeColor_Title);
+  transition: color 0.5s ease;
+}
+.sec-ImageText_Subtitle {
+  font-size: 15px;
+  line-height: 24px;
+  margin-top: 10px;
+  font-family: var(--Font_Family-sentinel);
+  font-style: italic;
+  font-weight: 400;
+  color: var(--ThemeColor_Subtitle);
+  transition: color 0.5s ease;
+}
+.sec-ImageText_Text {
+  margin-top: 20px;
+  color: var(--ThemeColor_Content);
+  transition: color 0.5s ease;
+}
+.sec-ImageText_Button {
+  --Button_Border: var(--ThemeColor_ButtonBorder);
+  --Button_Color: var(--ThemeColor_Title);
+  --Button_HoverBackground: var(--ThemeColor_Title);
+  --Button_HoverBorder: var(--ThemeColor_Title);
+  --Button_HoverColor: var(--ThemeColor_ButtonHover);
+  margin-top: 20px;
+}
+.sec-ImageText_Button.btn-Primary {
+  --Button_Background: var(--Color_Brand);
+  --Button_Color: #fff;
+  --Button_HoverBackground: var(--Color_Anchor);
+  --Button_HoverColor: #fff;
+}
+.sec-ImageText_Info {
+  margin-top: 40px;
+  padding: 24px 30px;
+  border: 1px dashed var(--ThemeColor_Title);
+}
+.sec-ImageText_InfoTitle {
+  font-family: var(--Font_Family-ballingerXCondensed);
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 26px;
+  color: var(--ThemeColor_Title);
+}
+.sec-ImageText_InfoContent {
+  margin: 10px 0;
+}
+.sec-ImageText_InfoText {
+  max-height: 47px;
+  color: var(--ThemeColor_Title);
+  overflow: hidden;
+}
+.sec-ImageText_Messaging {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  z-index: 2;
+  width: 100%;
+  font-family: var(--Font_Family-aktivGrotesk);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  line-height: 14px;
+}
+.sec-ImageText_Badge {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  z-index: 2;
+  align-items: center;
+  flex-flow: column;
+  justify-content: center;
+  display: flex;
+  padding: 15px;
+  text-align: center;
+  background: var(--Color_Brand);
+  border-radius: 50%;
+  color: #fff;
+}
+.sec-ImageText_BadgeCount {
+  display: block;
+  font-family: var(--Font_Family-ballingerXCondensed);
+  font-size: 40px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  line-height: 40px;
+}
+.sec-ImageText_BadgeText {
+  font-family: var(--Font_Family-aktivGrotesk);
+  font-size: 10px;
+  line-height: 12px;
+  text-transform: uppercase;
+}
+/*
+|--------------------------------------------------------------------------
+| Images
+|--------------------------------------------------------------------------
+|
+*/
+.sec-ImageText_ImageContainer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+.sec-ImageText_Images-duo .sec-ImageText_ImageContainer {
+  top: calc(50% + 20px);
+  width: calc((4 / 7) * 100%);
+  height: auto;
+  transform: translateY(-50%);
+}
+.sec-ImageText_Images-duo .sec-ImageText_ImageContainer:last-child {
+  top: calc(50% - 20px);
+  right: 0;
+  left: auto;
+  z-index: 0;
+}
+.sec-ImageText_Image {
+  display: flex;
+  max-height: 600px;
+  height: 100%;
+}
+.sec-ImageText_Images-duo .sec-ImageText_Image {
+  height: auto;
+}
+.sec-ImageText_Image[data-scale='1.1'] {
+  transform: scale(1.1);
+}
+.sec-ImageText_Image[data-scale='1.2'] {
+  transform: scale(1.2);
+}
+@media screen and (min-width: 768px) {
+  .sec-ImageText_Columns {
+    justify-content: space-between;
+    display: flex;
+  }
+  .sec-ImageText-reverse .sec-ImageText_Columns {
+    flex-direction: row-reverse;
+  }
+  .sec-ImageText_Columns-noImage {
+    justify-content: center;
+  }
+  .sec-ImageText_Column {
+    flex-grow: 0;
+    flex-shrink: 0;
+  }
+  .sec-ImageText_Column-image {
+    display: flex;
+    width: calc((6 / 12) * 100%);
+  }
+  .sec-ImageText_Column-text {
+    flex-direction: column;
+    justify-content: center;
+    display: flex;
+    width: calc((5 / 12) * 100%);
+    margin-top: 0;
+  }
+  .sec-ImageText_Columns-noImage .sec-ImageText_Column-text {
+    width: calc((8 / 12) * 100%);
+  }
+  .sec-ImageText_Content {
+    padding-top: 50px;
+    padding-bottom: 50px;
+  }
+  .sec-ImageText_Columns-noImage .sec-ImageText_Content {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+  .sec-ImageText_Button {
+    margin-top: 30px;
+  }
+  .sec-ImageText_Images-duo .sec-ImageText_ImageContainer {
+    top: calc(50% + 30px);
+  }
+  .sec-ImageText_Images-duo .sec-ImageText_ImageContainer:last-child {
+    top: calc(50% - 30px);
+  }
+}
+@media screen and (min-width: 901px) {
+  .sec-ImageText {
+    padding-top: 80px;
+    padding-bottom: 80px;
+  }
+  .sec-ImageText_Title {
+    font-size: 45px;
+    line-height: 45px;
+  }
+  .sec-ImageText_Subtitle {
+    font-size: 16px;
+    line-height: 24px;
+  }
+  .sec-ImageText_Text {
+    margin-top: 30px;
+  }
+  .sec-ImageText_BadgeCount {
+    font-size: 50px;
+    line-height: 50px;
+  }
+}
+@media screen and (min-width: 1201px) {
+  .sec-ImageText {
+    padding-top: 100px;
+    padding-bottom: 100px;
+  }
+  .sec-ImageText_Column-image {
+    display: flex;
+    width: calc((7 / 12) * 100%);
+  }
+  .sec-ImageText_Column-text {
+    width: calc((4 / 12) * 100%);
+  }
+  .sec-ImageText_Content {
+    padding-top: 100px;
+    padding-bottom: 100px;
+  }
+}

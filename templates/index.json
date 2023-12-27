@@ -225,10 +225,42 @@
         "button_url": "shopify:\/\/collections\/all-products",
         "button_style": "btn-Primary"
       }
+    },
+    "easy_style_update": {
+      "type": "image-text",
+      "settings": {
+        "bg_colour": "#6a7c80",
+        "text_colour": "white",
+        "order": "standard",
+        "image1": "shopify:\/\/shop_images\/priya_1.jpg",
+        "title": "Easy Style Updates",
+        "subtitle": "Update your style effortlessly with our accent and occasional chairs",
+        "content": "Add an instant style update in your home with our range of accent and occasional chairs.  Available in a variety of modern styles and on-trend colours. Ready for fast delivery, so you can have them in time for seasonal socialising.",
+        "button_text": "Explore Our Collection",
+        "button_url": "https:\/\/www.danetti.com\/collections\/occasional-chairs",
+        "button_style": "btn-Secondary"
+      }
+    },
+    "our_berkshire_showroom": {
+      "type": "image-text",
+      "settings": {
+        "bg_colour": "#be907c",
+        "text_colour": "white",
+        "order": "standard",
+        "image1": "shopify:\/\/shop_images\/MicrosoftTeams-image_1.jpg",
+        "title": "Our Berkshire Showroom",
+        "subtitle": "Explore Our Collection Up Close",
+        "content": "Make shopping for your home inspiring and easy, discover our product range in our showroom; where our expert staff can help make your interior dreams a reality. From sleep-sanctuary inspiration to a luxe home office look, and everything in between, you can see our products in room sets, explore colourways, and even order your own swatches to try at home. Our showroom staff are always on hand and happy to help with anything you need. To see opening times and find out more click the button below.",
+        "button_text": "Visit Us",
+        "button_url": "https:\/\/www.danetti.com\/pages\/ourshowroom",
+        "button_style": "btn-Secondary"
+      }
     }
   },
   "order": [
     "hero",
-    "cta_grid"
+    "cta_grid",
+    "easy_style_update",
+    "our_berkshire_showroom"
   ]
 }

@@ -1,0 +1,127 @@
+{%- liquid
+  assign duo_image = false
+  assign image_width = 1340
+  assign image_height = 860
+
+  if image_text_image1 != blank and image_text_image2 != blank
+    assign duo_image = true
+    assign image_width = 740
+  elsif image_text_metafield_image1 != blank and image_text_metafield_image2 != blank
+    assign duo_image = true
+    assign image_width = 740
+  endif
+
+  if image_text_image1 != blank or image_text_metafield_image2 != blank or image_text_metafield_image1 != blank or image_text_metafield_image2 != blank
+    assign has_images = true
+  else
+    assign has_images = false
+  endif
+-%}
+
+<section class="sec-ImageText sec-ImageText-{{ image_text_order }} sec-Style-{{ section_foreground }}" style="--StyleBackground: {{ section_background }};"{% if section_scroll != blank %} data-scroll-to-element="{{ section_scroll }}"{% endif %}>
+  <div class="sec-ImageText_Inner lyt-Container">
+    <div class="sec-ImageText_Body">
+      <div class="sec-ImageText_Columns{% if has_images == false %} sec-ImageText_Columns-noImage{% endif %}">
+        {%- if has_images == true -%}
+          <div class="sec-ImageText_Column sec-ImageText_Column-image" data-animate-section>
+            <div class="sec-ImageText_Images{% if duo_image == true %} sec-ImageText_Images-duo{% endif %}" data-module="parallax" data-animate-image>
+
+              {%- if image_text_metafield_image1 != blank or image_text_metafield_image2 != blank -%}
+                {%- if image_text_metafield_image1 != blank -%}
+                  <div class="sec-ImageText_ImageContainer">
+                    <div class="sec-ImageText_Image" data-el="parallax.item" data-scale="1.2">
+                      {%- render 'responsive-image-metafield',
+                        image: image_text_metafield_image1,
+                        width: image_width,
+                        height: image_height
+                      -%}
+                    </div>
+                  </div>
+                {%- endif -%}
+
+                {%- if image_text_metafield_image2 != blank -%}
+                  <div class="sec-ImageText_ImageContainer">
+                    <div class="sec-ImageText_Image" data-el="parallax.item" data-scale="1.2">
+                      {%- render 'responsive-image-metafield',
+                        image: image_text_metafield_image2,
+                        width: image_width,
+                        height: image_height
+                      -%}
+                    </div>
+                  </div>
+                {%- endif -%}
+
+              {%- elsif image_text_image1 != blank or image_text_metafield_image2 != blank -%}
+                {%- if image_text_image1 != blank -%}
+                  <div class="sec-ImageText_ImageContainer">
+                    <div class="sec-ImageText_Image" data-el="parallax.item" data-scale="1.2">
+                      {%- render 'responsive-image',
+                        image: image_text_image1,
+                        width: image_width,
+                        height: image_height
+                      -%}
+                    </div>
+                  </div>
+                {%- endif -%}
+
+                {%- if image_text_image2 != blank -%}
+                  <div class="sec-ImageText_ImageContainer">
+                    <div class="sec-ImageText_Image" data-el="parallax.item" data-scale="1.2">
+                      {%- render 'responsive-image',
+                        image: image_text_image2,
+                        width: image_width,
+                        height: image_height
+                      -%}
+                    </div>
+                  </div>
+                {%- endif -%}
+              {%- endif -%}
+
+              {% if sale_demo == true %}
+              <div class="sec-ImageText_Badge">
+                <span class="sec-ImageText_BadgeCount">100 </span>
+                <span class="sec-ImageText_BadgeText">Available</span>
+              </div>
+              <div class="sec-ImageText_Messaging" data-module="sold-bar">
+                <div class="sec-SoldBar" data-el="sold-bar.soldBar">
+                  <div class="sec-SoldBar_Inner" data-width="80%" data-el="sold-bar.soldBarInner">
+                    <span class="sec-SoldBar_Text">80% Sold</span>
+                  </div>
+                </div>
+              </div>
+              {% endif %}
+            </div>
+          </div>
+        {%- endif -%}
+
+        <div class="sec-ImageText_Column sec-ImageText_Column-text">
+          <div class="sec-ImageText_Content" data-animate-section>
+            {%- if image_text_title != blank -%}
+              <h2 class="sec-ImageText_Title" data-animate-el>
+                {{ image_text_title }}
+              </h2>
+            {%- endif -%}
+
+            {%- if image_text_subtitle != blank -%}
+              <h3 class="sec-ImageText_Subtitle" data-animate-el>
+                {{ image_text_subtitle }}
+              </h3>
+            {%- endif -%}
+
+            {%- if image_text_content != blank -%}
+              <div class="sec-ImageText_Text rte-RichText" data-animate-el>
+                {{ image_text_content | newline_to_br }}
+              </div>
+            {%- endif -%}
+
+            {%- if image_text_button_text != blank and image_text_button_url != blank -%}
+              <a href="{{ image_text_button_url }}" class="sec-ImageText_Button {{image_text_button_style | default: 'btn-Secondary'}}" data-animate-el>
+                {{ image_text_button_text }}
+              </a>
+            {%- endif -%}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,121 @@
+{{ 'section-image-text.css' | asset_url | stylesheet_tag }}
+{%- render 'snippet-image-text'
+  section_foreground: section.settings.text_colour,
+  section_background: section.settings.bg_colour,
+  image_text_order: section.settings.order,
+  image_text_title: section.settings.title,
+  image_text_subtitle: section.settings.subtitle,
+  image_text_content: section.settings.content,
+  image_text_image1: section.settings.image1,
+  image_text_image2: section.settings.image2,
+  image_text_button_text: section.settings.button_text,
+  image_text_button_url: section.settings.button_url,
+  image_text_button_style: section.settings.button_style
+-%}
+
+{% schema %}
+  {
+    "name": "Homepage Image Text",
+    "settings": [
+      {
+        "type": "color",
+        "id": "bg_colour",
+        "label": "Background"
+      },
+      {
+        "type": "select",
+        "id": "text_colour",
+        "label": "Text Colour",
+        "options": [
+          {
+            "value": "standard",
+            "label": "Standard"
+          },
+          {
+            "value": "white",
+            "label": "White"
+          },
+          {
+            "value": "blue",
+            "label": "Blue"
+          }
+        ]
+      },
+      {
+        "type": "select",
+        "id": "order",
+        "label": "Desktop Order",
+        "options": [
+          {
+            "value": "standard",
+            "label": "Image - Text"
+          },
+          {
+            "value": "reverse",
+            "label": "Text - Image"
+          }
+        ],
+        "default": "standard"
+      },
+      {
+        "type": "image_picker",
+        "id": "image1",
+        "label": "Image",
+        "info": "Recommended size: Single - 1340px x 860px | Double - 740px x 860px"
+      },
+      {
+        "type": "image_picker",
+        "id": "image2",
+        "label": "Image",
+        "info": "Recommended size: Single - 1340px x 860px | Double - 740px x 860px"
+      },
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Title"
+      },
+      {
+        "type": "text",
+        "id": "subtitle",
+        "label": "Subtitle"
+      },
+      {
+        "type": "textarea",
+        "id": "content",
+        "label": "Content"
+      },
+      {
+        "type": "text",
+        "id": "button_text",
+        "label": "Button text"
+      },
+      {
+        "type": "url",
+        "id": "button_url",
+        "label": "Button url"
+      },
+      {
+        "type": "select",
+        "id": "button_style",
+        "label": "Button style",
+        "options": [{
+          "label": "Primary (Solid Blue)",
+          "value": "btn-Primary"
+        }, {
+          "label": "Secondary (White Border)",
+          "value": "btn-Secondary"
+        }, {
+          "label": "Tertiary (Solid Red)",
+          "value": "btn-Tertiary"
+        }],
+        "default": "btn-Secondary"
+      }
+    ],
+    "presets": [
+      {
+        "category": "Homepage",
+        "name": "Homepage Image Text"
+      }
+    ]
+  }
+{% endschema %}
