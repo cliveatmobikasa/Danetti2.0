@@ -1,0 +1,21 @@
+<div class="drw-Drawers" data-module="drawers">
+  <div class="drw-Drawers_OverHeader" data-el="drawers.overHeader">
+    {%- unless page.request_type == 'cart' -%}
+      <div class="drw-Drawer drw-Drawer-fromRight" data-module-drawers-drawer="cart">
+        <div class="drw-Drawer_Inner">
+          <div
+            data-module="push-cart"
+            data-push-cart-action="/cart"
+            data-push-cart-submit-to="cart"
+            data-push-cart-max-quantity="15"
+          ></div>
+        </div>
+      </div>
+    {%- endunless -%}
+  </div>
+
+  <div class="drw-Drawers_UnderHeader" data-el="drawers.underHeader">
+  </div>
+
+  <div class="drw-Drawers_Backdrop js-Drawers_Backdrop"></div>
+</div>

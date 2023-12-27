@@ -1,0 +1,256 @@
+{% assign nav_remove = settings.remove_link | downcase | split: ',' | strip %}
+
+<div class="drw-NavBlocks">
+  <ul class="drw-NavBlocks_Items" data-el="mobile-nav.items">
+    {%- for link in linklists[link_list_handle].links -%}
+      {%- liquid
+        assign link_title = link.title | downcase
+
+        assign link_highlight = false
+        if link_title contains ':: highlight'
+          assign link_highlight = true
+        endif
+
+        assign link_sale_tag = false
+        if link_title contains ':: sale'
+          assign link_sale_tag = true
+        endif
+
+        assign link_new_tag = false
+        if link_title contains ':: new'
+          assign link_highlight = false
+          assign link_new_tag = true
+        endif
+
+        assign nav_background_colour = blank
+        assign nav_text_colour = blank
+
+        if link.object != blank and link.object.metafields != blank and link.object.metafields.navigation != blank
+          assign nav_background_colour = link.object.metafields.navigation.background_colour
+          assign nav_text_colour = link.object.metafields.navigation.text_colour
+        endif
+      -%}
+
+      {%- if nav_remove contains link_title -%}
+        {% continue %}
+      {%- endif -%}
+
+      <li
+        class="drw-NavBlocks_Item{% if nav_text_colour != blank %} drw-NavBlocks_Item-{{ nav_text_colour | downcase }}{% endif %}"
+        data-el="mobile-nav.item"
+        style="{% if nav_background_colour != blank %}--Colour_Banner-bg: {{ nav_background_colour }};{% endif %}"
+      >
+
+        {%- if link.links.size > 0 -%}
+          <button class="drw-NavBlocks_Link" data-el="mobile-nav.trigger">
+            <div class="drw-NavBlocks_Link-content">
+              <span class="drw-NavBlocks_LinkText{% if link_highlight %} drw-NavBlocks_LinkText-highlight{% endif %}">
+                {{ link.title | remove: ':: SALE' | remove: ':: HIGHLIGHT' | remove: ':: NEW' }}
+              </span>
+
+              {%- if link_sale_tag -%}
+                <span class="drw-NavBlocks_LinkTag drw-NavBlocks_LinkTag-sale ">{{ 'layout.navigation.sale_tag' | t }}</span>
+              {%- endif -%}
+
+              {%- if link_new_tag -%}
+                <span class="drw-NavBlocks_LinkTag drw-NavBlocks_LinkTag-new">New</span>
+              {%- endif -%}
+            </div>
+
+            <span class="drw-NavBlocks_IconLink-arrow">{%- render 'bao-icon-arrow-right' -%}</span>
+          </button>
+        {%- else -%}
+          <a href="{{ link.url }}" class="drw-NavBlocks_Link">
+            <div class="drw-NavBlocks_Link-content">
+              <span class="drw-NavBlocks_LinkText{% if link_highlight %} drw-NavBlocks_LinkText-highlight{% endif %}">
+                {{ link.title | remove: ':: SALE' | remove: ':: HIGHLIGHT' | remove: ':: NEW' }}
+              </span>
+
+              {%- if link_sale_tag -%}
+                <span class="drw-NavBlocks_LinkTag drw-NavBlocks_LinkTag-sale ">{{ 'layout.navigation.sale_tag' | t }}</span>
+              {%- endif -%}
+
+              {%- if link_new_tag -%}
+                <span class="drw-NavBlocks_LinkTag drw-NavBlocks_LinkTag-new">New</span>
+              {%- endif -%}
+            </div>
+          </a>
+        {%- endif -%}
+
+        <div class="drw-Nav_Sub" data-el="mobile-nav.drawer">
+          <div class="drw-SubNav_Header">
+            <div class="drw-SubNav_Content">
+              <h2 class="drw-SubNav_Title">
+                {{ link.title | remove: ':: SALE' | remove: ':: HIGHLIGHT' | remove: ':: NEW' }}
+              </h2>
+            </div>
+
+            <ul class="drw-SubNav_Tools">
+              <li class="drw-SubNav_Tool">
+                <button class="drw-SubNav_Back" data-el="mobile-nav.back">
+                  {%- render 'mobi_icon-full-arrow-left' -%}
+
+                  <span class="util-ScreenReaderOnly">{{ 'layout.navigation.back' | t }}</span>
+                </button>
+              </li>
+
+              <li class="drw-SubNav_Tool">
+                <button class="drw-SubNav_Close" data-module-drawers-close="menu">
+                  {%- render 'bao-icon-close' -%}
+
+                  <span class="util-ScreenReaderOnly">{{ 'layout.navigation.close_menu' | t }}</span>
+                </button>
+              </li>
+            </ul>
+          </div>
+
+          <div class="drw-SubNav_Links">
+            <div class="drw-SubNav_Body">
+              <ul class="drw-SubNav_Items" data-el="mobile-nav.items">
+                {%- for child_link in link.links -%}
+                  {%- liquid
+                    assign child_link_title = child_link.title | downcase
+
+                    assign child_link_highlight = false
+                    if child_link_title contains ':: highlight'
+                      assign child_link_highlight = true
+                    endif
+
+                    assign child_link_sale_tag = false
+                    if child_link_title contains ':: sale'
+                      assign child_link_sale_tag = true
+                    endif
+
+                    assign child_link_new_tag = false
+                    if child_link_title contains ':: new'
+                      assign child_link_highlight = false
+                      assign child_link_new_tag = true
+                    endif
+                  -%}
+
+                  <li class="drw-SubNav_Item" data-el="mobile-nav.item">
+                    {%- if child_link.links.size > 0 -%}
+                      <button class="drw-SubNav_Link" data-el="mobile-nav.trigger">
+                        <div class="drw-SubNav_Link-content">
+                          <span class="drw-SubNav_LinkText{% if child_link_highlight %} drw-SubNav_LinkText-highlight{% endif %}">
+                            {{ child_link.title | remove: ':: SALE' | remove: ':: HIGHLIGHT' | remove: ':: NEW' }}
+                          </span>
+
+                          {%- if child_link_sale_tag -%}
+                            <span class="drw-SubNav_LinkTag-sale ">{{ 'layout.navigation.sale_tag' | t }}</span>
+                          {%- endif -%}
+
+                          {%- if child_link_new_tag -%}
+                            <span class="drw-SubNav_LinkTag-new">New</span>
+                          {%- endif -%}
+                        </div>
+
+                        <span class="drw-SubNav_IconLink-arrow">{%- render 'bao-icon-arrow-right' -%}</span>
+                      </button>
+                    {%- else -%}
+                      <a href="{{ child_link.url }}" class="drw-SubNav_Link">
+                        <div class="drw-SubNav_Link-content">
+                          <span class="drw-SubNav_LinkText{% if child_link_highlight %} drw-SubNav_LinkText-highlight{% endif %}">
+                            {{ child_link.title | remove: ':: SALE' | remove: ':: HIGHLIGHT' | remove: ':: NEW' }}
+                          </span>
+
+                          {%- if child_link_sale_tag -%}
+                            <span class="drw-SubNav_LinkTag-sale ">{{ 'layout.navigation.sale_tag' | t }}</span>
+                          {%- endif -%}
+
+                          {%- if child_link_new_tag -%}
+                            <span class="drw-SubNav_LinkTag-new">New</span>
+                          {%- endif -%}
+                        </div>
+                      </a>
+                    {%- endif -%}
+
+                    <div class="drw-Nav_Sub" data-el="mobile-nav.drawer">
+                      <div class="drw-SubSubNav_Header">
+                        <div class="drw-SubSubNav_Header-top">
+                          <div class="drw-SubSubNav_Content">
+                            <h2 class="drw-SubSubNav_Title">
+                              {{ link.title | remove: ':: SALE' | remove: ':: HIGHLIGHT' | remove: ':: NEW' }}
+                            </h2>
+                          </div>
+
+                          <ul class="drw-SubSubNav_Tools">
+                            <li class="drw-SubSubNav_Tool">
+                              <button class="drw-SubSubNav_Back" data-el="mobile-nav.back">
+                                {%- render 'mobi_icon-full-arrow-left' -%}
+
+                                <span class="util-ScreenReaderOnly">{{ 'layout.navigation.back' | t }}</span>
+                              </button>
+                            </li>
+
+                            <li class="drw-SubSubNav_Tool">
+                              <button class="drw-SubSubNav_Close" data-module-drawers-close="menu">
+                                {%- render 'bao-icon-close' -%}
+
+                                <span class="util-ScreenReaderOnly">{{ 'layout.navigation.close_menu' | t }}</span>
+                              </button>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+
+                      <div class="drw-SubSubNav_Links">
+                        <div class="drw-SubSubNav_Body">
+                          <ul class="drw-SubSubNav_Items" data-el="mobile-nav.items">
+                            {%- for grand_child_link in child_link.links -%}
+                              {%- liquid
+                                assign grand_child_link_title = grand_child_link.title | downcase
+
+                                assign grand_child_link_highlight = false
+                                if grand_child_link_title contains ':: highlight'
+                                  assign grand_child_link_highlight = true
+                                endif
+
+                                assign grand_child_link_sale_tag = false
+                                if grand_child_link_title contains ':: sale'
+                                  assign grand_child_link_sale_tag = true
+                                endif
+
+                                assign grand_child_link_new_tag = false
+                                if grand_child_link_title contains ':: new'
+                                  assign grand_child_link_highlight = false
+                                  assign grand_child_link_new_tag = true
+                                endif
+                              -%}
+
+                              <li class="drw-SubSubNav_Item" data-el="mobile-nav.item">
+                                <a href="{{ grand_child_link.url }}" class="drw-SubNav_Link" data-el="mobile-nav.trigger">
+                                  <div class="drw-SubNav_Link-content">
+                                    <span class="drw-SubNav_LinkText{% if grand_child_link_highlight %} drw-SubNav_LinkText-highlight{% endif %}">
+                                      {{ grand_child_link.title | remove: ':: SALE' | remove: ':: HIGHLIGHT' | remove: ':: NEW' }}
+                                    </span>
+
+                                    {%- if grand_child_link_sale_tag -%}
+                                      <span class="drw-SubNav_LinkTag-sale ">{{ 'layout.navigation.sale_tag' | t }}</span>
+                                    {%- endif -%}
+
+                                    {%- if grand_child_link_new_tag -%}
+                                      <span class="drw-SubNav_LinkTag-new">New</span>
+                                    {%- endif -%}
+                                  </div>
+                                </a>
+                              </li>
+                            {%- endfor -%}
+                          </ul>
+
+                          {%- render 'drawer-footer' -%}
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                {%- endfor -%}
+              </ul>
+
+              {%- render 'drawer-footer' -%}
+            </div>
+          </div>
+        </div>
+      </li>
+    {%- endfor -%}
+  </ul>
+</div>

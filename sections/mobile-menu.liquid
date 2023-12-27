@@ -1,0 +1,56 @@
+<div class="drw-Drawer drw-Drawer-fromLeft" data-module-drawers-drawer="menu">
+  <div class="drw-Drawer_Inner">
+    <div class="drw-Header">
+      <div class="drw-Header_Content">
+        <h2 class="drw-Header_Title">
+          {{ 'layout.navigation.header' | t }}
+        </h2>
+      </div>
+
+      <ul class="drw-Header_Tools">
+        <li class="drw-Header_Tool">
+          <button class="drw-Header_Close" data-module-drawers-close="menu">
+            {%- render 'mobi-icon-close' -%}
+
+            <span class="util-ScreenReaderOnly">{{ 'layout.navigation.close_menu' | t }}</span>
+          </button>
+        </li>
+      </ul>
+    </div>
+    <div class="drw-Drawer_Body" data-el="mobile-drawer">
+      <div class="drw-Drawer_Nav" data-module="mobile-nav">
+        <div class="drw-Nav">
+          {%- render 'drawer-navigation', link_list_handle: section.settings.mobile_navigation_linklist -%}
+        </div>
+      </div>
+
+      {%- render 'drawer-footer' -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Mobile Menu",
+  "class": "shopify-mobile-menu",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Menu configuration has been moved to the Navigation section in Theme Settings"
+    },
+    {
+      "type": "link_list",
+      "id": "mobile_navigation_linklist",
+      "label": "Mobile Navigation"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Mobile Menu",
+      "settings": {
+        "mobile_navigation_linklist": "danetti-mobile-2023"
+      }
+    }
+  ]
+}
+{% endschema %}

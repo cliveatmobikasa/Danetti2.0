@@ -13,8 +13,31 @@
   clip: rect(1px, 1px, 1px, 1px);
   overflow: hidden;
 }
+.util-SetHeight {
+  height: 100vh;
+}
+.lyt-Site {
+  overflow-x: hidden;
+  /* Prefer to use the actual term for it (iOS) */
+  /* stylelint-disable selector-class-pattern */
+  /* stylelint-enable */
+}
+.lyt-Site.util-SiteOverflowed {
+  overflow: hidden;
+}
+.lyt-Site.util-SiteOverflowed.is-iOS {
+  position: fixed;
+  width: 100%;
+  isolation: isolate;
+}
+.lyt-Container {
+  width: 100%;
+  margin-right: auto;
+  margin-left: auto;
+  padding-right: calc(var(--Grid_Gutter) / 2);
+  padding-left: calc(var(--Grid_Gutter) / 2);
+}
 @media screen and (min-width: 901px) {
-  .grid_container
   .lyt-Container {
     max-width: var(--Grid_Container);
     padding-right: calc(var(--Grid_Gutter) * 3);
@@ -27,7 +50,6 @@
 }
 
 @media screen and (min-width: 1201px) {
-  .grid_container
   .lyt-Container {
     padding-right: calc(var(--Grid_Gutter) * 4);
     padding-left: calc(var(--Grid_Gutter) * 4);

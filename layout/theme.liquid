@@ -157,6 +157,7 @@
     <script src="{{ 'constants.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'pubsub.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'global.js' | asset_url }}" defer="defer"></script>
+    {{ 'mobi-utils.js' | asset_url | script_tag }}
     {%- if settings.animations_reveal_on_scroll -%}
       <script src="{{ 'animations.js' | asset_url }}" defer="defer"></script>
     {%- endif -%}
@@ -484,7 +485,7 @@
     </main>
 
     {% sections 'footer-group' %}
-
+    {% render 'drawers' %}
     <ul hidden>
       <li id="a11y-refresh-page-message">{{ 'accessibility.refresh_page' | t }}</li>
       <li id="a11y-new-window-message">{{ 'accessibility.link_messages.new_window' | t }}</li>
@@ -549,6 +550,9 @@
 
     {{ 'klevu-user-customization-159724343438812609.js' | asset_url | script_tag }}
     {{ 'header.js' | asset_url | script_tag }}
+    {{ 'mobi-constants.js' | asset_url | script_tag }}
+    {{ 'mobi-modules.js' | asset_url | script_tag }}
+    {{ 'mobi-app.js' | asset_url | script_tag }}
 
     {% include 'smile-initializer' %}
   </body>

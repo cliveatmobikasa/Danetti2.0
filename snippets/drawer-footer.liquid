@@ -1,0 +1,57 @@
+<div class="drw-Footer">
+  <ul class="drw-Footer_Tools">
+    <li class="drw-Footer_Tool drw-Footer_Tool-account">
+      <a class="drw-Footer_IconLink" href="/account">
+        <div class="drw-Footer_IconLink-content">
+          <span class="drw-Footer_Icon">
+            {%- render 'bao-icon-account-new' -%}
+          </span>
+
+          <span class="drw-Footer_Icon-text">{{ 'layout.footer.account' | t }}</span>
+        </div>
+      </a>
+    </li>
+
+    <li class="drw-Footer_Tool drw-Footer_Tool-order">
+      <a class="drw-Footer_IconLink" href="/account">
+        <div class="drw-Footer_IconLink-content">
+          <span class="drw-Footer_Icon">
+            {%- render 'mobi-icon-order' -%}
+          </span>
+
+          <span class="drw-Footer_Icon-text">{{ 'layout.footer.order' | t }}</span>
+        </div>
+      </a>
+    </li>
+
+    {%- if settings.enable_wishlist -%}
+      <li class="drw-Footer_Tool drw-Footer_Tool-wishlist">
+        <a class="drw-Footer_IconLink" href="/pages/swym-wishlist">
+          <div class="drw-Footer_IconLink-content">
+            <span class="drw-Footer_Icon">
+              {%- render 'bao-icon-wishlist-new' -%}
+            </span>
+
+            <span class="drw-Footer_Icon-text">{{ 'layout.footer.wishlist' | t }}</span>
+          </div>
+        </a>
+      </li>
+    {%- else -%}
+      <li class="drw-Footer_Tool drw-Footer_Tool-contact">
+        <a
+          class="drw-Footer_IconLink"
+          href="tel:{{ settings.customer_service_telephone }}"
+          data-module="telephone-icon"
+        >
+          <div class="drw-Footer_IconLink-content">
+            <span class="drw-Footer_Icon">
+              {%- render 'bao-icon-telephone' -%}
+            </span>
+
+            <span class="drw-Footer_Icon-text">{{ 'layout.footer.contact' | t }}</span>
+          </div>
+        </a>
+      </li>
+    {%- endif -%}
+  </ul>
+</div>

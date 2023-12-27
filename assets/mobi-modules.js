@@ -1,0 +1,251 @@
+class MediaBreakpoints {
+  breakpoints = {
+    xs: 450,
+    sm: 768,
+    md: 900,
+    lg: 1200,
+    xlg: 1440,
+    xxlg: 1600,
+  }
+
+  get isXxs () {
+    return window.innerWidth > this.breakpoints.xs
+  }
+
+  get isXs () {
+    return window.innerWidth > this.breakpoints.xs
+  }
+
+  get isSm () {
+    return window.innerWidth >= this.breakpoints.sm
+  }
+
+  get isMd () {
+    return window.innerWidth > this.breakpoints.md
+  }
+
+  get isLg () {
+    return window.innerWidth > this.breakpoints.lg
+  }
+
+  get isXlg () {
+    return window.innerWidth > this.breakpoints.xlg
+  }
+
+  get isXxlg () {
+    return window.innerWidth > this.breakpoints.xxlg
+  }
+
+  get isXxsViewport () {
+    return window.innerWidth <= this.breakpoints.xs
+  }
+
+  get isXsViewport () {
+    return window.innerWidth < this.breakpoints.sm
+  }
+
+  get isSmViewport () {
+    return this.breakpoints.sm <= window.innerWidth && window.innerWidth <= this.breakpoints.md
+  }
+
+  get isMdViewport () {
+    return this.breakpoints.md < window.innerWidth && window.innerWidth <= this.breakpoints.lg
+  }
+
+  get isLgViewport () {
+    return this.breakpoints.lg < window.innerWidth && window.innerWidth <= this.breakpoints.xlg
+  }
+}
+class Application {
+  static start (element, schema) {
+    const application = new Application(element, schema);
+    application.start();
+    return application;
+  }
+  constructor (element = document.documentElement, schema = window.MOBIKASA.constants.defaultSchema) {
+    this.element = element;
+    this.schema = schema;
+  }
+  async start() {
+    await domReady();
+    getElements(`[${this.schema.moduleAttribute}]`).forEach(el => {
+      const name = el.getAttribute(this.schema.moduleAttribute);
+      createObject(handlize(name), el);
+    })
+  }
+  registerModule (el) {
+    const name = el.getAttribute(this.schema.moduleAttribute);
+    createObject(name, el)
+  }
+  reinitialiseModules (el) {
+    getElements(`[${this.schema.moduleAttribute}]`, { context: el }).forEach(el => this.registerModule(el))
+  }
+}
+class Module {
+  static build(el) {
+    const module = new this(el);
+    defineTargetEls(this, module);
+
+    module.initialize();
+    module.setupListeners();
+    return module
+  }
+
+  constructor (el) {
+    this.el = el;
+    this.listeners = [];
+    this.state = {};
+  }
+
+  initialize () {}
+
+  setupListeners () {}
+}
+class Drawer {
+  constructor (key, drawers) {
+    this.key = key;
+    this.drawers = drawers;
+    this.classes = window.MOBIKASA.constants.drawer.classes;
+    this._isOpen = false;
+    this.classes = {
+      activeDrawerClass: 'drw-Drawer-active',
+    };
+    if (this.drawerShouldBeMoved) {
+      window.setTimeout(() => {
+        this.moveToElement.appendChild(this.els.drawer);
+      }, parseInt(this.els.drawer.getAttribute('data-module-drawers-move-delay'), 10) || 0)
+    }
+  }
+  get els () {
+    return {
+      trigger: getElement(`[data-module-drawers-trigger=${this.key}]`),
+      drawer: getElement(`[data-module-drawers-drawer=${this.key}]`),
+      close: getElement(`[data-module-drawers-close=${this.key}]`),
+    }
+  }
+  get isOpen () {
+    return this._isOpen
+  }
+  set isOpen (val) {
+    this._isOpen = val;
+    if (this.els.drawer) {
+      this.els.drawer.classList.toggle(this.classes.activeDrawerClass, val);
+    }
+  }
+  get isOverDrawer () {
+    return this.els.drawer.closest(`[data-el="${this.drawers.overHeaderEl.dataset.el}"]`) != null
+  }
+  get isUnderDrawer () {
+    return this.els.drawer.closest(`[data-el="${this.drawers.underHeaderEl.dataset.el}"]`) != null
+  }
+  get drawerShouldBeMoved () {
+    return this.els.drawer.hasAttribute('data-module-drawers-move-me');
+  }
+  get moveToElement () {
+    switch (this.els.drawer.getAttribute('data-module-drawers-move-me')) {
+      case 'root':
+        return this.drawers.element
+      case 'over':
+        return this.drawers.overHeaderEl
+      case 'under':
+        return this.drawers.underHeaderEl
+      default:
+        return getElement(this.els.drawer.getAttribute('data-module-drawers-move-me'))
+    }
+  }
+}
+class Drawers extends Module{
+  static methods = ['handleClick']
+  static targets = ['overHeader', 'underHeader'];
+  initialize () {
+    this.matches = window.MOBIKASA.constants.drawers.matches;
+    this.els = window.MOBIKASA.constants.drawers.els;
+    this.classes = window.MOBIKASA.constants.drawers.classes;
+    this.keys = getElements(`[data-module-drawers-trigger]`)
+      .map(el => el.getAttribute('data-module-drawers-trigger'))
+      .filter((value, index, self) => {
+        return self.indexOf(value) === index
+      })
+    this.drawers = this.keys.map(key => this.createDrawer(key))
+    window.MOBIKASA.drawers = this
+  }
+  createDrawer (key) {
+    return new Drawer(key, this);
+  }
+  handleClick (e) {
+    const matches = this.matches;
+    const eventType = getEventType();
+    if (eventType === 'UNKNOWN') return
+    e.preventDefault();
+
+    if (eventType === 'TRIGGER') {
+      const trigger = e.target.closest(matches.trigger);
+      const key = trigger.getAttribute('data-module-drawers-trigger');
+
+      if (this.keys.includes(key)) {
+        if (window.MOBIKASA.mediaBreakpoints.isMd && key === 'filters') return
+        this.activeDrawerKey = key === this.activeDrawerKey ? '' : key;
+      } else {
+        this.drawers.push(this.createDrawer(key));
+        this.activeDrawerKey = key;
+      }
+    }
+
+    if (eventType === 'CLOSE' || eventType === 'BACKDROP') {
+      this.activeDrawerKey = ''
+    }
+
+    function getEventType () {
+      if (e.target.closest(matches.trigger) !== null) {
+        return 'TRIGGER'
+      } else if (e.target.closest(matches.close) !== null) {
+        return 'CLOSE'
+      } else if (e.target.closest(matches.backdrop) !== null) {
+        return 'BACKDROP'
+      }
+      return 'UNKNOWN'
+    }
+  }
+  setupListeners () {
+    this.addListeners(document.documentElement, 'click', this.handleClick.bind(this));
+  }
+  addListeners (element, event, fn) {
+    this.listeners.push({ element, event, fn });
+    element.addEventListener(event, fn);
+  }
+  get activeDrawerKey () {
+    return this.state.activeDrawerKey;
+  }
+  set activeDrawerKey (key) {
+    this.els.body.classList.remove(`drw-Drawers-${this._activeDrawerKey}`)
+    if (key !== '') {
+      this.els.body.classList.add(`drw-Drawers-${key}`);
+    }
+
+    this.state.previousDrawerKey = this.state.activeDrawerKey;
+    this.state.activeDrawerKey = key;
+
+    this.drawers.forEach(drawer => (drawer.isOpen = drawer.key === key))
+
+    const aDrawerIsOpen = this.drawers.some(drawer => drawer.isOpen);
+    this.els.drawers.classList.toggle(this.classes.activeClass, aDrawerIsOpen);
+    this.els.body.classList.toggle(this.classes.siteOverflowed, aDrawerIsOpen)
+    const root = document.getElementsByTagName('html')[0]
+
+    root.classList.toggle(this.classes.setHeight, aDrawerIsOpen)
+
+    if (key !== '') {
+      const drawer = this.drawers.find(drawer => drawer.key === key)
+      this.overHeaderEl.classList.toggle('drw-Drawers_OverHeader-active', drawer.isOverDrawer)
+      this.underHeaderEl.classList.toggle('drw-Drawers_UnderHeader-active', drawer.isUnderDrawer)
+    } else {
+      this.overHeaderEl.classList.remove('drw-Drawers_OverHeader-active')
+      this.underHeaderEl.classList.remove('drw-Drawers_UnderHeader-active')
+    }
+  }
+}
+window.MOBIKASA.modules = {
+  Application,
+  Drawer,
+  Drawers
+};
