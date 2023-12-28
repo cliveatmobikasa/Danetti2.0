@@ -1,0 +1,74 @@
+{%- if section.settings.enable == true -%}
+  {{ 'section-usp.css' | asset_url | stylesheet_tag }}
+  <section class="sec-Usp">
+    <div class="sec-Usp_Inner lyt-Container lyt-Container-wide">
+      <div class="sec-Usp_Body">
+        <div class="sec-Usp_Holder">
+          <ul class="sec-Usp_Items">
+            {%- for block in section.blocks -%}
+              <li class="sec-Usp_Item">
+                {%- if block.settings.image != blank -%}
+                  <div class="sec-Usp_Image">
+                    {%- render 'responsive-image' with
+                        image: block.settings.image,
+                        width: 56,
+                        height: 56
+                    -%}
+                  </div>
+                {%- endif -%}
+
+                <div class="sec-Usp_Content">
+                  <h3 class="sec-Usp_Title">
+                    {{ block.settings.title }}
+                  </h3>
+                  
+                  {%- if block.settings.subtitle != blank -%}
+                    <div class="sec-Usp_Subtitle">{{ block.settings.subtitle }}</div>
+                  {%- endif -%}
+                </div>
+              </li>
+            {%- endfor -%}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+{%- endif -%}
+
+{% schema %}
+  {
+    "name": "USP",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "enable",
+        "label": "Enable"
+      }
+    ],
+    "max_blocks": 4,
+    "blocks": [
+      {
+        "type": "column",
+        "name": "Column",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Icon",
+            "info": "Recommended size: 56px x 56px"
+          },
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Title"
+          },
+          {
+            "type": "richtext",
+            "id": "subtitle",
+            "label": "Subtitle"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

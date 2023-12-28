@@ -10,6 +10,52 @@
         "subtitle": "Sign up to our newsletter for exclusive offers and new products"
       }
     },
+    "footer-usp": {
+      "type": "footer-usp",
+      "blocks": {
+        "1595503585277": {
+          "type": "column",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/White_-_Service_-_Delivery.png",
+            "title": "Interest Free Credit",
+            "subtitle": "<p>0% APR<\/p>"
+          }
+        },
+        "1595503618398": {
+          "type": "column",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/White_-_Service_-_Returns.png",
+            "title": "Free Returns",
+            "subtitle": "<p>Just in case you need it.<\/p>"
+          }
+        },
+        "1595503568276": {
+          "type": "column",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/White_-_Service_-_Phone.png",
+            "title": "Structural Guarantee",
+            "subtitle": "<p>On all products up to 1 year<\/p>"
+          }
+        },
+        "1595503600355": {
+          "type": "column",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/White_-_Service_-_Approved.png",
+            "title": "Trust In Us",
+            "subtitle": "<p>Over 300K customers, delighted.<\/p>"
+          }
+        }
+      },
+      "block_order": [
+        "1595503585277",
+        "1595503618398",
+        "1595503568276",
+        "1595503600355"
+      ],
+      "settings": {
+        "enable": true
+      }
+    },
     "footer": {
       "type": "footer",
       "settings": {
@@ -30,6 +76,7 @@
   },
   "order": [
     "footer-newsletter",
+    "footer-usp",
     "footer"
   ]
 }
