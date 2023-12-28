@@ -231,6 +231,72 @@
   background-color: #163d3d;
   color: #fff;
 }
+/*
+|--------------------------------------------------------------------------
+| Product colours
+|--------------------------------------------------------------------------
+| @namespace: prd-
+|
+*/
+.prd-Colours_Title {
+  margin-bottom: 10px;
+  font-family: var(--Font_Family-aktivGrotesk);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--Color_Brand);
+}
+.prd-Colours_Items {
+  flex-wrap: wrap;
+  display: flex;
+  margin: -5px;
+}
+.prd-Card .prd-Colours_Items {
+  margin: -3px;
+}
+.prd-Colours_Item {
+  margin: 5px;
+}
+.prd-Card .prd-Colours_Item {
+  margin: 3px;
+}
+.prd-Colours_ItemTitle {
+  margin-top: 10px;
+}
+.prd-Colours_Button {
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  width: 30px;
+  height: 30px;
+  background-color: var(--Swatch_Color);
+  border: 1px solid var(--Swatch_Color);
+  border-radius: 50%;
+  box-shadow: inset 1px 1px 2px 0 rgba(#000, 0.1);
+}
+.prd-Card .prd-Colours_Button {
+  width: 18px;
+  height: 18px;
+}
+.prd-Colours_Button[aria-current='true']::after {
+  content: '';
+  display: block;
+  width: 8px;
+  height: 8px;
+  background-color: #fff;
+  border-radius: 50%;
+}
+.prd-Card .prd-Colours_Button[aria-current='true']::after {
+  width: 6px;
+  height: 6px;
+}
+.prd-Colours_Button-border {
+  border: 1px solid var(--Color_Border);
+}
+.prd-Colours_Button-border[aria-current='true']::after {
+  background-color: var(--Color_Brand);
+}
 @media screen and (min-width: 768px) {
   .prd-Card {
     flex-direction: column;

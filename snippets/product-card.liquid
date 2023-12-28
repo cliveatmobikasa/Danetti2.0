@@ -172,6 +172,8 @@
       {%- render 'okendo-reviews-product-rating-summary', product: product -%}
     </div>
 
-    <div class="prd-Card_Colours" data-el="product-card.colours"></div>
+    <div class="prd-Card_Colours" data-el="product-card.colours">
+      {%- render 'product-colours' product: all_products[product_for_colours_handle], cur_colour: product.metafields.colours.product_colour%}
+    </div>
   </div>
 </div>

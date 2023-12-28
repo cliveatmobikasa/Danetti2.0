@@ -1,0 +1,216 @@
+/*
+|--------------------------------------------------------------------------
+| Okendo reviews overrides
+|--------------------------------------------------------------------------
+| @namespace: -
+|
+*/
+
+body .okeReviews.okeReviews--theme .okeReviews-reviewsSummary {
+  margin-bottom: 0;
+}
+.okeReviews .okeReviews-reviewsSummary-ratingCount {
+  font-size: 10px;
+  line-height: 18px;
+  font-family: var(--Font_Family-aktivGrotesk);
+  font-weight: 500;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--Color_Brand);
+}
+.okeReviews .okeReviews-reviewsWidget {
+  padding-top: 0;
+}
+.okeReviews.okeReviews--theme .okeReviews-reviewsWidget.is-okeReviews-reviewsWidget-medium .okeReviews-reviewsAggregate-side,
+.okeReviews.okeReviews--theme .okeReviews-reviewsWidget.is-okeReviews-reviewsWidget-medium .okeReviews-reviewsAggregate-primary,
+.okeReviews.okeReviews--theme .okeReviews-reviewsWidget.is-okeReviews-reviewsWidget-medium .okeReviews-review-side,
+.okeReviews.okeReviews--theme .okeReviews-reviewsWidget.is-okeReviews-reviewsWidget-medium .okeReviews-review-primary,
+.okeReviews.okeReviews--theme .okeReviews-reviewsWidget.is-okeReviews-reviewsWidget-large .okeReviews-reviewsAggregate-side,
+.okeReviews.okeReviews--theme .okeReviews-reviewsWidget.is-okeReviews-reviewsWidget-large .okeReviews-reviewsAggregate-primary,
+.okeReviews.okeReviews--theme .okeReviews-reviewsWidget.is-okeReviews-reviewsWidget-large .okeReviews-review-side,
+.okeReviews.okeReviews--theme .okeReviews-reviewsWidget.is-okeReviews-reviewsWidget-large .okeReviews-review-primary {
+  border: 0;
+}
+.okeReviews .okeReviews-review-primary,
+.okeReviews .okeReviews-review-side {
+  padding: 0;
+  border: 0;
+}
+.okeReviews-review-reviewer-product-details-heading {
+  font-family: var(--Font_Family-aktivGrotesk);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.09375rem;
+  text-transform: uppercase;
+}
+/*
+|--------------------------------------------------------------------------
+| Reviews header
+|--------------------------------------------------------------------------
+|
+*/
+.okeReviews-badge.okeReviews-badge--large.okeReviews-badge--rating,
+.okeReviews.okeReviews--theme .okeReviews-badge--recommended {
+  font-size: 18px;
+}
+.okeReviews .okeReviews-reviewsAggregate,
+.okeReviews .okeReviews-reviewsAggregate-summary-total {
+  color: var(--Color_Body);
+}
+.okeReviews .okeReviews-reviewsWidget-reviewsAggregate {
+  border-top: 1px solid var(--Color_Border);
+  border-bottom: 1px solid var(--Color_Border);
+}
+.okeReviews .okeReviews-reviewsWidget-header {
+  margin-bottom: 20px;
+}
+.okeReviews .okeReviews-reviewsAggregate-mod {
+  display: none;
+}
+/*
+|--------------------------------------------------------------------------
+| Controls
+|--------------------------------------------------------------------------
+|
+*/
+.okeReviews .okeReviews-reviewsWidget-header-controls {
+  margin-bottom: 10px;
+}
+.okeReviews .okeReviews-button {
+  font-size: 12px;
+  line-height: 20px;
+  padding: 10px 20px;
+  font-family: var(--Font_Family-aktivGrotesk);
+  font-weight: 500;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--Color_Brand);
+}
+.okeReviews .okeReviews-select-input {
+  font-size: 12px;
+  line-height: 20px;
+  color: var(--Color_Body);
+}
+/*
+|--------------------------------------------------------------------------
+| Reviews
+|--------------------------------------------------------------------------
+|
+*/
+.okeReviews .okeReviews-review {
+  color: var(--Color_Body);
+}
+.okeReviews .okeReviews-reviews-review {
+  margin-bottom: 0;
+  border-top: 1px solid var(--Color_Border);
+}
+.okeReviews .okeReviews-reviews-review:last-child {
+  border-bottom: 1px solid var(--Color_Border);
+}
+.okeReviews .okeReviews-badge {
+  margin-right: 10px;
+  padding: 10px 20px;
+  font-family: var(--Font_Family-aktivGrotesk);
+  font-weight: 500;
+}
+.okeReviews .okeReviews-review-reviewer-profile-name {
+  font-size: 15px;
+  line-height: 24px;
+  font-weight: 400;
+  color: var(--Color_Brand);
+}
+.okeReviews .okeReviews-sectionedList-heading,
+.okeReviews .okeReviews-review-attribute-label {
+  font-weight: 400;
+  color: var(--Color_Brand);
+}
+.okeReviews .okeReviews-review-main-heading {
+  margin-bottom: 15px;
+  font-family: var(--Font_Family-sentinel);
+  font-size: 16px;
+  font-weight: 400;
+  letter-spacing: 0.4px;
+  line-height: 24px;
+  color: var(--Color_Brand);
+}
+/*
+|--------------------------------------------------------------------------
+| Quote Reviews
+|--------------------------------------------------------------------------
+|
+*/
+.prd-Quote_Reviews .okeReviews .okeReviews-reviewsSummary-ratingCount {
+  display: none;
+}
+.prd-Quote_Reviews .okeReviews.okeReviews--theme .okeReviews-starRating.okeReviews-starRating--small {
+  width: 150px;
+  height: 40px;
+}
+.prd-Quote_Reviews .okeReviews.okeReviews--theme .okeReviews-starRating--small .okeReviews-starRating-indicator-layer {
+  background-size: 150px 40px;
+}
+.prd-Quote_Reviews .okeReviews .okeReviews-reviewsSummary-starRating {
+  margin-right: 0;
+}
+@media screen and (max-width: 767px) {
+  .okeReviews .okeReviews-review-side {
+    padding-top: 15px;
+  }
+  .okeReviews .okeReviews-review-primary {
+    padding-top: 15px;
+    padding-bottom: 15px;
+  }
+  .okeReviews .okeReviews-reviewsWidget-header-controls,
+  .okeReviews .okeReviews-reviewsWidget-header-poweredBy {
+    display: block;
+    text-align: center;
+  }
+  .okeReviews .okeReviews-reviewsWidget-header-poweredBy {
+    margin-bottom: 15px;
+  }
+  .okeReviews .okeReviews-reviewsWidget-header-controls-writeReview {
+    width: 100%;
+  }
+  .okeReviews .okeReviews-reviewsAggregate {
+    display: flex;
+  }
+  .okeReviews .okeReviews-reviewsAggregate-primary,
+  .okeReviews .okeReviews-reviewsAggregate-side {
+    width: 50%;
+    padding: 20px 15px;
+    font-size: 12px;
+    text-align: center;
+    border: 0;
+  }
+  .okeReviews-badge.okeReviews-badge--large.okeReviews-badge--rating,
+  .okeReviews.okeReviews--theme .okeReviews-badge--recommended {
+    display: block;
+    width: 85px;
+    margin: 0 auto 15px;
+    padding-right: 5px;
+    padding-left: 5px;
+    font-size: 16px;
+  }
+  .okeReviews .okeReviews-reviews-controls {
+    display: none;
+  }
+  .okeReviews .okeReviews-review-reviewer-profile {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: 0;
+  }
+  .okeReviews .okeReviews-review-arguments,
+  .okeReviews .okeReviews-review-reviewer-attributes {
+    display: none;
+  }
+}
+@media screen and (min-width: 901px) {
+  .okeReviews .okeReviews-review-reviewer-profile-name {
+    font-size: 16px;
+    line-height: 24px;
+  }
+  .okeReviews .okeReviews-review-main-heading {
+    font-size: 20px;
+    line-height: 25px;
+  }
+}

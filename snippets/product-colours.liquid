@@ -1,0 +1,13 @@
+<ul class="prd-Colours_Items">
+  {%- for colour_title in product.metafields.colours_item.title -%}
+    {%- liquid
+      assign aria_status = 'aria-current="false"'
+      if cur_colour == colour_title
+        assign aria_status = 'aria-current="true"'
+      endif
+    -%}
+    <li class="prd-Colours_Item">
+      <a href="/product/{{- colour_title | handleize -}}" class="prd-Colours_Button {% if product.metafields.colours_item.add_border[forloop.index0] %}prd-Colours_Button-border{% endif %}" style="--Swatch_Color:{{ product.metafields.colours_item.hex[forloop.index0] }}" {{ aria_status }}></a>
+    </li>
+  {%- endfor -%}
+</ul>
