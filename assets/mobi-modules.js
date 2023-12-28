@@ -566,10 +566,39 @@ class Instagram extends Module {
   }
 
 }
+
+class FooterAccordions extends Module {
+  static targets = ['trigger', 'accordion']
+  static methods = ['onTriggerClick']
+
+  initialize (el, context) {
+    super.initialize(el, context);
+    window.MOBIKASA.footerAccordion = this;
+  }
+  setupListeners () {
+    super.setupListeners();
+    
+    this.triggerEls.forEach(trigger => {
+      this.addListeners(trigger, 'click', this.onTriggerClick.bind(this));
+    });
+  }
+  onTriggerClick (event) {
+    const parentAccordion = this.getParentAccordion(event.target)
+    parentAccordion.setAttribute(
+      'aria-expanded',
+      parentAccordion.getAttribute('aria-expanded') === 'true' ? 'false' : 'true',
+    )
+  }
+
+  getParentAccordion (el) {
+    return el.closest(this.selectors.accordion)
+  }
+}
 window.MOBIKASA.modules = {
   Application,
   Header,
   Drawers,
   MobileNav,
-  Instagram
+  Instagram,
+  FooterAccordions
 };

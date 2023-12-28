@@ -34,5 +34,10 @@ window.MOBIKASA.constants = {
       item: '[data-el="mobile-nav.item"]',
       trigger: '[data-el="mobile-nav.trigger"]',
     }
+  },
+  'footer-accordion': {
+    selectors : {
+      accordion: '[data-el="footer-accordions.accordion"]',
+    }
   }
 }
