@@ -1331,7 +1331,7 @@
         "type": "image_picker",
         "id": "share_image",
         "label": "Image",
-        "info": "Shown when sharing a link on social media. [Learn more](https://help.shopify.com/manual/using-themes/troubleshooting/showing-social-media-thumbnail-images/) about image thumbnails."
+        "info": "Shown when sharing a link on social media. [Learn more](https:\/\/help.shopify.com\/manual\/using-themes\/troubleshooting\/showing-social-media-thumbnail-images\/) about image thumbnails."
       },
       {
         "type": "header",
@@ -1517,6 +1517,47 @@
     ]
   },
   {
+    "name": "Payment Icons",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "payment_apple",
+        "label": "Show Apple",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "payment_google",
+        "label": "Show Google",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "payment_amazon",
+        "label": "Show Amazon",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "payment_visa",
+        "label": "Show Visa",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "payment_mastercard",
+        "label": "Show MasterCard",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "payment_paypal",
+        "label": "Show PayPal",
+        "default": true
+      }
+    ]
+  },
+  {
     "name": "Site Settings",
     "settings": [
       {
@@ -1632,7 +1673,7 @@
         "type": "textarea",
         "id": "remove_link",
         "label": "Remove From Nav",
-        "info": "Put the nav name/s you want removed from the nav."
+        "info": "Put the nav name\/s you want removed from the nav."
       }
     ]
   }

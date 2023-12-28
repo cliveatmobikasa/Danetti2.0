@@ -1,10 +1,10 @@
 {
   "current": {
     "logo_width": 90,
-    "type_header_font": "assistant_n4",
     "favicon_small": "shopify:\/\/shop_images\/16.png",
     "favicon_medium": "shopify:\/\/shop_images\/32.png",
     "favicon_large": "shopify:\/\/shop_images\/194.png",
+    "type_header_font": "assistant_n4",
     "heading_scale": 100,
     "type_body_font": "assistant_n4",
     "body_scale": 100,
@@ -102,10 +102,20 @@
     "brand_headline": "",
     "brand_description": "<p><\/p>",
     "brand_image_width": 100,
+    "payment_apple": true,
+    "payment_google": true,
+    "payment_amazon": false,
+    "payment_visa": true,
+    "payment_mastercard": true,
+    "payment_paypal": true,
+    "share_image": "",
+    "social_sharing_blog": true,
+    "share_facebook": true,
+    "share_twitter": true,
+    "share_pinterest": true,
     "social_facebook_link": "https:\/\/www.facebook.com\/DanettiFurniture",
     "social_instagram_link": "https:\/\/instagram.com\\\/danetti_com",
     "social_youtube_link": "https:\/\/www.youtube.com\/user\/DanettiFurniture",
-    "social_tiktok_link": "",
     "social_twitter_link": "",
     "social_snapchat_link": "",
     "social_pinterest_link": "https:\/\/www.pinterest.co.uk\/danetti\/_shop\/",
@@ -120,6 +130,11 @@
     "show_cart_note": false,
     "cart_drawer_collection": "",
     "cart_color_scheme": "background-1",
+    "countdown": "2023-12-25 23:59:59",
+    "enable_klarna": true,
+    "navigation_linklist": "danetti-desktop-2023",
+    "mobile_navigation_linklist": "danetti-mobile-2023",
+    "social_tiktok_link": "",
     "sections": {
       "main-password-header": {
         "type": "main-password-header",
@@ -132,9 +147,25 @@
         "settings": {
           "color_scheme": "background-1"
         }
+      },
+      "welcome-modal": {
+        "type": "welcome-modal",
+        "settings": {
+          "enabled": false,
+          "title": "New Website, Same Danetti.",
+          "text": "<p>Welcome to our new website!<\/p><p>We’ve been busy working on a new home for our exclusive products . Be our guest and take a look around...<\/p>",
+          "button_text": "Explore Danetti"
+        }
       }
     },
     "content_for_index": [],
+    "blocks": {
+      "5946647744298494267": {
+        "type": "shopify:\/\/apps\/wishlist-plus\/blocks\/wishlist-app-embed\/80c3b1fc-3a8f-407e-8367-ffdeebb8b612",
+        "disabled": false,
+        "settings": {}
+      }
+    },
     "color_schemes": {
       "background-1": {
         "settings": {

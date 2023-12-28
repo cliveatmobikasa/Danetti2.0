@@ -366,8 +366,6 @@
         font-size: 1.5rem;
         letter-spacing: 0.06rem;
         line-height: calc(1 + 0.8 / var(--font-body-scale));
-        font-style: var(--font-body-style);
-        font-weight: var(--font-body-weight);
       }
 
       @media screen and (min-width: 750px) {
@@ -376,7 +374,7 @@
         }
       }
     {% endstyle %}
-
+    {{ 'https://unpkg.com/sanitize.css' | stylesheet_tag }}
     {% comment %} {{ 'base.css' | asset_url | stylesheet_tag }} {% endcomment %}
     {{ 'define.css' | asset_url | stylesheet_tag }}
     {{ 'global.css' | asset_url | stylesheet_tag }}

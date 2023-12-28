@@ -2,51 +2,70 @@
   "name": "t:sections.header.name",
   "type": "header",
   "sections": {
-    "announcement-bar": {
-      "type": "announcement-bar",
+    "header-bar": {
+      "type": "header-bar",
+      "settings": {
+        "enable_finance_bar": false,
+        "finance_bar_text": "",
+        "promo_bar_colour": "#ffffff",
+        "promo_bar_background": "#0a1e2d",
+        "promo_bar_text_1": "<p>Our Winter Sale is now live - Up to 30% off selected lines<\/p>",
+        "promo_bar_text_1_desktop": true,
+        "promo_bar_text_1_mobile": true,
+        "promo_bar_text_2": "<p>Extended Black Friday offers are now live<\/p>",
+        "promo_bar_text_2_desktop": false,
+        "promo_bar_text_2_mobile": false,
+        "promo_bar_text_3": "<p>Save up to 30% on selected styles<\/p>",
+        "promo_bar_text_3_desktop": false,
+        "promo_bar_text_3_mobile": false
+      }
+    },
+    "header": {
+      "type": "header-menu",
       "blocks": {
-        "announcement-bar-0": {
-          "type": "announcement",
+        "259453f3-0122-4e3a-bce7-f42fb36d1b2f": {
+          "type": "nav_item",
           "settings": {
-            "text": "Welcome to our store",
-            "link": ""
+            "mega_menu_link": "sample",
+            "mega_promo_tag": "",
+            "mega_promo_tag_color": false,
+            "mega_promo_tag_bgcolor": "#0a1e2d",
+            "mega_menu_text": "<b>Just Launched<\/b>\n<br>\nBedroom Storage",
+            "mega_menu_url": "",
+            "mega_promo_tag_2": "",
+            "mega_promo_tag_color_2": false,
+            "mega_promo_tag_bgcolor_2": "#0a1e2d",
+            "mega_menu_text_2": "",
+            "mega_menu_url_2": "",
+            "mega_promo_tag_3": "",
+            "mega_promo_tag_color_3": false,
+            "mega_promo_tag_bgcolor_3": "#0a1e2d",
+            "mega_menu_text_3": "",
+            "mega_menu_url_3": ""
           }
         }
       },
       "block_order": [
-        "announcement-bar-0"
+        "259453f3-0122-4e3a-bce7-f42fb36d1b2f"
       ],
       "settings": {
-        "color_scheme": "background-1",
-        "show_line_separator": true,
-        "show_social": false,
-        "auto_rotate": false,
-        "change_slides_speed": 5,
-        "enable_country_selector": false,
-        "enable_language_selector": false
+        "trust_banner_enable": true,
+        "trust_banner_enable_all_pages": true,
+        "left_reviews": "<b>Free 30 day returns<\/b>  |  Peace of mind",
+        "reviews": "<b>Rated Excellent<\/b>  |  4,500+ Reviews",
+        "right_reviews": "<b>Trusted for over 15 years<\/b>  |  200,000+ Orders Shipped"
       }
     },
-    "header": {
-      "type": "header",
+    "2fff3fcc-96db-4b51-928b-0c881700cfbb": {
+      "type": "mobile-menu",
       "settings": {
-        "logo_position": "middle-left",
-        "menu": "main-menu",
-        "menu_type_desktop": "dropdown",
-        "sticky_header_type": "on-scroll-up",
-        "show_line_separator": true,
-        "color_scheme": "background-1",
-        "menu_color_scheme": "background-1",
-        "enable_country_selector": true,
-        "enable_language_selector": true,
-        "mobile_logo_position": "center",
-        "margin_bottom": 0,
-        "padding_top": 20,
-        "padding_bottom": 20
+        "mobile_navigation_linklist": "danetti-mobile-2023"
       }
     }
   },
   "order": [
-    "announcement-bar",
-    "header"
+    "header-bar",
+    "header",
+    "2fff3fcc-96db-4b51-928b-0c881700cfbb"
   ]
 }

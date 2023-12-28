@@ -1,0 +1,173 @@
+.fs-timeline {
+  grid-auto-flow: row dense;
+  grid-gap: var(--Grid_Gutter) 20px;
+  grid-template-columns: repeat(2, 1fr);
+  display: grid;
+}
+.fs-narrow-timeline div.fs-entry-container,
+.fs-small-timeline div.fs-entry-container,
+.fs-normal-timeline .fs-entry-container {
+  width: 100%;
+  padding-top: 100%;
+}
+
+.fs-entry-container:nth-of-type(1n + 5),
+.fs-entry-container:nth-of-type(1n + 6),
+.fs-entry-container:nth-of-type(1n + 7) {
+  display: none;
+}
+/*
+|--------------------------------------------------------------------------
+| Grid item styling
+|--------------------------------------------------------------------------
+|
+*/
+.fs-next-page {
+  display: none;
+}
+.fs-has-links::after {
+  content: 'SHOP IT';
+  padding: 10px 15px;
+  border: 1px solid #fff;
+  color: #fff;
+}
+.fs-has-links:hover::after {
+  background-color: #fff;
+  color: rgba(10, 30, 45, 0.6);
+}
+.fs-wrapper div.fs-text-container .fs-entry-title,
+div.fs-detail-title {
+  font-family: var(--Font_Family-sentinel);
+  font-style: italic;
+  font-weight: 400;
+}
+div.fs-text-container .fs-entry-date,
+div.fs-detail-container .fs-post-info,
+div.fs-wrapper div.fs-has-links::after,
+.fs-text-product,
+.fs-overlink-text {
+  font-family: 'Helvetica Neue', Helvetica, 'Arial', sans-serif;
+  font-style: normal;
+  font-weight: 500;
+}
+.fs-wrapper div.fs-text-container * {
+  color: #fff;
+}
+.fs-wrapper div.fs-text-container {
+  margin: 0;
+  background-color: rgba(10, 30, 45, 0.6);
+}
+div.fs-entry-date {
+  display: none;
+}
+div.fs-entry-title {
+  display: none;
+}
+.fs-wrapper div.fs-timeline-entry {
+  margin: 0;
+}
+/*
+|--------------------------------------------------------------------------
+| Hide product price
+|--------------------------------------------------------------------------
+|
+*/
+.fs-product-price {
+  display: none;
+}
+/*
+|--------------------------------------------------------------------------
+| Modal styling
+|--------------------------------------------------------------------------
+|
+*/
+.fs-product-name {
+  font-family: var(--Font_Family-aktivGrotesk);
+}
+.fs-detail-product-image {
+  max-width: 100%;
+  margin: 0 auto;
+  object-fit: cover;
+}
+.fs-shopify-add-cart.fs-shopify-add-cart-container {
+  --Button_Background: var(--Color_Brand);
+  --Button_Color: #fff;
+  --Button_HoverBackground: var(--Color_Anchor);
+  --Button_HoverColor: #fff;
+  position: relative;
+  z-index: 0;
+  display: inline-block;
+  max-width: 100%;
+  padding: 8px 30px 9px;
+  font-family: var(--Font_Family-aktivGrotesk);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 1.5px;
+  line-height: 24px;
+  text-align: center;
+  text-transform: uppercase;
+  background-color: transparent;
+  border: 0;
+  border-radius: 0;
+  color: var(--Button_Color);
+  overflow: hidden;
+  transition: color 0.3s ease;
+}
+.fs-shopify-add-cart.fs-shopify-add-cart-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: -2;
+  width: 100%;
+  height: 100%;
+  background-color: var(--Button_Background);
+}
+.fs-shopify-add-cart.fs-shopify-add-cart-container::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  background-color: var(--Button_HoverBackground);
+  transform: scaleY(0);
+  transform-origin: 0 -1%;
+  transition: transform 0.3s ease;
+}
+.fs-shopify-add-cart.fs-shopify-add-cart-container[disabled] {
+  cursor: not-allowed;
+  opacity: 0.3;
+}
+.fs-shopify-add-cart.fs-shopify-add-cart-container:not([disabled]):hover {
+  color: var(--Button_HoverColor);
+}
+.fs-shopify-add-cart.fs-shopify-add-cart-container:not([disabled]):hover::after {
+  transform: none;
+  transform-origin: 0 101%;
+  transition: transform 0.4s ease;
+}
+/* stylelint-disable */
+@media screen and (min-width: 768px) {
+  .fs-timeline {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .fs-entry-container:nth-of-type(1n + 5),
+  .fs-entry-container:nth-of-type(1n + 6),
+  .fs-entry-container:nth-of-type(1n + 7) {
+    display: block;
+  }
+}
+@media screen and (min-width: 901px) {
+  .fs-timeline {
+    grid-gap: var(--Grid_Gutter);
+  }
+}
+@media screen and (min-width: 1201px) {
+  .fs-timeline {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}

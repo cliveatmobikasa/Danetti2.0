@@ -58,19 +58,57 @@
     },
     "footer": {
       "type": "footer",
+      "blocks": {
+        "1594893718538": {
+          "type": "column",
+          "settings": {
+            "title": "About us",
+            "subtitle": "",
+            "linklist": "footer-about",
+            "social": false
+          }
+        },
+        "1594893733051": {
+          "type": "column",
+          "settings": {
+            "title": "Customer service",
+            "subtitle": "",
+            "linklist": "footer-customer-service",
+            "social": false
+          }
+        },
+        "1594893742271": {
+          "type": "column",
+          "settings": {
+            "title": "Ordering",
+            "subtitle": "",
+            "linklist": "footer-ordering",
+            "social": false
+          }
+        },
+        "1594893751292": {
+          "type": "column",
+          "settings": {
+            "title": "Follow us",
+            "subtitle": "",
+            "linklist": "",
+            "social": true
+          }
+        }
+      },
+      "block_order": [
+        "1594893718538",
+        "1594893733051",
+        "1594893742271",
+        "1594893751292"
+      ],
+      "custom_css": [
+        "h3 {color: #0a1e2d;}"
+      ],
       "settings": {
-        "color_scheme": "background-1",
-        "newsletter_enable": true,
-        "newsletter_heading": "Subscribe to our emails",
-        "enable_follow_on_shop": true,
-        "show_social": true,
-        "enable_country_selector": true,
-        "enable_language_selector": true,
-        "payment_enable": true,
-        "show_policy": false,
-        "margin_top": 0,
-        "padding_top": 36,
-        "padding_bottom": 36
+        "tel_text": "Any questions? Just give us a call",
+        "tel_number": "020 3588 1380",
+        "contact": "<p><em><strong>Christmas Opening Times<\/strong><\/em><\/p><p><em><strong>Telephones<\/strong><\/em><\/p><p>Christmas Day, Boxing Day & New Years Day - CLOSED<\/p><p><em><strong>Showroom <\/strong><\/em><\/p><p>Christmas Eve, Christmas Day, Boxing Day & New Years Day - CLOSED<\/p><p>10:00am - 2.00pm - New Years Eve<\/p><p><\/p><p><\/p><p><em><strong>Telephone Opening Times<\/strong><\/em><strong> <\/strong><\/p><p>9:00am - 5:30pm - Monday to Friday*<br\/>Closed - Saturday & Sunday             <br\/>*Excludes Bank Holidays<\/p><p><em><strong>Showroom Opening Times<\/strong><\/em><strong><br\/><\/strong><br\/>10:00am - 5:30pm - Monday to Thursday*<br\/>10:00am - 5:00pm - Friday*<br\/>9:00am - 5:30pm - Saturday<br\/>10:00am - 4:00pm - Sunday*             <br\/>*Excludes Bank Holidays<\/p><p><a href=\"\/pages\/ourshowroom\" title=\"Showroom\">Find out more about the Showroom<\/a><\/p>"
       }
     }
   },
