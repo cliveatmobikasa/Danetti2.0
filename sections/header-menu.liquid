@@ -1,10 +1,93 @@
+{% liquid
+  assign show_text_1 = false
+  assign show_text_2 = false
+  assign show_text_3 = false
+  assign show_countdown = false
+  assign show_promo_bar = false
+  assign show_finance_bar = false
+
+  if section.settings.promo_bar_text_1 != blank
+    if section.settings.promo_bar_text_1_desktop == true or section.settings.promo_bar_text_1_mobile == true
+      assign show_text_1 = true
+    endif
+  endif
+
+  if section.settings.promo_bar_text_2 != blank
+    if section.settings.promo_bar_text_2_desktop == true or section.settings.promo_bar_text_2_mobile == true
+      assign show_text_2 = true
+    endif
+  endif
+
+  if section.settings.promo_bar_text_3 != blank
+    if section.settings.promo_bar_text_3_desktop == true or section.settings.promo_bar_text_3_mobile == true
+      assign show_text_3 = true
+    endif
+  endif
+
+  if section.settings.promo_bar_countdown_enable == true and settings.countdown != blank
+    assign show_countdown = true
+  endif
+
+  if section.settings.enable_finance_bar == true and section.settings.finance_bar_text != blank
+    assign show_finance_bar = true
+  endif
+
+  if show_text_1 or show_text_2 or show_text_3 or show_countdown or show_finance_bar
+    assign show_promo_bar = true
+  endif
+%}
 {{ 'header-menu.css' | asset_url | stylesheet_tag }}
 {{ 'nav-list.css' | asset_url | stylesheet_tag }}
 {{ 'dropdown.css' | asset_url | stylesheet_tag }}
 {{ 'drawer.css' | asset_url | stylesheet_tag }}
-<header class="hd-Header" role="banner" data-section-id="{{ section.id }}" data-section-type="header">
+
+<header
+  class="hd-Header"
+  role="banner"
+  data-section-id="{{ section.id }}"
+  data-section-type="header"
+>
+  {%- if show_promo_bar -%}
+    {{ 'header-bar.css' | asset_url | stylesheet_tag }}
+    <div class="hd-TopBar" style="background-color: {{section.settings.promo_bar_background}}; color: {{section.settings.promo_bar_colour}};">
+      <div class="hd-TopBar_Inner lyt-Container lyt-Container-wide">
+        <div class="hd-TopBar_Body">
+          <div class="hd-TopBar_Items">
+            {%- if show_finance_bar -%}
+              <div class="hd-TopBar_Item hd-TopBar_Finance">
+                <span class="hd-TopBar_Icon">
+                  {%- render 'bao-icon-finance' -%}
+                </span>
+                {{ section.settings.finance_bar_text | strip_newlines }}
+              </div>
+            {%- else -%}
+              {%- if show_text_1 -%}
+                <div class="hd-TopBar_Item{% if section.settings.promo_bar_text_1_mobile == false %} hd-TopBar_Item-hideMobile{% endif %}{% if section.settings.promo_bar_text_1_desktop == false %} hd-TopBar_Item-hideDesktop{% endif %}">
+                  {{ section.settings.promo_bar_text_1 | strip_newlines }}
+                </div>
+              {%- endif -%}
+              {%- if show_text_2 -%}
+                <div class="hd-TopBar_Item{% if section.settings.promo_bar_text_2_mobile == false %} hd-TopBar_Item-hideMobile{% endif %}{% if section.settings.promo_bar_text_2_desktop == false %} hd-TopBar_Item-hideDesktop{% endif %}">
+                  {{ section.settings.promo_bar_text_2 | strip_newlines }}
+                </div>
+              {%- endif -%}
+              {%- if show_text_3 -%}
+                <div class="hd-TopBar_Item{% if section.settings.promo_bar_text_3_mobile == false %} hd-TopBar_Item-hideMobile{% endif %}{% if section.settings.promo_bar_text_3_desktop == false %} hd-TopBar_Item-hideDesktop{% endif %}">
+                  {{ section.settings.promo_bar_text_3 | strip_newlines }}
+                </div>
+              {%- endif -%}
+              {%- if show_countdown -%}
+                <div class="hd-TopBar_Item">
+                  {% render 'countdown' %}
+                </div>
+              {%- endif -%}
+            {%- endif -%}
+          </div>
+        </div>
+      </div>
+    </div>
+  {%- endif -%}
   <div class="hd-Banner" data-module="header" data-header-hidden-class="hd-Banner-hidden" data-header-size-class="hd-Banner-small" data-header-container-el>
-  
     <div class="hd-Banner_Holder">
       <div class="hd-BannerTop">
         <div class="hd-BannerTop_Inner lyt-Container lyt-Container-wide">
@@ -15,26 +98,23 @@
                   {%- render 'search-form' -%}
                 </div>
               </li>
-  
               <li class="hd-Banner_Tool hd-Banner_Tool-mobileMenu">
                 <button class="hd-Banner_IconLink" data-module-drawers-trigger="menu">
                   <span class="hd-Banner_Icon">
                     {%- render "bao-icon-menu" -%}
                   </span>
-  
                   <span class="util-ScreenReaderOnly">
                     {{ 'layout.header.cart' | t }}
                   </span>
                 </button>
               </li>
-  
               {%- if shop.customer_accounts_enabled -%}
                 <li class="hd-Banner_Tool hd-Banner_Tool-mobileAccount">
                   <a class="hd-Banner_IconLink" href="/account">
                     <span class="hd-Banner_Icon">
                       {%- render "bao-icon-account-new" -%}
                     </span>
-  
+
                     <span class="util-ScreenReaderOnly">
                       {{ 'layout.header.account' | t }}
                     </span>
@@ -42,27 +122,22 @@
                 </li>
               {%- endif -%}
             </ul>
-  
             {%- render 'logo' -%}
-  
             <ul class="hd-Banner_Tools hd-Banner_Tools-right">
               <li class="hd-Banner_Tool hd-Banner_Tool-visit">
                 <a class="hd-Banner_IconLink" href="/pages/ourshowroom">
                   <span class="hd-Banner_Icon">
                     {%- render "bao-icon-mapPin" -%}
                   </span>
-  
                   <span class="hd-Banner_Icon-text">{{ 'layout.header.visit' | t }}</span>
                 </a>
               </li>
-  
               {%- if settings.enable_wishlist -%}
                 <li class="hd-Banner_Tool hd-Banner_Tool-wishlist">
                   <a class="hd-Banner_IconLink" href="/pages/swym-wishlist">
                     <span class="hd-Banner_Icon">
                       {%- render "bao-icon-wishlist-new" -%}
                     </span>
-  
                     <span class="hd-Banner_Icon-text">{{ 'layout.header.wishlist' | t }}</span>
                   </a>
                 </li>
@@ -76,25 +151,25 @@
                     <span class="hd-Banner_Icon">
                       {%- render 'bao-icon-telephone' -%}
                     </span>
-  
+
                     <span class="hd-Banner_Icon-text">{{ 'layout.header.contact' | t }}</span>
                   </a>
                 </li>
               {%- endif -%}
-  
+
               {%- if shop.customer_accounts_enabled -%}
                 <li class="hd-Banner_Tool hd-Banner_Tool-account">
                   <a class="hd-Banner_IconLink" href="/account">
                     <span class="hd-Banner_Icon">
                       {%- render "bao-icon-account-new" -%}
                     </span>
-  
+
                     <span class="hd-Banner_Icon-text">{{ 'layout.header.account' | t }}</span>
                   </a>
                 </li>
               {%- endif -%}
-  
-  
+
+
               <li class="hd-Banner_Tool hd-Banner_Tool-bag">
                 <a class="hd-Banner_IconLink"
                   href="/cart"{% unless page.request_type == 'cart' %} data-module-drawers-trigger="cart"{% endunless %}>
@@ -102,10 +177,10 @@
                     <span class="hd-Banner_Icon">
                       {%- render "bao-icon-bag-new" -%}
                     </span>
-  
+
                     <span class="hd-Banner_Count" data-cart-count>{{ cart.item_count }}</span>
                   </div>
-  
+
                   <span class="hd-Banner_Icon-text">{{ 'layout.header.cart' | t }}</span>
                 </a>
               </li>
@@ -113,7 +188,6 @@
           </div>
         </div>
       </div>
-  
       <div class="hd-BannerBottom">
         <div class="hd-BannerBottom_Inner lyt-Container lyt-Container-wide">
           <div class="hd-BannerBottom_Body">
@@ -137,44 +211,42 @@
               <span class="hd-Only-desktop">{{section.settings.right_reviews}}</span>
             </div>
           </div>
-        {% endif %}  
+        {% endif%}  
       </div>
     </div>
-  
+
     <div class="prd-Product_Loader js-Product_Loader"></div>
     <div class="hd-Background"></div>
-  
   </div>
 </header>
 
-
 {%- capture same_as -%}
-{%- if settings.social_twitter_link != blank -%}|{{ settings.social_twitter_link }}{%- endif -%}
-{%- if settings.social_facebook_link != blank -%}|{{ settings.social_facebook_link }}{%- endif -%}
-{%- if settings.social_pinterest_link != blank -%}|{{ settings.social_pinterest_link }}{%- endif -%}
-{%- if settings.social_instagram_link != blank -%}|{{ settings.social_instagram_link }}{%- endif -%}
-{%- if settings.social_tumblr_link != blank -%}|{{ settings.social_tumblr_link }}{%- endif -%}
-{%- if settings.social_snapchat_link != blank -%}|{{ settings.social_snapchat_link }}{%- endif -%}
-{%- if settings.social_youtube_link != blank -%}|{{ settings.social_youtube_link }}{%- endif -%}
-{%- if settings.social_vimeo_link != blank -%}|{{ settings.social_vimeo_link }}{%- endif -%}
+  {%- if settings.social_twitter_link != blank -%}|{{ settings.social_twitter_link }}{%- endif -%}
+  {%- if settings.social_facebook_link != blank -%}|{{ settings.social_facebook_link }}{%- endif -%}
+  {%- if settings.social_pinterest_link != blank -%}|{{ settings.social_pinterest_link }}{%- endif -%}
+  {%- if settings.social_instagram_link != blank -%}|{{ settings.social_instagram_link }}{%- endif -%}
+  {%- if settings.social_tumblr_link != blank -%}|{{ settings.social_tumblr_link }}{%- endif -%}
+  {%- if settings.social_snapchat_link != blank -%}|{{ settings.social_snapchat_link }}{%- endif -%}
+  {%- if settings.social_youtube_link != blank -%}|{{ settings.social_youtube_link }}{%- endif -%}
+  {%- if settings.social_vimeo_link != blank -%}|{{ settings.social_vimeo_link }}{%- endif -%}
 {%- endcapture -%}
 {%- assign same_as = same_as | remove_first: '|' | strip | split: '|' -%}
 
 <script type="application/ld+json">
-{
-  "@context": "http://schema.org",
-  "@type": "Organization",
-  "name": "{{ shop.name }}",
-  "logo": "{{ section.settings.logo | img_url: '200x' }}",
-  {% if same_as != blank %}
-  "sameAs": [
-    {% for item in same_as %}
-    "{{ item }}"{% unless forloop.last %},{% endunless %}
+  {
+    "@context": "http://schema.org",
+    "@type": "Organization",
+    "name": "{{ shop.name }}",
+    "logo": "{{ section.settings.logo | img_url: '200x' }}",
+    {% if same_as != blank %}
+    "sameAs": [
+      {% for item in same_as %}
+      "{{ item }}"{% unless forloop.last %},{% endunless %}
   {% endfor %}
-  ],
-  {% endif %}
-  "url": "{{ shop.url }}{{ page.url }}"
-}
+    ],
+    {% endif %}
+    "url": "{{ shop.url }}{{ page.url }}"
+  }
 </script>
 
 {%- if template.name == 'index' -%}
@@ -194,170 +266,256 @@
 {%- endif -%}
 
 {% schema %}
-  {
-    "name": "Header Menu",
-    "settings": [
-      {
-        "type": "paragraph",
-        "content": "Menu configuration has been moved to the Navigation section in Theme Settings"
-      },
-      {
-        "type": "header",
-        "content": "Logo"
-      },
-      {
-        "type": "image_picker",
-        "id": "logo",
-        "label": "Logo (Google Schema)",
-        "info": "Recommended dimensions: 200px x any height"
-      },
-      {
-        "type": "header",
-        "content": "Trust Banners"
-      },
-      {
-        "type": "checkbox",
-        "id": "trust_banner_enable",
-        "label": "Enable Trust Banner",
-        "default": true
-      },
-      {
-        "type": "checkbox",
-        "id": "trust_banner_enable_all_pages",
-        "label": "Enable Trust Banner on Entire Website",
-        "default": false
-      },
-      {
-        "type": "html",
-        "id": "left_reviews",
-        "label": "Trust Banner content on desktop left "
-      },            
-      {
-        "type": "html",
-        "id": "reviews",
-        "label": "Trust Banner Reviews"
-      },
-      {
-        "type": "html",
-        "id": "right_reviews",
-        "label": "Trust Banner content on desktop right"
-      }
-    ],
-    "blocks": [
-      {
-        "type": "nav_item",
-        "name": "Desktop nav item",
-        "settings": [
-          {
-            "type": "text",
-            "id": "mega_menu_link",
-            "label": "Linked Header Menu Title"
-          },
-          {
-            "type": "image_picker",
-            "id": "mega_image",
-            "label": "Mega Menu Image"
-          },
-          {
-            "type": "text",
-            "id": "mega_promo_tag",
-            "label": "Promo Tag"
-          },
-          {
-            "type": "checkbox",
-            "id": "mega_promo_tag_color",
-            "label": "Enable Promo Tag Dark Color",
-            "default": false
-          },
-          {
-            "type": "color",
-            "id": "mega_promo_tag_bgcolor",
-            "label": "Promo Tag Background",
-            "default": "#0A1E2D"
-          },
-          {
-            "type": "html",
-            "id": "mega_menu_text",
-            "label": "Mega Menu Content"
-          },
-          {
-            "type": "url",
-            "id": "mega_menu_url",
-            "label": "Mega Menu Url"
-          },
-          {
-            "type": "image_picker",
-            "id": "mega_image_2",
-            "label": "Mega Menu Image 2"
-          },
-          {
-            "type": "text",
-            "id": "mega_promo_tag_2",
-            "label": "Promo Tag 2"
-          },
-          {
-            "type": "checkbox",
-            "id": "mega_promo_tag_color_2",
-            "label": "Enable Promo Tag Dark Color",
-            "default": false
-          },
-          {
-            "type": "color",
-            "id": "mega_promo_tag_bgcolor_2",
-            "label": "Promo Tag Background",
-            "default": "#0A1E2D"
-          },
-          {
-            "type": "html",
-            "id": "mega_menu_text_2",
-            "label": "Mega Menu Content 2"
-          },
-          {
-            "type": "url",
-            "id": "mega_menu_url_2",
-            "label": "Mega Menu Url 2"
-          },
-          {
-            "type": "image_picker",
-            "id": "mega_image_3",
-            "label": "Mega Menu Image 3"
-          },
-          {
-            "type": "text",
-            "id": "mega_promo_tag_3",
-            "label": "Promo Tag 3"
-          },
-          {
-            "type": "checkbox",
-            "id": "mega_promo_tag_color_3",
-            "label": "Enable Promo Tag Dark Color",
-            "default": false
-          },
-          {
-            "type": "color",
-            "id": "mega_promo_tag_bgcolor_3",
-            "label": "Promo Tag Background",
-            "default": "#0A1E2D"
-          },
-          {
-            "type": "html",
-            "id": "mega_menu_text_3",
-            "label": "Mega Menu Content 3"
-          },
-          {
-            "type": "url",
-            "id": "mega_menu_url_3",
-            "label": "Mega Menu Url 3"
-          }
-        ]
-      }
-    ],
-    "presets": [
-      {
-        "name": "Header Menu",
-        "settings": {},
-        "blocks": []
-      }
-    ]
-  }
+{
+  "name": "Header",
+  "class": "shopify-section-header",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Menu configuration has been moved to the Navigation section in Theme Settings"
+    },
+    {
+      "type": "header",
+      "content": "Logo"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo (Google Schema)",
+      "info": "Recommended dimensions: 200px x any height"
+    },
+    {
+      "type": "header",
+      "content": "Finance Bar"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_finance_bar",
+      "label": "Enable Finance Bar",
+      "default": false
+    },
+    {
+      "type": "richtext",
+      "id": "finance_bar_text",
+      "label": "Text"
+    },
+    {
+      "type": "header",
+      "content": "Promo Bar"
+    },
+    {
+      "type": "color",
+      "id": "promo_bar_colour",
+      "label": "Text Colour",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "promo_bar_background",
+      "label": "Background Colour",
+      "default": "#0a1e2d"
+    },
+    {
+      "type": "richtext",
+      "id": "promo_bar_text_1",
+      "label": "Text 1"
+    },
+    {
+      "type": "checkbox",
+      "id": "promo_bar_text_1_desktop",
+      "label": "Show on Desktop",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "promo_bar_text_1_mobile",
+      "label": "Show on Mobile",
+      "default": true
+    },
+    {
+      "type": "richtext",
+      "id": "promo_bar_text_2",
+      "label": "Text 2"
+    },
+    {
+      "type": "checkbox",
+      "id": "promo_bar_text_2_desktop",
+      "label": "Show on Desktop",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "promo_bar_text_2_mobile",
+      "label": "Show on Mobile",
+      "default": true
+    },
+    {
+      "type": "richtext",
+      "id": "promo_bar_text_3",
+      "label": "Text 3"
+    },
+    {
+      "type": "checkbox",
+      "id": "promo_bar_text_3_desktop",
+      "label": "Show on Desktop",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "promo_bar_text_3_mobile",
+      "label": "Show on Mobile",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Promo Bar Countdown Timer"
+    },
+    {
+      "type": "checkbox",
+      "id": "promo_bar_countdown_enable",
+      "label": "Enable Countdown Timer",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Trust Banners"
+    },
+    {
+      "type": "checkbox",
+      "id": "trust_banner_enable",
+      "label": "Enable Trust Banner",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "trust_banner_enable_all_pages",
+      "label": "Enable Trust Banner on Entire Website",
+      "default": false
+    },
+    {
+      "type": "html",
+      "id": "left_reviews",
+      "label": "Trust Banner content on desktop left "
+    },            
+    {
+      "type": "html",
+      "id": "reviews",
+      "label": "Trust Banner Reviews"
+    },
+    {
+      "type": "html",
+      "id": "right_reviews",
+      "label": "Trust Banner content on desktop right"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "nav_item",
+      "name": "Desktop nav item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "mega_menu_link",
+          "label": "Linked Header Menu Title"
+        },
+        {
+          "type": "image_picker",
+          "id": "mega_image",
+          "label": "Mega Menu Image"
+        },
+        {
+          "type": "text",
+          "id": "mega_promo_tag",
+          "label": "Promo Tag"
+        },
+        {
+          "type": "checkbox",
+          "id": "mega_promo_tag_color",
+          "label": "Enable Promo Tag Dark Color",
+          "default": false
+        },
+        {
+          "type": "color",
+          "id": "mega_promo_tag_bgcolor",
+          "label": "Promo Tag Background",
+          "default": "#0A1E2D"
+        },
+        {
+          "type": "html",
+          "id": "mega_menu_text",
+          "label": "Mega Menu Content"
+        },
+        {
+          "type": "url",
+          "id": "mega_menu_url",
+          "label": "Mega Menu Url"
+        },
+        {
+          "type": "image_picker",
+          "id": "mega_image_2",
+          "label": "Mega Menu Image 2"
+        },
+        {
+          "type": "text",
+          "id": "mega_promo_tag_2",
+          "label": "Promo Tag 2"
+        },
+        {
+          "type": "checkbox",
+          "id": "mega_promo_tag_color_2",
+          "label": "Enable Promo Tag Dark Color",
+          "default": false
+        },
+        {
+          "type": "color",
+          "id": "mega_promo_tag_bgcolor_2",
+          "label": "Promo Tag Background",
+          "default": "#0A1E2D"
+        },
+        {
+          "type": "html",
+          "id": "mega_menu_text_2",
+          "label": "Mega Menu Content 2"
+        },
+        {
+          "type": "url",
+          "id": "mega_menu_url_2",
+          "label": "Mega Menu Url 2"
+        },
+        {
+          "type": "image_picker",
+          "id": "mega_image_3",
+          "label": "Mega Menu Image 3"
+        },
+        {
+          "type": "text",
+          "id": "mega_promo_tag_3",
+          "label": "Promo Tag 3"
+        },
+        {
+          "type": "checkbox",
+          "id": "mega_promo_tag_color_3",
+          "label": "Enable Promo Tag Dark Color",
+          "default": false
+        },
+        {
+          "type": "color",
+          "id": "mega_promo_tag_bgcolor_3",
+          "label": "Promo Tag Background",
+          "default": "#0A1E2D"
+        },
+        {
+          "type": "html",
+          "id": "mega_menu_text_3",
+          "label": "Mega Menu Content 3"
+        },
+        {
+          "type": "url",
+          "id": "mega_menu_url_3",
+          "label": "Mega Menu Url 3"
+        }
+      ]
+    }
+  ]
+}
 {% endschema %}

@@ -2,12 +2,17 @@
   {%- for colour_title in product.metafields.colours_item.title -%}
     {%- liquid
       assign aria_status = 'aria-current="false"'
-      if cur_colour == colour_title
-        assign aria_status = 'aria-current="true"'
-      endif
+      assign colour_handle = colour_title | handleize
+      assign cur_colour_handle = cur_colour | handleize
+      assign product_colour_handle = product.metafields.colours.product_colour | handleize
+      assign product_link = product.url | remove: product_colour_handle | append: colour_handle
+      if colour_handle == cur_colour_handle
+        assign aria_status = 'aria-current  ="true"'
+      endif 
     -%}
+
     <li class="prd-Colours_Item">
-      <a href="/product/{{- colour_title | handleize -}}" class="prd-Colours_Button {% if product.metafields.colours_item.add_border[forloop.index0] %}prd-Colours_Button-border{% endif %}" style="--Swatch_Color:{{ product.metafields.colours_item.hex[forloop.index0] }}" {{ aria_status }}></a>
+      <a href="{{ product_link }}" class="prd-Colours_Button {% if product.metafields.colours_item.add_border[forloop.index0] == 'true' %}prd-Colours_Button-border{% endif %}" style="--Swatch_Color:{{ product.metafields.colours_item.hex[forloop.index0] }}" {{ aria_status }}></a>
     </li>
   {%- endfor -%}
 </ul>

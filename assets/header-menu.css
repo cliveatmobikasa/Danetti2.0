@@ -5,6 +5,11 @@
 | @namespace: hd-
 |
 */
+.shopify-section-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
 .hd-Banner {
   --ContentColor: var(--Color_Brand);
   --LogoColor: var(--Color_Anchor);

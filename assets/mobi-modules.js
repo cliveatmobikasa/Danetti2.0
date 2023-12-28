@@ -261,6 +261,93 @@ class Module {
     return this.context.targets
   }
 }
+class Header extends  Module {
+  static methods = ['openHeader', 'requestTick', 'updateEl', 'checkPromoBar'];
+  isTicking = false;
+  lastKnownY = window.scrollY;
+  offsetTrackedY = 0;
+  scrollOffset = 100;
+  safeZone = 200;
+  scrollDirection = '';
+  initialize (el, context) {
+    super.initialize(el, context);
+    window.MOBIKASA.header = this;
+    this.updateEl();
+    this.checkPromoBar();
+  }
+  setupListeners () {
+    super.setupListeners();
+    this.onScroll = this.onScroll.bind(this);
+    this.addListeners(window, 'scroll', this.onScroll);
+    this.addListeners(window, 'resize', this.checkPromoBar.bind(this));
+  }
+  onScroll () {
+    const previouslyKnown = this.lastKnownY;
+    const previousDirection = this.scrollDirection;
+    this.lastKnownY = window.scrollY;
+    this.scrollDirection = previouslyKnown < this.lastKnownY ? 'down' : 'up';
+    if (previousDirection !== this.scrollDirection) {
+      this.offsetTrackedY = this.lastKnownY;
+    }
+    this.requestTick();
+  }
+  requestTick () {
+    if (!this.isTicking) requestAnimationFrame(this.updateEl.bind(this))
+    this.isTicking = true;
+  }
+  updateEl () {
+    this.isTicking = false;
+    this.setSize();
+    this.setVisibility();
+  }
+  setSize () {
+    this.element.classList.toggle(this.data.get('sizeClass'), this.headerIsSmaller);
+  }
+  setVisibility () {
+    this.element.classList.toggle(this.data.get('hiddenClass'), !this.shouldBeVisible);
+    this.element.previousSibling.classList.toggle(this.data.get('hiddenClass'), !this.shouldBeVisible);
+  }
+  toggleSearch () {
+    const mobileSearchPanel = getElement('[data-header-mobile-search]');
+    mobileSearchPanel.setAttribute(
+      'aria-expanded',
+      mobileSearchPanel.getAttribute('aria-expanded') === 'false'
+    )
+  }
+  openHeader () {
+    this.element.classList.toggle(this.data.get('hiddenClass'), false);
+  }
+  checkPromoBar () {
+    const topBar = getElement('.hd-TopBar');
+    if (topBar) {
+      const height = topBar.offsetHeight;
+      getElement('body').style.setProperty('--PromoBarHeight', `${height}px`);
+    }
+  }
+  get shouldBeVisible () {
+    if (this.lastKnownY <= this.containerEl.offsetHeight + this.safeZone * 2) {
+      return true
+    }
+    if (this.scrollDirection === 'down') {
+      return !this.isOverOffset
+    } else if (this.scrollDirection === 'up') {
+      return this.isOverOffset
+    }
+  }
+  get isOverOffset () {
+    if (this.scrollDirection === 'down') {
+      return this.lastKnownY >= this.offsetTrackedY + this.scrollOffset
+    } else if (this.scrollDirection === 'up') {
+      return this.lastKnownY <= this.offsetTrackedY - this.scrollOffset
+    }
+  }
+  get headerIsSmaller () {
+    return this.lastKnownY > this.safeZone
+  }
+  get containerEl () {
+    return this.element.closest('[data-header-container-el]')
+  }
+}
 class Drawer {
   constructor (key, drawers) {
     this.key = key;
@@ -407,6 +494,7 @@ class MobileNav extends Module {
   }
   initialize (el, context) {
     super.initialize(el, context);
+    window.MOBIKASA.mobileNav = this;
   }
 
   setupListeners () {
@@ -419,7 +507,7 @@ class MobileNav extends Module {
   }
 
   onTriggerClick (event) {
-    const trigger = event.target.closest(selectors.trigger)
+    const trigger = event.target.closest(this.selectors.trigger)
     if (!trigger) return
 
     this.getParentItem(trigger).setAttribute('aria-selected', 'true')
@@ -430,7 +518,7 @@ class MobileNav extends Module {
   }
 
   onBackClick (event) {
-    const back = event.target.closest(selectors.back)
+    const back = event.target.closest(this.selectors.back)
     if (!back) return
 
     const parentItem = this.getParentItem(back)
@@ -444,14 +532,13 @@ class MobileNav extends Module {
   }
 
   getParentItem (el) {
-    return el.closest(selectors.item)
+    return el.closest(this.selectors.item)
   }
 
   getParentDrawer (el) {
-    return el.closest(selectors.drawer)
+    return el.closest(this.selectors.drawer)
   }
 }
-
 class Instagram extends Module {
   static methods = ['bindFourSixty', 'onScroll'];
 
@@ -481,7 +568,7 @@ class Instagram extends Module {
 }
 window.MOBIKASA.modules = {
   Application,
-  Drawer,
+  Header,
   Drawers,
   MobileNav,
   Instagram
