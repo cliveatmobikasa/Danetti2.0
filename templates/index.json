@@ -226,6 +226,67 @@
         "button_style": "btn-Primary"
       }
     },
+    "product_carousel":{
+      "type": "product-carousel",
+      "blocks": {
+        "eeb9b625-c1ee-401f-9f27-7f1222414aa2": {
+          "type": "product",
+          "settings": {
+            "product": "clover-velvet-bar-stool-dark-grey"
+          }
+        },
+        "5ac22512-ea4f-49df-be75-ee155a187080": {
+          "type": "product",
+          "settings": {
+            "product": "amalfi-velvet-super-king-size-bed-with-storage-light-grey"
+          }
+        },
+        "9ea335a3-0ee9-4cb0-99a8-06c5a30e2f5d": {
+          "type": "product",
+          "settings": {
+            "product": "dakota-velvet-and-stainless-steel-barstool-dark-grey"
+          }
+        },
+        "760f1e03-8853-4392-93ae-e30b1281a8b1": {
+          "type": "product",
+          "settings": {
+            "product": "aria-oak-and-glass-dining-table-white"
+          }
+        },
+        "07af82d8-4b26-4d33-a4d5-2b8e7ffc35b6": {
+          "type": "product",
+          "settings": {
+            "product": "form-velvet-and-brushed-steel-cantilever-dining-chair-dark-teal"
+          }
+        },
+        "0563bbe1-1245-4717-8b3c-11d5002026d7": {
+          "type": "product",
+          "settings": {
+            "product": "monroe-drinks-console-table"
+          }
+        }
+      },
+      "block_order": [
+        "eeb9b625-c1ee-401f-9f27-7f1222414aa2",
+        "5ac22512-ea4f-49df-be75-ee155a187080",
+        "9ea335a3-0ee9-4cb0-99a8-06c5a30e2f5d",
+        "760f1e03-8853-4392-93ae-e30b1281a8b1",
+        "07af82d8-4b26-4d33-a4d5-2b8e7ffc35b6",
+        "0563bbe1-1245-4717-8b3c-11d5002026d7"
+      ],
+      "custom_css": [
+
+      ],
+      "settings": {
+        "bg_colour": "",
+        "text_colour": "blue",
+        "show_logo": false,
+        "title": "Popular products",
+        "subtitle": "Discover customer favourites",
+        "button_text": "",
+        "button_url": ""
+      }
+    },
     "easy_style_update": {
       "type": "image-text",
       "settings": {
@@ -273,6 +334,7 @@
   "order": [
     "hero",
     "cta_grid",
+    "product_carousel",
     "easy_style_update",
     "our_berkshire_showroom",
     "instagram"

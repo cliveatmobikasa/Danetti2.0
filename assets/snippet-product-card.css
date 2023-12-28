@@ -1,0 +1,297 @@
+/*
+|--------------------------------------------------------------------------
+| Card
+|--------------------------------------------------------------------------
+| @namespace: prd-
+|
+*/
+.prd-Card {
+  position: relative;
+  width: 100%;
+}
+/*
+|--------------------------------------------------------------------------
+| Images
+|--------------------------------------------------------------------------
+*/
+.prd-Card_ImageContainer {
+  position: relative;
+  display: flex;
+  width: 100%;
+  background-color: var(--Color_Grey);
+  overflow: hidden;
+}
+.prd-Card_ImageContainer::after {
+  content: '';
+  display: block;
+  width: 0;
+  padding-top: 125%;
+}
+.prd-Card_Image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+.prd-Card_Image.prd-Card_Image-landscape {
+  top: 50%;
+  height: auto;
+  transform: translateY(-50%);
+}
+.prd-Card_Image-hover {
+  display: none;
+}
+/*
+|--------------------------------------------------------------------------
+| Content
+|--------------------------------------------------------------------------
+*/
+.prd-Card_Content {
+  flex-direction: column;
+  justify-content: space-between;
+  display: flex;
+  padding-top: 15px;
+}
+.prd-Card_TitleLink {
+  position: relative;
+  justify-content: space-between;
+  display: flex;
+}
+.prd-Card_Title,
+.prd-Card_ProductVariant {
+  font-family: var(--Font_Family-aktivGrotesk);
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 1.5px;
+  line-height: 18px;
+  text-transform: uppercase;
+}
+.prd-Card_ProductVariant {
+  padding-top: 10px;
+}
+/*
+|--------------------------------------------------------------------------
+| Prices
+|--------------------------------------------------------------------------
+*/
+.prd-Card_Price {
+  margin-top: 5px;
+  font-size: 15px;
+  line-height: 24px;
+  color: var(--Color_Brand);
+}
+/*
+|--------------------------------------------------------------------------
+| Colours
+|--------------------------------------------------------------------------
+|
+*/
+.prd-Card_Colours {
+  min-height: 18px;
+  margin-top: 5px;
+}
+/*
+|--------------------------------------------------------------------------
+| Tags
+|--------------------------------------------------------------------------
+*/
+.prd-Card_Tags {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  z-index: 3;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+}
+.prd-Card_ProductLink {
+  display: block;
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+/*
+|--------------------------------------------------------------------------
+| Tags
+|--------------------------------------------------------------------------
+*/
+.prd-Card_Properties {
+  position: absolute;
+  bottom: 10px;
+  left: 0;
+  z-index: 3;
+  justify-content: center;
+  display: flex;
+  width: 100%;
+}
+.prd-Card_Properties .clc-MattressGuideItem_Image {
+  flex: 0 0 30px;
+  margin: 3px;
+  border-radius: 5px;
+}
+/*
+|--------------------------------------------------------------------------
+| Reviews
+|--------------------------------------------------------------------------
+*/
+.prd-Card_Review {
+  margin-top: 5px;
+}
+/*
+|--------------------------------------------------------------------------
+| Sales Messaging
+|--------------------------------------------------------------------------
+*/
+.prd-Card_Messaging {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  z-index: 2;
+  width: 100%;
+  font-family: var(--Font_Family-aktivGrotesk);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  line-height: 14px;
+}
+.prd-Card_Urgency {
+  padding: 8px;
+  text-align: center;
+  text-transform: uppercase;
+  background: rgba(255, 255, 255, 0.8);
+  color: var(--Color_Brand);
+}
+.prd-Card_Urgency svg {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  margin: -4px 5px -2px 0;
+}
+.prd-Card_Countdown {
+  padding: 8px;
+  text-align: center;
+  background: var(--Color_DarkMode);
+  color: #fff;
+}
+/*
+|--------------------------------------------------------------------------
+| Left In Stock
+|--------------------------------------------------------------------------
+*/
+.prd-Card_LeftInStock {
+  display: block;
+  width: 100%;
+  padding: 8px 0;
+  text-align: center;
+  text-transform: uppercase;
+  background: rgba(255, 255, 255, 0.8);
+  color: var(--Color_Body);
+}
+.prd-Card_LeftInStock-low {
+  background: var(--Color_Anchor);
+  color: #fff;
+}
+/*
+|--------------------------------------------------------------------------
+| Product page Christmas Overrides
+|--------------------------------------------------------------------------
+|
+*/
+.prd-Christmas_Message {
+  right: 0;
+  display: inline-block;
+  float: right;
+  margin-bottom: 15px;
+  background-color: #163d3d;
+  color: #fff;
+}
+/*
+|--------------------------------------------------------------------------
+| Collection page Christmas Overrides
+|--------------------------------------------------------------------------
+|
+*/
+/* stylelint-disable */
+.prd-Card-Christmas {
+  top: 5px;
+  left: 5px;
+  justify-content: left;
+}
+.clc-ChristmasDelivery {
+  padding: 15px;
+  text-align: left;
+  background-color: var(--Color_Grey);
+  color: var(--Color_Brand);
+}
+.xmas-Tag {
+  margin: 0 3px;
+  padding: 4px 10px 5px;
+  background-color: #163d3d;
+  color: #fff;
+}
+@media screen and (min-width: 768px) {
+  .prd-Card {
+    flex-direction: column;
+    display: flex;
+    max-width: 370px;
+  }
+  .prd-Card_Image-hover {
+    z-index: 2;
+    display: flex;
+    opacity: 0;
+    visibility: hidden;
+    transform: scale(1.1);
+    transition: transform 0.5s ease, opacity 0.5s ease, visibility 0.5s ease;
+  }
+  .prd-Card_Image-hover.prd-Card_Image-landscape {
+    transform: scale(1.1) translateY(-50%);
+  }
+  .prd-Card:hover .prd-Card_Image-hover {
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+  }
+  .prd-Card:hover .prd-Card_Image-hover.prd-Card_Image-landscape {
+    transform: translateY(-50%);
+  }
+  .prd-Card_Tags {
+    top: 10px;
+    right: 10px;
+  }
+  .prd-Card_Properties .clc-MattressGuideItem_Image {
+    flex: 0 0 40px;
+    border-radius: 10px;
+  }
+  .prd-Card-Christmas {
+    top: 10px;
+    left: 10px;
+  }
+  .clc-ChristmasDelivery {
+    text-align: center;
+  }
+}
+@media screen and (min-width: 901px) {
+  .prd-Card_Colours {
+    margin-top: 10px;
+  }
+  .prd-Card_Properties .clc-MattressGuideItem_Image {
+    flex: 0 0 50px;
+    margin: 10px;
+  }
+}
+@media screen and (min-width: 1201px) {
+  .prd-Card_Tags {
+    top: 20px;
+    right: 20px;
+  }
+  .prd-Card-Christmas {
+    top: 20px;
+    left: 20px;
+  }
+  .clc-ChristmasDelivery {
+    text-align: center;
+  }
+
+}

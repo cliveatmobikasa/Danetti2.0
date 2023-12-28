@@ -1,0 +1,10 @@
+<span class="cnt-Countdown" data-module="countdown" data-countdown-date="{{settings.countdown}}">
+  {% if icon %}
+    {% render 'bao-icon-info' %}
+  {% endif %}
+  <span class="cnt-Countdown_TextContainer">
+    <span class="cnt-Countdown_Prefix">{{ prefix | default: 'Ends in' }}</span>
+    <span class="cnt-Countdown_SavingsText">{{ saving_text }}</span>
+    <span class="cnt-Countdown_Text" data-el="countdown.text"></span>
+  </span>
+</span>

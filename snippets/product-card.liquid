@@ -1,0 +1,177 @@
+{%- liquid
+  assign current_variant = product.selected_or_first_available_variant
+  assign on_sale = false
+  assign sold_out = false
+
+  if product.compare_at_price != blank and product.compare_at_price > product.price
+    assign on_sale = true
+  endif
+
+  assign sold_out_tag = settings.sold_out_tag
+  if current_variant.inventory_quantity < 1 and sold_out_tag != blank and product.tags contains sold_out_tag
+    assign sold_out = true
+  endif
+
+  assign product_for_colours_handle = product.handle
+
+  if product.metafields.colours.use_other_products_colours != blank
+    assign product_for_colours_handle = product.metafields.colours.use_other_products_colours
+  endif
+-%}
+
+<div
+    class="prd-Card"
+    data-module="product-card"
+    data-product-card-colour-handle="{{ product_for_colours_handle }}"
+    data-product-card-product-colour="{{ product.metafields.colours.product_colour }}"
+  >
+  <div class="prd-Card_Tags">
+    {%- if on_sale -%}
+      {%- assign text = 'products.product.on_sale' | t -%}
+      {%- if settings.sales_messaging_enable -%}
+        {% assign saving = product.compare_at_price | minus: product.price %}
+        {% assign percentage = saving | times: 1.0 | divided_by: product.compare_at_price | times: 100 %}
+        {% assign text = percentage | split: '.' | first | append: '% Off' %}
+      {%- endif -%}
+      {%- render 'product-tag',
+        hex: '#c2002f',
+        light_text: true,
+        text: text
+      -%}
+    {%- elsif sold_out -%}
+      {%- assign text = 'products.product.sold_out_label' | t -%}
+      {%- render 'product-tag',
+        hex: 'transparent',
+        light_text: true,
+        label_border: true,
+        text: text
+      -%}
+    {%- elsif product.metafields.tag.text != blank -%}
+      {%- render 'product-tag',
+        hex: product.metafields.tag.hex,
+        light_text: product.metafields.tag.light_text,
+        text: product.metafields.tag.text
+      -%}
+    {%- endif -%}
+  </div>
+
+  {% if product.tags contains 'christmas2020' %}
+    {%- render 'product-christmas-tag' -%}
+  {% endif %}
+
+  <a class="prd-Card_ImageContainer" href="{{ product.url }}">
+    {%- if product.featured_image != blank -%}
+      {%- if product.featured_image.aspect_ratio > 1 -%}
+        {%- if product.images.size > 1 -%}
+          <div class="prd-Card_Image prd-Card_Image-hover prd-Card_Image-landscape">
+            {%- render 'responsive-image',
+              image: product.images[1],
+              width: 700,
+              size_by_width: true,
+              product: product
+            -%}
+          </div>
+        {%- endif -%}
+
+        <div class="prd-Card_Image prd-Card_Image-landscape">
+          {%- render 'responsive-image',
+            image: product.featured_image,
+            width: 700,
+            size_by_width: true,
+            product: product
+          -%}
+        </div>
+      {%- else -%}
+        {%- if product.images.size > 1 -%}
+          <div class="prd-Card_Image prd-Card_Image-hover">
+            {%- render 'responsive-image',
+              image: product.images[1],
+              width: 1400,
+              height: 1600,
+              product: product
+            -%}
+          </div>
+        {%- endif -%}
+
+        <div class="prd-Card_Image">
+          {%- render 'responsive-image',
+            image: product.featured_image,
+            width: 1400,
+            height: 1600,
+            product: product
+          -%}
+        </div>
+      {%- endif -%}
+    {%- endif -%}
+
+    {% if settings.sales_messaging_enable %}
+      {% assign sale_threshold = settings.sale_threshold %}
+
+      {% if current_variant.inventory_policy != 'continue' and product.metafields.sales_event.stock_threshold_message == 'true' %}
+        {% assign current_stock = current_variant.inventory_quantity %}
+
+        <div class="prd-Card_Messaging">
+          <span class="prd-Card_LeftInStock {% if current_stock <= sale_threshold %}prd-Card_LeftInStock-low{% endif %}">
+            {%- if current_stock > sale_threshold -%}
+              {{ 'products.product.stock_level' | t: threshold: sale_threshold }}
+            {%- else -%}
+              {{ 'products.product.limited_stock_level' | t: current_stock: current_stock }}
+            {%- endif -%}
+          </span>
+        </div>
+      {% elsif product.metafields.sale_event.show_urgency_message == 'true' and settings.urgency_message %}
+        <div class="prd-Card_Messaging">
+          <div class="prd-Card_Urgency">
+            {% render 'bao-icon-clock' %}
+            {{settings.urgency_message}}
+          </div>
+        </div>
+      {% elsif settings.product_card_countdown_enable and settings.countdown %}
+        <div class="prd-Card_Messaging">
+          <div class="prd-Card_Countdown">
+            {% render 'countdown' %}
+          </div>
+        </div>
+      {% endif %}
+    {% endif %}
+
+    {%- if property_tags != blank -%}
+      <div class="prd-Card_Properties">
+        {% for tag in product.tags %}
+          {% unless tag contains 'property-' %}
+            {% continue %}
+          {% endunless %}
+
+          {% for property_tag in property_tags %}
+            {% if property_tag == tag %}
+              {% assign item_img = property_images[forloop.index0] %}
+              {% if item_img.src == blank %}
+                {% assign item_img = item_img.first %}
+              {% endif %}
+              <div class="clc-MattressGuideItem_Image">
+                <img src="{{item_img.src}}" />
+              </div>
+            {% endif %}
+          {% endfor %}
+        {% endfor %}
+      </div>
+    {%- endif -%}
+  </a>
+
+  <div class="prd-Card_Content">
+    <a class="prd-Card_TitleLink" href="{{ product.url }}">
+      <h3 class="prd-Card_Title">{{ product.title }}</h3>
+    </a>
+
+    <div class="prd-Card_Price">
+      {%- render 'product-price',
+        product: product
+      %}
+    </div>
+    <div class="prd-Card_Review">
+      {%- render 'okendo-reviews-product-rating-summary', product: product -%}
+    </div>
+
+    <div class="prd-Card_Colours" data-el="product-card.colours"></div>
+  </div>
+</div>

@@ -1,0 +1,147 @@
+{%- liquid
+  assign section_foreground = 'standard'
+  assign section_background = '#fff'
+
+  if section.settings.text_colour != blank
+    assign section_foreground = section.settings.text_colour
+  endif
+
+  if section.settings.bg_colour != blank
+    assign section_background = section.settings.bg_colour
+  endif
+-%}
+{{ 'section-product-carousel.css' | asset_url | stylesheet_tag }}
+<section class="sec-Section sec-Style-{{ section_foreground }}" style="--StyleBackground: {{ section_background }};" data-animate-section>
+  <div class="sec-Section_Inner lyt-Container">
+    {%- if section.settings.title != blank -%}
+      <div class="sec-Section_Header">
+        {%- if section.settings.show_logo -%}
+          <div class="sec-Section_Logo" data-animate-el>
+            {%- render 'bao-danetti-logo-small' -%}
+          </div>
+        {%- endif -%}
+
+        <h2 class="sec-Section_Title" data-animate-el>
+          {{ section.settings.title }}
+        </h2>
+
+        {%- if section.settings.subtitle != blank -%}
+          <p class="sec-Section_Subtitle" data-animate-el>
+            {{ section.settings.subtitle }}
+          </p>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+
+    <div class="sec-Section_Body">
+      <div
+        class="sec-ProductCarousel_Carousel"
+        {% if section.blocks.size > 1 %}data-module="product-carousel"{% endif %}
+      >
+        <div class="sec-ProductCarousel_Items car-Carousel_Slides" data-el="product-carousel.slides">
+          {%- for block in section.blocks -%}
+            {%- assign carousel_product = all_products[block.settings.product] -%}
+
+            {%- if carousel_product != blank -%}
+              <div class="sec-ProductCarousel_Item car-Carousel_Slide" data-el="product-carousel.slide" data-animate-el>
+                {%- render 'product-card', product: carousel_product -%}
+              </div>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+
+        {%- if section.blocks.size > 3 -%}
+          <div class="sec-ProductCarousel_Dots" data-animate-el>
+            {%- for block in section.blocks -%}
+              <button type="button" aria-label="dot-{{ forloop.index0 }}" class="sec-ProductCarousel_Dot" data-slide="{{ forloop.index0 }}" data-el="product-carousel.dot"></button>
+            {%- endfor -%}
+          </div>
+        {%- endif -%}
+      </div>
+    </div>
+
+    {%- if section.settings.button_text != blank and section.settings.button_url != blank -%}
+      <div class="sec-Section_Footer" data-animate-el>
+        <a href="{{ section.settings.button_url }}" class="btn-Secondary">
+          {{ section.settings.button_text }}
+        </a>
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+  {
+    "name": "Product Carousel",
+    "settings": [
+      {
+        "type": "color",
+        "id": "bg_colour",
+        "label": "Background"
+      },
+      {
+        "type": "select",
+        "id": "text_colour",
+        "label": "Text Colour",
+        "options": [
+          {
+            "value": "standard",
+            "label": "Standard"
+          },
+          {
+            "value": "white",
+            "label": "White"
+          },
+          {
+            "value": "blue",
+            "label": "Blue"
+          }
+        ]
+      },
+      {
+        "type": "checkbox",
+        "id": "show_logo",
+        "label": "Show Logo"
+      },
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Title"
+      },
+      {
+        "type": "text",
+        "id": "subtitle",
+        "label": "Subtitle"
+      },
+      {
+        "type": "text",
+        "id": "button_text",
+        "label": "Button text"
+      },
+      {
+        "type": "url",
+        "id": "button_url",
+        "label": "Button url"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "product",
+        "name": "Product",
+        "settings": [
+          {
+            "type": "product",
+            "id": "product",
+            "label": "Product"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "category": "Homepage",
+        "name": "Product Carousel"
+      }
+    ]
+  }
+{% endschema %}

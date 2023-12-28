@@ -1,0 +1,22 @@
+{%- liquid
+  if product.metafields.product_details.multiple_quantity != blank
+    assign quantity_increment = product.metafields.product_details.multiple_quantity | plus: 0
+  else
+    assign quantity_increment = 1
+  endif
+-%}
+
+<p class="prd-Price{% if product.compare_at_price > product.price %} prd-Price-sale{% endif %} js-Product_PriceWrapper">
+  {%- if product.price == 0 -%}
+    <span class="prd-Price_Free">
+      {{ 'products.product.free' | t }}
+    </span>
+  {%- else -%}
+    <span class="util-ScreenReaderOnly">{{ 'products.product.regular_price' | t }}</span>
+    <span class="prd-Price_Sale js-Product_PriceCompare"{% unless product.compare_at_price > product.price %} hidden{% endunless %}>{%- if product.compare_at_price > product.price -%}{{ product.compare_at_price | times: quantity_increment | money }}{%- endif -%}</span>
+
+    <span class="prd-Price_Value js-Product_Price">
+      {{ product.price | times: quantity_increment | money }}
+    </span>
+  {%- endif -%}
+</p>
