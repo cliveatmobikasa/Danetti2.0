@@ -1,0 +1,51 @@
+/*
+|--------------------------------------------------------------------------
+| Welcome
+|--------------------------------------------------------------------------
+| @namespace: mod-
+|
+*/
+.mod-Welcome {
+  padding: 30px;
+  text-align: center;
+}
+.mod-Welcome_Logo {
+  display: block;
+  width: 90px;
+  height: 90px;
+  margin-right: auto;
+  margin-left: auto;
+  color: var(--Color_Anchor);
+}
+.mod-Welcome_Title {
+  font-family: var(--Font_Family-ballingerXCondensed);
+  font-size: 25px;
+  font-weight: 700;
+  line-height: 25px;
+  margin-top: 20px;
+  color: var(--Color_Brand);
+}
+.mod-Welcome_Text {
+  width: 90%;
+  margin-top: 20px;
+  margin-right: auto;
+  margin-left: auto;
+}
+.mod-Welcome_Text p {
+  margin-bottom: 20px;
+}
+.mod-Welcome_Button {
+  margin-top: 20px;
+}
+@media screen and (min-width: 768px) {
+  .mod-Welcome_Text {
+    width: 80%;
+  }
+}
+@media screen and (min-width: 901px) {
+  .mod-Welcome_Title {
+    font-size: 30px;
+    line-height: 30px;
+
+  }
+}

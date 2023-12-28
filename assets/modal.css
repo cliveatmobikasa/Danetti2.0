@@ -1,0 +1,150 @@
+/*
+|--------------------------------------------------------------------------
+| Modal
+|--------------------------------------------------------------------------
+| @namespace: mod-Modal
+|
+*/
+.mod-Modal {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 11;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  background-color: rgba(0, 0, 0, 0.4);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.3s ease 0.3s, visibility 0.3s ease 0.3s;
+}
+.mod-Modal[aria-expanded='true'] {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: all;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+.mod-Modal_Modal {
+  position: relative;
+  max-width: 1000px;
+  width: calc((11 / 12) * 100%);
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+.mod-Modal[aria-expanded='true'] .mod-Modal_Modal {
+  opacity: 1;
+  transform: none;
+  transition: opacity 0.3s ease 0.3s, transform 0.3s ease 0.3s;
+}
+.mod-Modal_Modal-medium {
+  max-width: 600px;
+  width: 90vw;
+}
+.mod-Modal_Modal-thin {
+  max-width: 450px;
+  width: 90vw;
+}
+.mod-Modal_Inner {
+  margin-top: 10px;
+}
+.mod-Modal_Close {
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  width: 30px;
+  height: 30px;
+  margin-left: auto;
+  background-color: transparent;
+}
+.mod-Modal_Close svg {
+  width: 13px;
+  height: 13px;
+  fill: #fff;
+}
+.mod-Modal_Close.js-Product_QuantityInfoModalClose svg {
+  fill: black;
+}
+.mod-Modal_Button {
+  width: 100%;
+}
+.mod-Modal_Content {
+  position: relative;
+  align-items: center;
+  flex-direction: column;
+  display: flex;
+  max-height: 90vh;
+  background-color: #fff;
+  overflow: auto;
+}
+.mod-Modal_Content::after {
+  content: '';
+  padding-top: 56%;
+}
+.mod-Modal_Content-padded {
+  padding: 15px;
+}
+.mod-Modal_Video {
+  position: absolute;
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+.mod-Modal_Title {
+  font-family: var(--Font_Family-ballingerXCondensed);
+  font-size: 35px;
+  font-weight: 700;
+  line-height: 35px;
+  text-align: center;
+  color: var(--ThemeColor_Title);
+}
+.mod-Modal_SubTitle {
+  font-size: 15px;
+  line-height: 24px;
+  margin-top: 5px;
+  font-style: italic;
+  font-weight: 400;
+  text-align: center;
+  color: var(--ThemeColor_Subtitle);
+}
+.mod-Modal_SubTitle-gapTop {
+  margin-top: 20px;
+}
+.mod-Modal_Text {
+  margin-top: 25px;
+  margin-bottom: 35px;
+
+  text-align: center;
+}
+@media screen and (min-width: 768px) {
+  .mod-Modal_Content-padded {
+    padding: 40px;
+  }
+}
+@media screen and (min-width: 901px) {
+  .mod-Modal_Modal {
+    width: calc((9 / 12) * 100%);
+  }
+  .mod-Modal_Modal-medium {
+    width: calc((8 / 12) * 100%);
+  }
+  .mod-Modal_Modal-thin {
+    width: calc((8 / 12) * 100%);
+  }
+  .mod-Modal_Close svg {
+    width: 18px;
+    height: 18px;
+  }
+  .mod-Modal_Title {
+    font-size: 45px;
+    line-height: 45px;
+  }
+  .mod-Modal_SubTitle {
+    font-size: 16px;
+    line-height: 24px;
+
+  }
+}
