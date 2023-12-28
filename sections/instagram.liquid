@@ -1,0 +1,60 @@
+{%- render 'instagram'
+  section_foreground: section.settings.text_colour,
+  section_background: section.settings.bg_colour,
+  section_show_logo: section.settings.show_logo,
+  section_title: section.settings.title,
+  section_subtitle: section.settings.subtitle
+-%}
+
+{% schema %}
+  {
+    "name": "Instagram",
+    "settings": [
+      {
+        "type": "color",
+        "id": "bg_colour",
+        "label": "Background"
+      },
+      {
+        "type": "select",
+        "id": "text_colour",
+        "label": "Text Colour",
+        "options": [
+          {
+            "value": "standard",
+            "label": "Standard"
+          },
+          {
+            "value": "white",
+            "label": "White"
+          },
+          {
+            "value": "blue",
+            "label": "Blue"
+          }
+        ]
+      },
+      {
+        "type": "checkbox",
+        "id": "show_logo",
+        "label": "Show Logo"
+      },
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Title"
+      },
+      {
+        "type": "text",
+        "id": "subtitle",
+        "label": "Subtitle"
+      }
+    ],
+    "presets": [
+      {
+        "category": "Homepage",
+        "name": "Instagram"
+      }
+    ]
+  }
+{% endschema %}

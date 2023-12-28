@@ -255,12 +255,26 @@
         "button_url": "https:\/\/www.danetti.com\/pages\/ourshowroom",
         "button_style": "btn-Secondary"
       }
+    },
+    "instagram": {
+      "type": "instagram",
+      "custom_css": [
+
+      ],
+      "settings": {
+        "bg_colour": "",
+        "text_colour": "blue",
+        "show_logo": false,
+        "title": "Get involved",
+        "subtitle": "Follow us at @Danetti_com to see what we're up to and get some home inspiration."
+      }
     }
   },
   "order": [
     "hero",
     "cta_grid",
     "easy_style_update",
-    "our_berkshire_showroom"
+    "our_berkshire_showroom",
+    "instagram"
   ]
 }

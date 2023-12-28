@@ -451,8 +451,38 @@ class MobileNav extends Module {
     return el.closest(selectors.drawer)
   }
 }
+
+class Instagram extends Module {
+  static methods = ['bindFourSixty', 'onScroll'];
+
+  initialize (el, context) {
+    super.initialize(el, context);
+    window.MOBIKASA.instagram = this;
+  }
+
+  setupListeners () {
+    window.addEventListener('scroll', this.onScroll.bind(this))
+  }
+
+  onScroll () {
+    const parentOffset = this.el.parentElement.getBoundingClientRect();
+    const top = parentOffset.top - window.innerHeight;
+
+    if (top < 0) {
+      window.removeEventListener('scroll', this.onScroll);
+      this.bindFourSixty();
+    }
+  }
+
+  bindFourSixty () {
+    this.el.src = this.el.dataset.src;
+  }
+
+}
 window.MOBIKASA.modules = {
   Application,
   Drawer,
-  Drawers
+  Drawers,
+  MobileNav,
+  Instagram
 };

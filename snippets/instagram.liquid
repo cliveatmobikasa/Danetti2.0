@@ -1,0 +1,45 @@
+{%- liquid
+  if section_foreground == blank
+    assign section_foreground = 'standard'
+  endif
+
+  if section_background == blank
+    assign section_background = '#fff'
+  endif
+
+  if items_size != blank
+    assign data_size = items_size
+  else 
+    assign data_size = '8'
+  endif
+-%}
+
+<section class="sec-Section sec-Style-{{ section_foreground }}" style="--StyleBackground: {{ section_background }};">
+  <div class="sec-Section_Inner lyt-Container">
+    {%- if section_title != blank -%}
+      <div class="sec-Section_Header" data-animate-section>
+        {%- if section_show_logo -%}
+          <div class="sec-Section_Logo" data-animate-el>
+            {%- render 'bao-danetti-logo-small' -%}
+          </div>
+        {%- endif -%}
+
+        <h2 class="sec-Section_Title" data-animate-el>
+          {{ section_title }}
+        </h2>
+
+        {%- if section_subtitle != blank -%}
+          <p class="sec-Section_Subtitle" data-animate-el>
+            {{ section_subtitle }}
+          </p>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+
+    <div class="sec-Section_Body">
+      <div class="sec-Instagram">
+        <script data-module="instagram" data-src="//foursixty.com/media/scripts/fs.embed.v2.5.js" data-feed-id="danetti" data-theme="lookbook_v2_5" data-page-size="{{ data_size }}" {% if filter != blank %}data-category-filter="{{ filter }}"{% endif %} async defer></script>
+      </div>
+    </div>
+  </div>
+</section>
