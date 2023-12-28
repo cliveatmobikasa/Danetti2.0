@@ -715,6 +715,64 @@ class CtaCarousel extends Module {
     }
   }
 }
+class ArticleCarousel extends Module {
+  static targets = ['controlnext', 'controlprevious', 'image', 'slides', 'slide']
+
+  initialize (el, context) {
+    super.initialize(el, context);
+  }
+  setupListeners () {
+    super.setupListeners();
+    this.changeCarousel = this.changeCarousel.bind(this);
+    this.carousel = this.initialiseCarousel();
+    this.addListeners(this.controlpreviousEl, 'click', this.changeCarousel);
+    this.addListeners(this.controlnextEl, 'click', this.changeCarousel);
+  }
+  initialiseCarousel () {
+    return new KeenSlider(this.slidesEl, {
+      duration: 2000,
+      loop: true,
+      mode: 'snap',
+      selector: '.car-Carousel_Slide',
+      slides: {
+        origin: 'center',
+        perView: 1.2,
+        spacing: 15
+      },
+      breakpoints: {
+        '(min-width: 768px)': {
+          slides: {
+            origin: 'center',
+            perView: 1.9,
+            spacing: 80
+          }
+        },
+        '(min-width: 1200px)': {
+          slides: {
+            origin: 'center',
+            perView: 2.1,
+            spacing: 110
+          }
+        },
+        '(min-width: 1600px)': {
+          slides: {
+            origin: 'center',
+            perView: 2.4,
+            spacing: 110
+          }
+        },
+      },
+    })
+  }
+
+  changeCarousel (e) {
+    if (e.currentTarget.dataset.direction === 'previous') {
+      this.carousel.prev()
+    } else {
+      this.carousel.next()
+    }
+  }
+}
 window.MOBIKASA.modules = {
   Application,
   Header,
@@ -723,5 +781,6 @@ window.MOBIKASA.modules = {
   Instagram,
   FooterAccordions,
   ProductCarousel,
-  CtaCarousel
+  CtaCarousel,
+  ArticleCarousel
 };

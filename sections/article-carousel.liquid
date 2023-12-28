@@ -1,0 +1,300 @@
+{%- liquid
+  assign section_background = section.settings.bg_colour
+  assign section_foreground = section.settings.text_colour
+  assign section_show_logo = section.settings.show_logo
+  assign section_title = section.settings.title
+  assign section_subtitle = section.settings.subtitle
+  assign section_button_text = section.settings.button_text
+  assign section_button_url = section.settings.button_url
+  assign section_blocks = section.blocks
+-%}
+{%- liquid
+  if section_foreground == blank
+    assign section_foreground = 'standard'
+  endif
+
+  if section_background == blank
+    assign section_background = '#fff'
+  endif
+
+  if section_blocks == blank and section_article_1 == blank
+    assign latest_blog = blogs['lifestyle']
+  endif
+
+  if latest_blog.articles.size > 1
+    assign is_carousel = true
+  elsif section_blocks.size > 1
+    assign is_carousel = true
+  elsif section_article_1 != blank and section_article_2 != blank
+    assign is_carousel = true
+  endif
+
+  assign countArticle = 0
+  for block in section_blocks
+    if block.settings.article != blank
+      assign countArticle = countArticle | plus: 1
+    endif
+  endfor
+
+  if section_blocks != blank and countArticle != section_blocks.size
+    assign latest_blog = blogs['lifestyle']
+  endif
+-%}
+{{ 'section-article-carousel.css' | asset_url | stylesheet_tag }}
+<section class="sec-Section sec-Style-{{ section_foreground }}" style="--StyleBackground: {{ section_background }};">
+  <div class="sec-Section_Inner lyt-Container">
+    {%- if section_title != blank -%}
+      <div class="sec-Section_Header" data-animate-section>
+        {%- if section_show_logo -%}
+          <div class="sec-Section_Logo" data-animate-el>
+            {%- render 'bao-danetti-logo-small' -%}
+          </div>
+        {%- endif -%}
+
+        <h2 class="sec-Section_Title" data-animate-el>
+          {{ section_title }}
+        </h2>
+
+        {%- if section_subtitle != blank -%}
+          <p class="sec-Section_Subtitle" data-animate-el>
+            {{ section_subtitle }}
+          </p>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+  </div>
+
+  <div class="sec-Section_Body">
+    <div
+      class="sec-ArticleCarousel_Carousel"
+      {% if is_carousel == true %}data-module="article-carousel"{% endif %}
+      data-animate-section
+    >
+      <ul class="sec-ArticleCarousel_Slides car-Carousel_Slides" data-el="article-carousel.slides">
+        {%- if section_blocks != blank -%}
+
+          {%- if countArticle == section_blocks.size -%}
+            {%- for block in section_blocks -%}
+              {%- assign article_item = articles[block.settings.article] -%}
+
+              {%- if article_item != blank -%}
+                {%- if article_item.image != blank -%}
+                  {%- assign has_images = true -%}
+                {%- endif -%}
+
+                {%- render 'article-slide-card'
+                  article_item: article_item
+                -%}
+
+              {%- endif -%}
+            {%- endfor -%}
+          {%- else -%}
+            {%- for article in latest_blog.articles limit: 5 -%}
+              {%- if article.image != blank -%}
+                {%- assign has_images = true -%}
+              {%- endif -%}
+
+              {%- render 'article-slide-card'
+                article_item: article
+              -%}
+            {%- endfor -%}
+          {%- endif -%}
+
+        {%- elsif latest_blog != blank -%}
+          {%- for article in latest_blog.articles limit: 5 -%}
+            {%- if article.image != blank -%}
+              {%- assign has_images = true -%}
+            {%- endif -%}
+
+            {%- render 'article-slide-card'
+              article_item: article
+            -%}
+          {%- endfor -%}
+        {%- else -%}
+
+          {%- if section_article_1 != blank -%}
+            {%- assign article_item = articles[section_article_1] -%}
+
+            {%- if article_item != blank -%}
+              {%- if article_item.image != blank -%}
+                {%- assign has_images = true -%}
+              {%- endif -%}
+
+              {%- render 'article-slide-card'
+                article_item: article_item
+              -%}
+            {%- endif -%}
+          {%- endif -%}
+
+          {%- if section_article_2 != blank -%}
+            {%- assign article_item = articles[section_article_2] -%}
+
+            {%- if article_item != blank -%}
+              {%- if article_item.image != blank -%}
+                {%- assign has_images = true -%}
+              {%- endif -%}
+
+              {%- render 'article-slide-card'
+                article_item: article_item
+              -%}
+            {%- endif -%}
+          {%- endif -%}
+
+          {%- if section_article_3 != blank -%}
+            {%- assign article_item = articles[section_article_3] -%}
+
+            {%- if article_item != blank -%}
+              {%- if article_item.image != blank -%}
+                {%- assign has_images = true -%}
+              {%- endif -%}
+
+              {%- render 'article-slide-card'
+                article_item: article_item
+              -%}
+            {%- endif -%}
+          {%- endif -%}
+
+          {%- if section_article_4 != blank -%}
+            {%- assign article_item = articles[section_article_4] -%}
+
+            {%- if article_item != blank -%}
+              {%- if article_item.image != blank -%}
+                {%- assign has_images = true -%}
+              {%- endif -%}
+
+              {%- render 'article-slide-card'
+                article_item: article_item
+              -%}
+            {%- endif -%}
+          {%- endif -%}
+
+          {%- if section_article_5 != blank -%}
+            {%- assign article_item = articles[section_article_5] -%}
+
+            {%- if article_item != blank -%}
+              {%- if article_item.image != blank -%}
+                {%- assign has_images = true -%}
+              {%- endif -%}
+
+              {%- render 'article-slide-card'
+                article_item: article_item
+              -%}
+            {%- endif -%}
+          {%- endif -%}
+
+          {%- if section_article_6 != blank -%}
+            {%- assign article_item = articles[section_article_6] -%}
+
+            {%- if article_item != blank -%}
+              {%- if article_item.image != blank -%}
+                {%- assign has_images = true -%}
+              {%- endif -%}
+
+              {%- render 'article-slide-card'
+                article_item: article_item
+              -%}
+            {%- endif -%}
+          {%- endif -%}
+        {%- endif -%}
+      </ul>
+
+      {%- if is_carousel == true -%}
+        <div class="sec-ArticleCarousel_Arrows{% if has_images == true %} sec-ArticleCarousel_Arrows-hasImages{% endif %}">
+          <div class="sec-ArticleCarousel_ArrowHolder">
+            <button class="sec-ArticleCarousel_Arrow sec-ArticleCarousel_Arrow-prev" data-el="article-carousel.controlprevious" data-direction="previous">
+              <span class="util-ScreenReaderOnly">Previous</span>
+            </button>
+
+            <button class="sec-ArticleCarousel_Arrow sec-ArticleCarousel_Arrow-next" data-el="article-carousel.controlnext" data-direction="next">
+              <span class="util-ScreenReaderOnly">Next</span>
+            </button>
+          </div>
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+
+  {%- if section_button_text != blank and section_button_url != blank -%}
+    <div class="sec-Section_Footer">
+      <a href="{{ section_button_url }}" class="btn-Secondary">
+        {{ section_button_text }}
+      </a>
+    </div>
+  {%- endif -%}
+</section>
+
+{% schema %}
+  {
+    "name": "Article Carousel",
+    "settings": [
+      {
+        "type": "color",
+        "id": "bg_colour",
+        "label": "Background"
+      },
+      {
+        "type": "select",
+        "id": "text_colour",
+        "label": "Text Colour",
+        "options": [
+          {
+            "value": "standard",
+            "label": "Standard"
+          },
+          {
+            "value": "white",
+            "label": "White"
+          },
+          {
+            "value": "blue",
+            "label": "Blue"
+          }
+        ]
+      },
+      {
+        "type": "checkbox",
+        "id": "show_logo",
+        "label": "Show Logo"
+      },
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Title"
+      },
+      {
+        "type": "text",
+        "id": "subtitle",
+        "label": "Subtitle"
+      },
+      {
+        "type": "text",
+        "id": "button_text",
+        "label": "Button text"
+      },
+      {
+        "type": "url",
+        "id": "button_url",
+        "label": "Button url"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "article",
+        "name": "Article",
+        "settings": [
+          {
+            "type": "article",
+            "id": "article",
+            "label": "Article"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "category": "Homepage",
+        "name": "Article Carousel"
+      }
+    ]
+  }
+{% endschema %}

@@ -1,0 +1,72 @@
+<li class="sec-ArticleCarousel_Slide car-Carousel_Slide" data-el="article-carousel.slide" data-slide="{{ forloop.index0 }}">
+  {%- liquid
+    assign article_category = ''
+    assign article_time = ''
+  
+    for tag in article_item.tags
+      if tag contains 'Category:'
+        assign article_category = tag | remove: 'Category: '
+      endif
+  
+      if tag contains 'Time:'
+        assign article_time = tag | remove: 'Time: '
+      endif
+    endfor
+  -%}
+  
+  <div class="art-CarouselCard">
+    {%- if article_item.image != blank -%}
+      <div class="art-CarouselCard_ImageContainer" data-animate-image>
+        <div class="art-CarouselCard_Image" data-el="article-carousel.image" data-slide="{{ forloop.index0 }}">
+          {%- render 'responsive-image' with
+            image: article_item.image,
+            width: 1280,
+            height: 800
+          -%}
+        </div>
+      </div>
+    {%- endif -%}
+  
+    <div class="art-CarouselCard_Content" data-animate-el>
+      <a href="{{ article_item.url }}" class="art-CarouselCard_Title">
+        {{ article_item.title }}
+      </a>
+  
+      {%- if article_category != blank or article_time != blank -%}
+        <div class="art-CarouselCard_Tags">
+          {%- if article_category != blank -%}
+            <div class="art-CarouselCard_Tag">
+              <span class="art-CarouselCard_TagIcon">
+                {%- render 'bao-icon-tag' -%}
+              </span>
+  
+              <span class="art-CarouselCard_TagText">
+                {{ article_category }}
+              </span>
+            </div>
+          {%- endif -%}
+  
+          {%- if article_time != blank -%}
+            <div class="art-CarouselCard_Tag">
+              <span class="art-CarouselCard_TagIcon">
+                {%- render 'bao-icon-time' -%}
+              </span>
+  
+              <span class="art-CarouselCard_TagText">
+                {{ article_time }}
+              </span>
+            </div>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+  
+      <div class="art-CarouselCard_Text rte-RichText">
+        {{ article_item.excerpt | strip_html }}
+      </div>
+  
+      <a href="{{ article_item.url }}" class="art-CarouselCard_Button">
+        {{ 'blogs.article.read_more' | t }}
+      </a>
+    </div>
+  </div>
+</li>

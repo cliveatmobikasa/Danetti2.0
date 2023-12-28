@@ -88,6 +88,9 @@
         "one": "{{ count }} comment",
         "other": "{{ count }} comments"
       },
+      "read_more": "Read more",
+      "related_articles": "Explore Our Blogs",
+      "date_published": "Date published:",
       "moderated": "Please note, comments need to be approved before they are published.",
       "comment_form_title": "Leave a comment",
       "name": "Name",

@@ -400,6 +400,50 @@
         "button_style": "btn-Secondary"
       }
     },
+    "article_carousel": {
+      "type": "article-carousel",
+      "blocks": {
+        "1596118673253": {
+          "type": "article",
+          "settings": {
+            "article": "lifestyle\/4-things-you-need-to-know-about-interior-trends-this-season"
+          }
+        },
+        "1596118686939": {
+          "type": "article",
+          "settings": {
+            "article": "lifestyle\/relaxing-interior-design-3x-ways-to-create-a-relaxing-space-at-home"
+          }
+        },
+        "02f66d24-79eb-40f2-bc63-fe442ed9c23d": {
+          "type": "article",
+          "settings": {
+            "article": "lifestyle\/armchairs-and-accents-chairs-how-to-style-your-occasional-chair"
+          }
+        },
+        "56181363-9fba-497d-81c3-3aa584c8227b": {
+          "type": "article",
+          "settings": {
+            "article": "lifestyle\/cool-cocooning-how-to-bring-earthy-colours-into-your-home"
+          }
+        }
+      },
+      "block_order": [
+        "1596118673253",
+        "1596118686939",
+        "02f66d24-79eb-40f2-bc63-fe442ed9c23d",
+        "56181363-9fba-497d-81c3-3aa584c8227b"
+      ],
+      "settings": {
+        "bg_colour": "#ffffff",
+        "text_colour": "blue",
+        "show_logo": false,
+        "title": "Our Blog, Get Inspired.",
+        "subtitle": "5 minute reads to help and inspire.",
+        "button_text": "",
+        "button_url": ""
+      }
+    },
     "instagram": {
       "type": "instagram",
       "custom_css": [
@@ -421,6 +465,7 @@
     "easy_style_update",
     "you_vision_carousel",
     "our_berkshire_showroom",
+    "article_carousel",
     "instagram"
   ]
 }
