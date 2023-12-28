@@ -1,0 +1,197 @@
+{%- liquid
+  assign section_foreground = 'standard'
+  assign section_background = '#fff'
+
+  if section.settings.text_colour != blank
+    assign section_foreground = section.settings.text_colour
+  endif
+
+  if section.settings.bg_colour != blank
+    assign section_background = section.settings.bg_colour
+  endif
+-%}
+{{ 'section-cta-carousel.css' | asset_url | stylesheet_tag }}
+
+<section class="sec-Section sec-Style-{{ section_foreground }}" style="--StyleBackground: {{ section_background }};">
+  <div class="sec-Section_Inner lyt-Container">
+    {%- if section.settings.title != blank -%}
+      <div class="sec-Section_Header" data-animate-section>
+        {%- if section.settings.show_logo -%}
+          <div class="sec-Section_Logo" data-animate-el>
+            {%- render 'bao-danetti-logo-small' -%}
+          </div>
+        {%- endif -%}
+
+        <h2 class="sec-Section_Title" data-animate-el>
+          {{ section.settings.title }}
+        </h2>
+
+        {%- if section.settings.subtitle != blank -%}
+          <p class="sec-Section_Subtitle" data-animate-el>
+            {{ section.settings.subtitle }}
+          </p>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+  </div>
+
+  <div class="sec-Section_Body" data-animate-section>
+    <div 
+      class="sec-CtaCarousel_Carousel"
+      {% if section.blocks.size > 1 %}data-module="cta-carousel"{% endif %}
+      data-animate-image
+    >
+      <ul class="sec-CtaCarousel_Slides car-Carousel_Slides" data-el="cta-carousel.slides">
+        {%- for block in section.blocks -%}
+          <li class="sec-CtaCarousel_Slide sec-CtaCarousel_Slide-{{ block.settings.block_style }} car-Carousel_Slide" data-el="cta-carousel.slide" data-slide="{{ forloop.index0 }}">
+            <div class="sec-CtaCarousel_Image" data-el="cta-carousel.image" data-slide="{{ forloop.index0 }}">
+              {%- render 'responsive-image' with
+                image: block.settings.image,
+                width: 1280,
+                height: 800
+              -%}
+            </div>
+
+            <div class="sec-CtaCarousel_Content">
+              <h3 class="sec-CtaCarousel_Title">
+                {{ block.settings.title }}
+              </h3>
+
+              {%- if block.settings.button_text != blank and block.settings.button_url != blank -%}
+                <a href="{{ block.settings.button_url }}" class="sec-CtaCarousel_Button btn-Secondary">
+                  {{ block.settings.button_text }}
+                </a>
+              {%- endif -%}
+            </div>
+          </li>
+        {%- endfor -%}
+      </ul>
+
+      <div class="sec-CtaCarousel_Arrows">
+        <button class="sec-CtaCarousel_Arrow sec-CtaCarousel_Arrow-prev" data-el="cta-carousel.controlprevious" data-direction="previous">
+          <span class="util-ScreenReaderOnly">Previous</span>
+        </button>
+
+        <button class="sec-CtaCarousel_Arrow sec-CtaCarousel_Arrow-next" data-el="cta-carousel.controlnext" data-direction="next">
+          <span class="util-ScreenReaderOnly">Next</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  {%- if section.settings.button_text != blank and section.settings.button_url != blank -%}
+    <div class="sec-Section_Footer">
+      <a href="{{ section.settings.button_url }}" class="btn-Secondary">
+        {{ section.settings.button_text }}
+      </a>
+    </div>
+  {%- endif -%}
+</section>
+
+{% schema %}
+  {
+    "name": "CTA Carousel",
+    "settings": [
+      {
+        "type": "color",
+        "id": "bg_colour",
+        "label": "Background"
+      },
+      {
+        "type": "select",
+        "id": "text_colour",
+        "label": "Text Colour",
+        "options": [
+          {
+            "value": "standard",
+            "label": "Standard"
+          },
+          {
+            "value": "white",
+            "label": "White"
+          },
+          {
+            "value": "blue",
+            "label": "Blue"
+          }
+        ]
+      },
+      {
+        "type": "checkbox",
+        "id": "show_logo",
+        "label": "Show Logo"
+      },
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Title"
+      },
+      {
+        "type": "text",
+        "id": "subtitle",
+        "label": "Subtitle"
+      },
+      {
+        "type": "text",
+        "id": "button_text",
+        "label": "Button text"
+      },
+      {
+        "type": "url",
+        "id": "button_url",
+        "label": "Button url"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "slide_item",
+        "name": "Slide item",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image",
+            "info": "Recommended size: 1280px x 800px"
+          },
+          {
+            "type": "select",
+            "id": "block_style",
+            "label": "Text Colour",
+            "options": [
+              {
+                "value": "light",
+                "label": "Light"
+              },
+              {
+                "value": "dark",
+                "label": "Dark"
+              }
+            ],
+            "default": "light"
+          },
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Title"
+          },
+          {
+            "type": "text",
+            "id": "button_text",
+            "label": "Button text"
+          },
+          {
+            "type": "url",
+            "id": "button_url",
+            "label": "Button url"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "category": "Homepage",
+        "name": "CTA Carousel"
+      }
+    ]
+  }
+{% endschema %}

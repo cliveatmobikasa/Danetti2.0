@@ -385,6 +385,7 @@
     {{ 'snippet-product-card.css' | asset_url | stylesheet_tag }}
     {{ 'module-carousel.css' | asset_url | stylesheet_tag }}
     {{ 'https://cdn.jsdelivr.net/npm/keen-slider@latest/keen-slider.js' | script_tag }}
+    {{ 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.4/gsap.min.js' | script_tag }}
 
     {%- unless settings.type_body_font.system? -%}
       <link rel="preload" as="font" href="{{ settings.type_body_font | font_url }}" type="font/woff2" crossorigin>

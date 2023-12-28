@@ -1,0 +1,269 @@
+/*
+|--------------------------------------------------------------------------
+| Cta Carousel
+|--------------------------------------------------------------------------
+| @namespace: sec-CtaCarousel
+|
+*/
+.sec-CtaCarousel_Carousel {
+  position: relative;
+}
+.sec-CtaCarousel_Slide {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  overflow: hidden;
+}
+.sec-CtaCarousel_Slide::after {
+  content: '';
+  display: block;
+  width: 0;
+  padding-top: 62%;
+}
+.sec-CtaCarousel_Slide-square::after {
+  content: '';
+  display: block;
+  width: 0;
+  padding-top: 90%;
+}
+.sec-CtaCarousel_Image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  transform: scale(1.1);
+}
+.sec-CtaCarousel_Content {
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  display: flex;
+  width: 100%;
+}
+.sec-CtaCarousel_Title {
+  font-family: var(--Font_Family-sentinel);
+  font-size: 30px;
+  font-style: italic;
+  font-weight: 400;
+  line-height: 30px;
+  color: #fff;
+}
+.sec-CtaCarousel_Slide-dark .sec-CtaCarousel_Title {
+  color: var(--Color_Brand);
+}
+.sec-CtaCarousel_FauxLink {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.sec-CtaCarousel_Button {
+  --Button_Border: #fff;
+  --Button_Color: #fff;
+  --Button_HoverBackground: #fff;
+  --Button_HoverBorder: #fff;
+  --Button_HoverColor: var(--Color_Brand);
+  margin-top: 15px;
+}
+.sec-CtaCarousel_Slide-dark .sec-CtaCarousel_Button {
+  --Button_Border: var(--Color_Brand);
+  --Button_Color: var(--Color_Brand);
+
+  --Button_HoverBackground: var(--Color_Brand);
+  --Button_HoverBorder: var(--Color_Brand);
+  --Button_HoverColor: #fff;
+}
+/*
+|--------------------------------------------------------------------------
+| Controls
+|--------------------------------------------------------------------------
+|
+*/
+.sec-CtaCarousel_Arrows {
+  display: none;
+}
+.sec-CtaCarousel_Arrow {
+  position: relative;
+  width: 40px;
+  height: 30px;
+  overflow: hidden;
+  pointer-events: auto;
+}
+.sec-CtaCarousel_Arrow::after,
+.sec-CtaCarousel_Arrow::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 0;
+  display: block;
+  width: 25px;
+  height: 12px;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 33 15' xmlns='http://www.w3.org/2000/svg' fill='%230a1e2d'%3E%3Cpath d='M32.265 7.092L25.437.169a.562.562 0 00-.803 0 .583.583 0 000 .816l5.855 5.937H.569A.572.572 0 000 7.5c0 .319.255.577.569.577h29.92l-5.855 5.937a.583.583 0 000 .815c.111.115.257.17.402.17a.568.568 0 00.404-.17l6.827-6.923a.585.585 0 000-.815l-.002.002z' fill-rule='evenodd'/%3E%3C/svg%3E");
+  background-position: center center;
+  background-size: 25px 12px;
+  transform: translate(-50%, -50%);
+  transition: transform 0.5s ease;
+}
+.sec-CtaCarousel_Arrow::after {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 33 15' xmlns='http://www.w3.org/2000/svg' fill='%23c2002f'%3E%3Cpath d='M32.265 7.092L25.437.169a.562.562 0 00-.803 0 .583.583 0 000 .816l5.855 5.937H.569A.572.572 0 000 7.5c0 .319.255.577.569.577h29.92l-5.855 5.937a.583.583 0 000 .815c.111.115.257.17.402.17a.568.568 0 00.404-.17l6.827-6.923a.585.585 0 000-.815l-.002.002z' fill-rule='evenodd'/%3E%3C/svg%3E");
+  transform: translate(calc(-100% - 20px), -50%);
+}
+.sec-CtaCarousel_Arrow:hover::before {
+  transform: translate(calc(100% + 20px), -50%);
+}
+.sec-CtaCarousel_Arrow:hover::after {
+  transform: translate(-50%, -50%);
+}
+.sec-CtaCarousel_Arrow-prev {
+  transform: rotate(180deg);
+}
+/*
+|--------------------------------------------------------------------------
+| Progress lines
+|--------------------------------------------------------------------------
+|
+*/
+.car-Carousel_Lines {
+  display: flex;
+  width: 100%;
+  margin-top: 20px;
+  border-radius: 5px;
+  overflow: hidden;
+}
+.car-Carousel_Line {
+  position: relative;
+  flex-grow: 1;
+  height: 2px;
+}
+.car-Carousel_Line::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  display: block;
+  width: 100%;
+  height: 100%;
+  background-color: var(--Color_Brand);
+  opacity: 0.1;
+}
+.car-Carousel_Line::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  display: block;
+  width: 100%;
+  height: 100%;
+  background-color: var(--Color_Brand);
+  transform: scaleX(0);
+  transform-origin: 100% 0;
+  transition: transform 0.5s ease;
+}
+.car-Carousel_Line[aria-current='true']::after {
+  transform: scaleX(1);
+  transform-origin: 0 0;
+}
+.car-Carousel_Line-previous::after {
+  transform-origin: 0 0;
+}
+.car-Carousel_Line-previous[aria-current='true']::after {
+  transform-origin: 100% 0;
+}
+.car-Carousel_Line-light::before {
+  background-color: var(--Color_Border);
+  opacity: 1;
+}
+.car-Carousel_Line-light::after {
+  background-color: var(--Color_Brand);
+}
+.car-Carousel_Line-white::before {
+  background-color: var(--Color_Brand);
+  opacity: 1;
+}
+.car-Carousel_Line-white::after {
+  background-color: var(--Color_Border);
+}
+.car-Carousel_Line-thick {
+  height: 6px;
+}
+/*
+|--------------------------------------------------------------------------
+| Progress dots
+|--------------------------------------------------------------------------
+|
+*/
+.car-Carousel_Dots {
+  justify-content: center;
+  display: flex;
+  width: 100%;
+}
+.car-Carousel_Dot {
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  width: 20px;
+  height: 20px;
+  opacity: 0.3;
+  transition: opacity 0.3s ease;
+}
+.car-Carousel_Dot::before {
+  content: '';
+  display: block;
+  width: 6px;
+  height: 6px;
+  background-color: #fff;
+  border-radius: 50%;
+}
+.car-Carousel_Dot[aria-current='true'],
+.car-Carousel_Dot:hover {
+  opacity: 1;
+}
+@media screen and (min-width: 768px) {
+  .sec-CtaCarousel_Arrows {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 1;
+    justify-content: space-between;
+    display: flex;
+    width: calc((7 / 12) * 100%);
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+  }
+  .car-Carousel_Lines {
+    margin-top: 30px;
+  }
+}
+@media screen and (min-width: 901px) {
+  .car-Carousel_Line:nth-last-child(-n + 2) {
+    display: none;
+  }
+}
+@media screen and (min-width: 1201px) {
+  .sec-CtaCarousel_Arrows {
+    width: calc(((6 / 12) * 100%) + (var(--Grid_Gutter) * 2));
+  }
+  .sec-CtaCarousel_Arrow::after,
+  .sec-CtaCarousel_Arrow::before  {
+    width: 33px;
+    height: 15px;
+    background-size: 33px 15px;
+  }
+  .car-Carousel_Lines {
+    margin-top: 60px;
+  }
+}
+@media screen and (min-width: 1601px) {
+  .sec-CtaCarousel_Arrows {
+    width: calc(((5 / 12) * 100%) + (var(--Grid_Gutter) * 3));
+  }
+}

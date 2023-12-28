@@ -302,6 +302,89 @@
         "button_style": "btn-Secondary"
       }
     },
+    "you_vision_carousel": {
+      "type": "cta-carousel",
+      "blocks": {
+        "1596123328371": {
+          "type": "slide_item",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/Nala_Ex_and_Leah_Semi_Detail.jpg",
+            "block_style": "light",
+            "title": "Dining Room",
+            "button_text": "Shop now",
+            "button_url": "shopify:\/\/collections\/dining-room"
+          }
+        },
+        "1599553826337": {
+          "type": "slide_item",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/Harper_Bar_Stool_Semi_Detail.jpg",
+            "block_style": "light",
+            "title": "Bar Stools",
+            "button_text": "Shop Now",
+            "button_url": "shopify:\/\/collections\/bar-stools"
+          }
+        },
+        "b822a26b-0289-4969-a19d-863f4d167241": {
+          "type": "slide_item",
+          "disabled": true,
+          "settings": {
+            "image": "shopify:\/\/shop_images\/Savannah_Lift_up_Day_Bed_and_Romero_Lifestyle.jpg",
+            "block_style": "light",
+            "title": "Garden Furniture",
+            "button_text": "Shop Now",
+            "button_url": "shopify:\/\/collections\/garden-furniture"
+          }
+        },
+        "1594547333311": {
+          "type": "slide_item",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/Nala_Coffee_Table_Scene_Shot_1.jpg",
+            "block_style": "light",
+            "title": "Living Room",
+            "button_text": "Shop now",
+            "button_url": "shopify:\/\/collections\/living-room"
+          }
+        },
+        "cf2894ed-94a6-4b16-875d-1791fc43ffd7": {
+          "type": "slide_item",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/Foster_Power_Shot_2.jpg",
+            "block_style": "light",
+            "title": "Home Office",
+            "button_text": "Shop Now",
+            "button_url": "shopify:\/\/collections\/home-office"
+          }
+        },
+        "1594547507965": {
+          "type": "slide_item",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/Hero-Desktop_6d5a21c3-950c-4a33-b8a3-1c945ca03579.jpg",
+            "block_style": "light",
+            "title": "Bedroom",
+            "button_text": "Shop now",
+            "button_url": "shopify:\/\/collections\/bedroom"
+          }
+        }
+      },
+      "block_order": [
+        "1596123328371",
+        "1599553826337",
+        "b822a26b-0289-4969-a19d-863f4d167241",
+        "1594547333311",
+        "cf2894ed-94a6-4b16-875d-1791fc43ffd7",
+        "1594547507965"
+      ],
+      "settings": {
+        "bg_colour": "#f9f8f7",
+        "text_colour": "blue",
+        "show_logo": false,
+        "title": "Your Vision, Room by Room",
+        "subtitle": "Browse and be inspired - create the perfect space.",
+        "button_text": "",
+        "button_url": ""
+      }
+    },
     "our_berkshire_showroom": {
       "type": "image-text",
       "settings": {
@@ -336,6 +419,7 @@
     "cta_grid",
     "product_carousel",
     "easy_style_update",
+    "you_vision_carousel",
     "our_berkshire_showroom",
     "instagram"
   ]

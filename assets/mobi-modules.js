@@ -208,7 +208,9 @@ class Module {
     module.initialize(el, context);
 
     defineTargetEls(this, module);
-
+    let identifier = module.identifier;
+    window.MOBIKASA[identifier] = window.MOBIKASA[identifier] || [];
+    window.MOBIKASA[identifier].push(module);
     module.setupListeners();
     return module
   }
@@ -271,7 +273,6 @@ class Header extends  Module {
   scrollDirection = '';
   initialize (el, context) {
     super.initialize(el, context);
-    window.MOBIKASA.header = this;
     this.updateEl();
     this.checkPromoBar();
   }
@@ -415,7 +416,6 @@ class Drawers extends Module{
         return self.indexOf(value) === index
       });
     this.drawers = this.keys.map(key => this.createDrawer(key));
-    window.MOBIKASA.drawers = this;
   }
   createDrawer (key) {
     return new Drawer(key, this);
@@ -494,7 +494,6 @@ class MobileNav extends Module {
   }
   initialize (el, context) {
     super.initialize(el, context);
-    window.MOBIKASA.mobileNav = this;
   }
 
   setupListeners () {
@@ -544,7 +543,6 @@ class Instagram extends Module {
 
   initialize (el, context) {
     super.initialize(el, context);
-    window.MOBIKASA.instagram = this;
   }
 
   setupListeners () {
@@ -573,7 +571,6 @@ class FooterAccordions extends Module {
 
   initialize (el, context) {
     super.initialize(el, context);
-    window.MOBIKASA.footerAccordion = this;
   }
   setupListeners () {
     super.setupListeners();
@@ -600,11 +597,10 @@ class ProductCarousel extends Module {
 
   initialize (el, context) {
     super.initialize(el, context);
-    window.MOBIKASA.productCarousel = window.MOBIKASA.productCarousel || [];
-    window.MOBIKASA.productCarousel.push(this);
   }
   
   setupListeners () {
+    super.setupListeners();
     this.carousel = this.initialiseCarousel();
   }
   initialiseCarousel () {
@@ -642,6 +638,83 @@ class ProductCarousel extends Module {
     })
   }
 }
+class CtaCarousel extends Module {
+  static targets = ['controlnext', 'controlprevious', 'image', 'slides', 'slide'];
+
+  animationSettings = {
+    characterOffset: 0.006,
+    duration: 0.5,
+    transformY: 30,
+  }
+  initialize (el, context) {
+    super.initialize(el, context);
+  }
+  setupListeners () {
+    super.setupListeners();
+    this.carousel = this.initialiseCarousel();
+    this.addListeners(this.controlpreviousEl, 'click', this.changeCarousel.bind(this));
+    this.addListeners(this.controlnextEl, 'click', this.changeCarousel.bind(this));
+  }
+  initialiseCarousel () {
+    return new KeenSlider(this.slidesEl, {
+      duration: 2000,
+      loop: true,
+      mode: 'snap',
+      selector: '.car-Carousel_Slide',
+      slides: {
+        origin: 'center',
+        perView: 1.2,
+        spacing: 15
+      },
+      breakpoints: {
+        '(min-width: 768px)': {
+          slides: {
+            origin: 'center',
+            perView: 1.9,
+            spacing: 80
+          }
+        },
+        '(min-width: 1200px)': {
+          slides: {
+            origin: 'center',
+            perView: 2.1,
+            spacing: 110
+          }
+        },
+        '(min-width: 1600px)': {
+          slides: {
+            origin: 'center',
+            perView: 2.4,
+            spacing: 110
+          }
+        },
+      },
+      slideChanged: instance => {
+        this.imageEls.forEach(image => {
+          const imageSlideIndex = parseInt(image.dataset.slide);
+          const actualImageWidth = Math.round(instance.size * 1.05);
+          const widthDifference = actualImageWidth - instance.size;
+
+          const transformAmount =
+            widthDifference * instance.track.details.slides[imageSlideIndex].portion -
+            widthDifference / 2;
+
+          gsap.to(image, 0, {
+            x: transformAmount,
+          })
+        })
+      },
+    })
+  }
+
+  changeCarousel (e) {
+    if (e.currentTarget.dataset.direction === 'previous') {
+      this.carousel.prev()
+    } else {
+      this.carousel.next()
+    }
+  }
+}
 window.MOBIKASA.modules = {
   Application,
   Header,
@@ -649,5 +722,6 @@ window.MOBIKASA.modules = {
   MobileNav,
   Instagram,
   FooterAccordions,
-  ProductCarousel
+  ProductCarousel,
+  CtaCarousel
 };
