@@ -594,11 +594,60 @@ class FooterAccordions extends Module {
     return el.closest(this.selectors.accordion)
   }
 }
+
+class ProductCarousel extends Module {
+  static targets = ['dot', 'slides', 'slide']
+
+  initialize (el, context) {
+    super.initialize(el, context);
+    window.MOBIKASA.productCarousel = window.MOBIKASA.productCarousel || [];
+    window.MOBIKASA.productCarousel.push(this);
+  }
+  
+  setupListeners () {
+    this.carousel = this.initialiseCarousel();
+  }
+  initialiseCarousel () {
+    if (window.MOBIKASA.mediaBreakpoints.isSm && this.slideEls.length <= 3) return
+
+    return new KeenSlider(this.slidesEl, {
+      duration: 1000,
+      loop: true,
+      mode: 'snap',
+      selector: '.car-Carousel_Slide',
+      slides: {
+        origin: 'center',
+        perView: 1.4
+      },
+      breakpoints: {
+        '(min-width: 768px)': {
+          slides: {
+            perView: 3,
+            origin: 'auto'
+          }
+        },
+      },
+      created: instance => this.dotEls[0].setAttribute(
+        'aria-current',
+        parseInt(this.dotEls[0].dataset.slide) === instance.track.details.rel
+      ),
+      slideChanged: instance => {
+        this.dotEls.forEach(dot => {
+          dot.setAttribute(
+            'aria-current',
+            parseInt(dot.dataset.slide) === instance.track.details.rel
+          )
+        })
+      },
+    })
+  }
+}
 window.MOBIKASA.modules = {
   Application,
   Header,
   Drawers,
   MobileNav,
   Instagram,
-  FooterAccordions
+  FooterAccordions,
+  ProductCarousel
 };
