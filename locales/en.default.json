@@ -37,7 +37,21 @@
     },
     "search": {
       "search": "Search",
-      "reset": "Clear search term"
+      "reset": "Clear search term",
+      "title": "Search for products on our site",
+      "header_placeholder": "What are you looking for?",
+      "mobile_header_placeholder": "What are you looking for?",
+      "placeholder": "Search our store",
+      "submit": "Search",
+      "heading": {
+        "one": "Search Result",
+        "other": "Search Results"
+      },
+      "results_with_count": {
+        "one": "{{ count }} result for \"{{ terms }}\"",
+        "other": "{{ count }} results for \"{{ terms }}\""
+      },
+      "no_results_html": "Please try a different search term or go back to the <a href=\"\/\">homepage<\/a>."
     },
     "cart": {
       "view": "View cart ({{ count }})",
@@ -558,6 +572,39 @@
       "max_characters": "{{ max_chars }} characters max",
       "send_on": "YYYY-MM-DD",
       "send_on_label": "Send on (optional)"
+    }
+  },
+  "layout": {
+    "breadcrumbs": {
+      "home": "Home"
+    },
+    "footer": {
+      "social_platform": "{{ name }} on {{ platform }}",
+      "copyright": "Copyright 2023 DPS Distribution LTD. All Rights Reserved.",
+      "payment_methods": "Payment methods accepted",
+      "small_print_html": "DPS Distribution Limited trading as Danetti acts as a credit broker and offers credit products from Secure Trust Bank PLC trading as V12 Retail Finance. <br\/>DPS Distribution Limited is authorised and regulated by the Financial Conduct Authority and is the broker and not the lender. Our registration number is 792293. Credit is provided subject to age and status. <br\/>*Minimum spend applies. Not all products offered by Secure Trust Bank PLC are regulated by the Financial Conduct Authority.",
+      "account": "My Account",
+      "order": "My Order",
+      "wishlist": "My Wishlist",
+      "contact": "Contact"
+    },
+    "header": {
+      "menu": "Menu",
+      "search": "Search",
+      "telephone": "tel:02035881380",
+      "telephone_tooltip": "020 3588 1380",
+      "account": "Account",
+      "cart": "Cart",
+      "wishlist": "Wishlist",
+      "visit": "Visit",
+      "contact": "Contact"
+    },
+    "navigation": {
+      "header": "Menu",
+      "back": "Back",
+      "close_menu": "Close",
+      "view_all": "Browse All",
+      "sale_tag": "Sale"
     }
   }
 }

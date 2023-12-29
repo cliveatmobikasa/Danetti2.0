@@ -1,0 +1,65 @@
+/*
+|--------------------------------------------------------------------------
+| Active Filters
+|--------------------------------------------------------------------------
+| @namespace: clc
+|
+*/
+.clc-ActiveFilters {
+  display: none;
+}
+.clc-ActiveFilters_Show {
+  display: block;
+  padding: 15px;
+  border-top: 1px solid var(--Color_Border);
+}
+.clc-ActiveFilters_Filters {
+  align-items: center;
+  flex-wrap: wrap;
+  grid-gap: 10px;
+  display: flex;
+}
+.clc-Filters-mobile .clc-ActiveFilters_Filters {
+  padding-top: 20px;
+  padding-bottom: 10px;
+  padding-left: 15px;
+  border-top: 1px solid #444;
+}
+.clc-ActiveFilters_ActiveFacet {
+  margin-right: var(--Gap);
+}
+.clc-ActiveFilters_ActiveLink {
+  align-items: center;
+  display: flex;
+  padding: 10px;
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: 18px;
+  text-transform: none;
+  white-space: nowrap;
+  background-color: #eee;
+  color: #3d4246;
+}
+.clc-ActiveFilters_ActiveLink svg {
+  margin-left: 5px;
+}
+.clc-Filters_ClearLink {
+  font-size: 14px;
+  text-decoration: underline;
+  text-transform: capitalize;
+  color: var(--Color_Brand);
+  opacity: 0.6;
+}
+.clc-Filters_ClearLink:hover {
+  opacity: 1;
+}
+.clc-Filters_Clear:only-child {
+  display: none;
+}
+@media screen and (min-width: 901px) {
+  .clc-ActiveFilters {
+    display: block;
+    margin-bottom: 20px;
+  }
+}

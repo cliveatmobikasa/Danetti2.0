@@ -44,6 +44,11 @@
   endif
 -%}
 {%- unless hide_page -%}
+  {{ 'section-product-grid.css' | asset_url | stylesheet_tag }}
+  {{ 'snippet-active-filters.css' | asset_url | stylesheet_tag }}
+  {{ 'snippet-filters.css' | asset_url | stylesheet_tag }}
+  {{ 'snippet-collection-filters.css' | asset_url | stylesheet_tag }}
+  {{ 'snippet-pagination.css' | asset_url | stylesheet_tag }}
   <div class="clc-List">
     <div class="clc-List_Inner lyt-Container lyt-Container-wide">
       <div class="clc-List_HeaderContainer clc-Detail" data-module="collection" data-collection-container-el data-id="{{- section.id -}}">

@@ -1,7 +1,7 @@
 {
   "sections": {
-    "main-collection": {
-      "type": "main-collection",
+    "sales-filter": {
+      "type": "sales-filter",
       "settings": {
         "enable": false,
         "label": "Show Me Products On Promotion",
@@ -16,7 +16,7 @@
     }
   },
   "order": [
-    "main-collection",
+    "sales-filter",
     "product-grid"
   ]
 }

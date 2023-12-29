@@ -357,17 +357,6 @@
         height: 100%;
       }
 
-      body {
-        display: grid;
-        grid-template-rows: auto auto 1fr auto;
-        grid-template-columns: 100%;
-        min-height: 100%;
-        margin: 0;
-        font-size: 1.5rem;
-        letter-spacing: 0.06rem;
-        line-height: calc(1 + 0.8 / var(--font-body-scale));
-      }
-
       @media screen and (min-width: 750px) {
         body {
           font-size: 1.6rem;
@@ -383,6 +372,7 @@
     {{ 'app-okendo.css' | asset_url | stylesheet_tag }}
     {{ 'modal.css' | asset_url | stylesheet_tag }}
     {{ 'snippet-product-card.css' | asset_url | stylesheet_tag }}
+    {{ 'product-tag.css' | asset_url | stylesheet_tag }}
     {{ 'module-carousel.css' | asset_url | stylesheet_tag }}
     {{ 'https://cdn.jsdelivr.net/npm/keen-slider@latest/keen-slider.js' | script_tag }}
     {{ 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.4/gsap.min.js' | script_tag }}

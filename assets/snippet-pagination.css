@@ -1,0 +1,63 @@
+/*
+|--------------------------------------------------------------------------
+| Pagination
+|--------------------------------------------------------------------------
+| @namespace: pgn
+|
+*/
+.pgn-Pagination {
+  margin-top: 55px;
+}
+.pgn-Pagination.clc-Detail_Pagination {
+  margin-bottom: 55px;
+}
+.pgn-Pagination_Items {
+  align-items: center;
+  justify-content: center;
+  display: flex;
+}
+.pgn-Pagination_Item {
+  margin-right: 5px;
+}
+.pgn-Pagination_Item:last-child {
+  margin-right: 0;
+}
+.pgn-Pagination_Link {
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  width: 35px;
+  height: 35px;
+  font-family: var(--Font_Family-aktivGrotesk);
+  font-size: 12px;
+  font-weight: 800;
+  border-radius: 50%;
+  color: var(--Color_Brand);
+  cursor: pointer;
+  transition: border-color var(--Global_Transition) var(--Transition_EaseOutBack);
+}
+.pgn-Pagination_Link:hover {
+  background: var(--Color_Anchor);
+  color: #fff;
+  opacity: 0.4;
+}
+.pgn-Pagination_Link[aria-current='page'] {
+  background: var(--Color_Anchor);
+  color: #fff;
+  pointer-events: none;
+}
+.pgn-Pagination_Link svg {
+  width: 12px;
+  height: 12px;
+}
+@media screen and (min-width: 768px) {
+  .pgn-Pagination_Link {
+    width: 44px;
+    height: 44px;
+    font-size: 14px;
+  }
+  .pgn-Pagination_Link svg {
+    width: 14px;
+    height: 14px;
+  }
+}

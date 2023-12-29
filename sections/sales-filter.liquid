@@ -12,17 +12,18 @@
   -%}
 
   {% if section.settings.enable %}
-  <div class="clc-SalesFilter_ToggleContainer" style="--BannerColour: {{ banner_colour }};">
-    <span class="clc-SalesFilter_ToggleLabel">{{ section.settings.label }}</span>
-    <label class="tog-Toggle clc-SalesFilter_Toggle">
-    <input class="tog-Toggle_Input" data-module="collection-sale" type="checkbox" name="filter.p.tag" value="{{ section.settings.tag }}" />
-      <span class="tog-Toggle_Inner">
-        <span class="tog-Toggle_Dot"></span>
-        <span class="tog-Toggle_Label">Yes</span>
-        <span class="tog-Toggle_Label">No</span>
-      </span>
-    </label>
-  </div>
+    {{ 'section-sales-filter.css' | asset_url | stylesheet_tag }}
+    <div class="clc-SalesFilter_ToggleContainer" style="--BannerColour: {{ banner_colour }};">
+      <span class="clc-SalesFilter_ToggleLabel">{{ section.settings.label }}</span>
+      <label class="tog-Toggle clc-SalesFilter_Toggle">
+      <input class="tog-Toggle_Input" data-module="collection-sale" type="checkbox" name="filter.p.tag" value="{{ section.settings.tag }}" />
+        <span class="tog-Toggle_Inner">
+          <span class="tog-Toggle_Dot"></span>
+          <span class="tog-Toggle_Label">Yes</span>
+          <span class="tog-Toggle_Label">No</span>
+        </span>
+      </label>
+    </div>
   {% endif %}
   {% render 'page-smartbar' %}
 {%- endunless -%}

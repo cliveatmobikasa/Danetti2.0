@@ -499,12 +499,10 @@
 
     width: 100px;
   }
-  .hd-Search_Input:placeholder {
+  .hd-Search_Input::placeholder {
     letter-spacing: 0;
     text-transform: none;
-
     color: var(--ContentColor);
-
     transition: color 0.3s ease 0.2s;
   }
   .hd-MobileSearch {

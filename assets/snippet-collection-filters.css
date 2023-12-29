@@ -1,0 +1,328 @@
+/*
+|--------------------------------------------------------------------------
+| Product Grid Facet
+|--------------------------------------------------------------------------
+| @namespace: clc-
+|
+*/
+.clc-Filters-desktop {
+  display: none;
+}
+.clc-Filters_Button {
+  align-items: center;
+  justify-content: space-evenly;
+  display: flex;
+  width: 100%;
+  height: 45px;
+  padding: 15px 20px 15px 15px;
+  font-family: var(--Font_Family-aktivGrotesk);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  border: 1px solid var(--Color_Border);
+}
+.clc-ProductGridFacet {
+  position: relative;
+}
+.clc-Filters-mobile .clc-ProductGridFacet {
+  border-top: 1px solid #444;
+}
+.clc-ProductGridFacet summary::-webkit-details-marker {
+  display: none;
+}
+.clc-ProductGridFacet[open] > .clc-ProductGridFacet_Summary + * {
+  z-index: 4;
+}
+.clc-ProductGridFacets_Facets {
+  flex-wrap: wrap;
+  grid-row-gap: 15px;
+  display: flex;
+}
+.clc-FiltersFacets_Item:not(:last-child) {
+  margin-right: 15px;
+}
+/*
+|--------------------------------------------------------------------------
+| Summary
+|--------------------------------------------------------------------------
+|
+*/
+.clc-ProductGridFacet_Summary {
+  align-items: center;
+  display: flex;
+  padding: 15px 20px 15px 15px;
+  font-family: var(--Font_Family-aktivGrotesk);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  border: 1px solid var(--Color_Border);
+  color: var(--Color_Brand);
+  cursor: pointer;
+  opacity: 0.5;
+}
+.clc-Filters-mobile .clc-ProductGridFacet_Summary {
+  justify-content: space-between;
+  padding: 12px 15px;
+}
+.clc-ProductGridFacet_Summary:hover {
+  opacity: 1;
+}
+.clc-ProductGridFacet[open] .clc-ProductGridFacet_Summary::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 2;
+  display: block;
+  background-color: transparent;
+  cursor: default;
+}
+.clc-ProductGridFacet_Summary svg {
+  margin-left: 8px;
+}
+.clc-ProductGridFacet_FilterLabel {
+  margin-right: 5px;
+  white-space: nowrap;
+}
+/*
+|--------------------------------------------------------------------------
+| Display
+|--------------------------------------------------------------------------
+|
+*/
+.clc-ProductGridFacet_Display {
+  --Horizontal_Spacing: 20px;
+  position: relative;
+  max-height: 550px;
+  color: var(--Color_Body);
+  overflow-y: auto;
+}
+.clc-Filters-desktop .clc-ProductGridFacet_Display {
+  position: absolute;
+  top: calc(100% - 1px);
+  left: 0;
+  width: 300px;
+  background-color: #fff;
+  border: 1px solid var(--Color_Border);
+}
+/*
+|--------------------------------------------------------------------------
+| Display - Header
+|--------------------------------------------------------------------------
+|
+*/
+.clc-ProductGridFacet_Header {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  justify-content: space-between;
+  display: none;
+  padding: 15px var(--Horizontal_Spacing);
+  background-color: #fff;
+}
+.clc-Filters-desktop .clc-ProductGridFacet_Header {
+  display: none;
+  border-bottom: 1px solid var(--Color_Border);
+}
+.clc-ProductGridFacet_Header .clc-ProductGridFacet_Buttons {
+  grid-gap: 10px;
+  display: flex;
+}
+.clc-ProductGridFacet_RemoveLink {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+}
+.clc-ProductGridFacet_RemoveLink:hover {
+  text-decoration: none;
+}
+.clc-ProductGridFacet_Close {
+  cursor: pointer;
+}
+.clc-ProductGridFacet_ButtonContainer {
+  align-items: center;
+  display: none;
+  margin: 0 20px 20px;
+}
+.clc-ProductGridFacet_ApplyAll {
+  display: none;
+}
+/*
+|--------------------------------------------------------------------------
+| Display - Body
+|--------------------------------------------------------------------------
+|
+*/
+.clc-ProductGridFacet_Body {
+  padding: 20px;
+}
+.clc-ProductGridFacet_List {
+  overflow-y: auto;
+}
+.clc-ProductGridFacet_List::-webkit-scrollbar {
+  width: 4px;
+}
+.clc-ProductGridFacet_List::-webkit-scrollbar-track {
+  background-color: var(--Color_Border);
+}
+.clc-ProductGridFacet_List::-webkit-scrollbar-thumb {
+  background-color: var(--Color_Brand);
+}
+.clc-ProductGridFacet_Item {
+  align-items: center;
+  display: flex;
+  min-height: 36px;
+}
+.clc-ProductGridFacet_Label {
+  position: relative;
+  align-items: center;
+  flex-grow: 1;
+  display: flex;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  font-family: var(--Font_Family-aktivGrotesk);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  word-break: break-word;
+  cursor: pointer;
+}
+.clc-ProductGridFacet_Label[aria-disabled='true'] {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+.clc-ProductGridFacet_Checkbox {
+  position: relative;
+  width: 16px;
+  height: 16px;
+  margin-right: 10px;
+  -webkit-appearance: none;
+  background-color: var(--Color_Border);
+  border: 1px solid var(--Color_Border);
+  border-radius: 50%;
+  box-shadow: inset 1px 1px 2px #0000001a;
+  color: #fff;
+  cursor: pointer;
+  -webkit-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+}
+.clc-ProductGridFacet_Checkbox[checked]::after {
+  background-color: #fff;
+}
+.clc-ProductGridFacet_Checkbox-swatch {
+  background-color: var(--Swatch_Color);
+  border: 1px solid var(--Swatch_Color);
+}
+.clc-ProductGridFacet_Checkbox-border {
+  border: 1px solid var(--Color_Border);
+}
+.clc-ProductGridFacet_Checkbox::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 7px;
+  height: 7px;
+  background-color: transparent;
+  border-radius: 100%;
+  transform: translate(-50%, -50%);
+}
+.clc-ProductGridFacet_Item:hover .clc-ProductGridFacet_Checkbox::after {
+  background-color: #fff;
+}
+/*
+|--------------------------------------------------------------------------
+| Controls
+|--------------------------------------------------------------------------
+| @namespace: clc-
+|
+*/
+.clc-Controls {
+  width: 100%;
+  height: 45px;
+  margin-left: auto;
+}
+.clc-Controls_Items {
+  align-items: center;
+  justify-content: flex-end;
+  display: flex;
+}
+.clc-Controls_Item {
+  flex-grow: 1;
+  width: calc((1 / 3) - 5px);
+  margin-right: 10px;
+}
+.clc-Controls_Item:last-child {
+  flex-grow: 1;
+  margin-right: 0;
+}
+.clc-Controls_Button {
+  width: 100%;
+  height: 45px;
+}
+.clc-Controls_Select {
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  font-family: var(--Font_Family-aktivGrotesk);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  text-align: center;
+  text-transform: uppercase;
+}
+@media screen and (min-width: 768px) {
+  .clc-Controls_Item {
+    width: calc((1 / 2) - 5px);
+  }
+}
+@media screen and (min-width: 901px) {
+  .clc-Filters-desktop {
+    display: block;
+  }
+  .clc-Filters_Button {
+    display: none;
+  }
+  .clc-ProductGridFacet_ApplyAll {
+    display: block;
+    width: 120px;
+    margin-right: 25px;
+    padding: 15px 5px;
+    text-align: center;
+    background-color: var(--Color_Brand);
+    border-top: 1px solid var(--Color_Brand);
+    color: #fff;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  .clc-ProductGridFacet_ApplyAll:hover {
+    background-color: var(--Color_Anchor);
+    border-top: 1px solid var(--Color_Anchor);
+  }
+  .clc-ProductGridFacet_List {
+    max-height: 350px;
+  }
+  .clc-ProductGridFacet_Checkbox {
+    width: 20px;
+    height: 20px;
+    color: #000;
+  }
+  .clc-Controls {
+    width: auto;
+    height: auto;
+  }
+  .clc-Controls_Button {
+    min-width: 200px;
+  }
+  .clc-Controls_Select {
+    width: fit-content;
+    padding: 16px 40px 16px 15px;
+    text-align: left;
+    opacity: 0.5;
+  }
+  .clc-Controls_Select:hover {
+    opacity: 1;
+  }
+}
