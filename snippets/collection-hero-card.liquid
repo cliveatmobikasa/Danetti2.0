@@ -1,0 +1,33 @@
+<div class="clc-HeroCard">
+  <a href="{{ link }}" class="clc-HeroCard_Link">
+    <div class="clc-HeroCard_ImageContainer" {% if colour != blank %} style="--BackgroundColor: {{ colour }}"{% endif %}>
+      <span class="clc-HeroCard_Logo">
+        {%- render 'bao-danetti-logo-small' -%}
+      </span>
+
+      <div class="clc-HeroCard_Image">
+        {%- if is_metafield_image -%}
+          {%- render 'responsive-image-metafield',
+            image: image,
+            width: 240,
+            height: 240
+          -%}
+        {%- elsif image != blank -%}
+          {%- render 'responsive-image',
+            image: image,
+            width: 240,
+            height: 240
+          -%}
+        {%- else -%}
+          <span class="clc-HeroCard_FallbackLetter">{{ title | slice: 0 }}</span>
+        {%- endif -%}
+      </div>
+    </div>
+
+    {%- if title != blank -%}
+      <h3 class="clc-HeroCard_Title">
+        {{ title }}
+      </h3>
+    {%- endif -%}
+  </a>
+</div>

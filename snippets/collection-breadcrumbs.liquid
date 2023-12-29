@@ -1,0 +1,30 @@
+{{ 'snippet-breadcrumbs.css' | asset_url | stylesheet_tag }}
+<ul class="clc-CollectionBreadcrumbs">
+  {% if collection_for_metafields.metafields.collection_banner.enable_alternative_layout %}
+    <li class="clc-CollectionBreadcrumbs_Item">
+      <a class="clc-CollectionBreadcrumbs_Link" href="{{ shop.url }}">Home</a>
+    </li>
+  {% endif %}
+  {% for value in collection.metafields.breadcrumb.title %}
+    <li class="clc-CollectionBreadcrumbs_Item"><a class="clc-CollectionBreadcrumbs_Link" href="{{collection.metafields.breadcrumb.url[forloop.index0]}}">{{ value }}</a></li>
+  {% endfor %}
+
+  <script type="application/ld+json">
+  {
+    "@context": "http://schema.org/",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {% for value in collection.metafields.breadcrumb.title %}
+      {
+        "@type": "ListItem",
+        "position": "{{forloop.index0}}",
+        "item": {
+          "@id": "{{ shop.url }}{{collection.metafields.breadcrumb.url[forloop.index0]}}",
+          "name": "{{ value }}"
+        }
+      }{% if forloop.last == false %},{% endif %}
+      {% endfor %}
+    ]
+  }
+  </script>
+</ul>

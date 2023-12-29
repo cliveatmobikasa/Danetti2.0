@@ -1,0 +1,87 @@
+{%- for filter in collection.filters -%}
+
+  {%- if filter.label == 'More filters' -%}
+    {%- continue -%}
+  {%- endif -%}
+
+  {%- assign total_active_values = total_active_values | plus: filter.active_values.size -%}
+
+  {%- case filter.type -%}
+    {%- when 'list' -%}
+      <div class="clc-FiltersFacets_Item">
+        <details
+          class="clc-ProductGridFacet"
+          is="filter-facet"
+          data-index="Filter-{{ forloop.index }}"
+          data-el="collection.facet"
+        >
+          <summary
+            class="clc-ProductGridFacet_Summary"
+            data-el="collection.facetSummary"
+            data-filter-facet-el="summary"
+          >
+            <span class="clc-ProductGridFacet_FilterLabel">
+              {{ filter.label | escape }}
+            </span>
+
+            {%- render 'bao-icon-filter-chevron' -%}
+          </summary>
+          <div class="clc-ProductGridFacet_Display" data-filter-facet-el="content">
+            <div class="clc-ProductGridFacet_Body">
+              {%- case filter.type -%}
+                {%- when 'list' -%}
+
+                  {%- render 'collection-filter-list-type',
+                    filter: filter,
+                    index: forloop.index
+                  -%}
+
+                {%- when 'price_range' -%}
+
+                  {%- render 'collection-filter-price-range-type',
+                    filter: filter,
+                    index: forloop.index
+                  -%}
+              {%- endcase -%}
+            </div>
+            <div class="clc-ProductGridFacet_ButtonContainer">
+            <span class="clc-ProductGridFacet_ApplyAll" data-el="collection.facet-close">
+              {{ 'collections.filters.apply_all' | t }}
+            </span>
+
+            <span class="clc-ProductGridFacet_Remove" data-el="collection.facet-remove">
+              <a
+                class="clc-ProductGridFacet_RemoveLink"
+                href="{{ filter.url_to_remove }}"
+              >
+                {{ 'collections.filters.reset' | t }}
+              </a>
+            </span>
+            </div>
+
+            <header class="clc-ProductGridFacet_Header">
+              <p
+                class="clc-ProductGridFacet_Title"
+                data-el="collection.facets-selected"
+              >
+                {{ 'collections.filters.selected' | t: count: filter.active_values.size }}
+              </p>
+              <div class="clc-ProductGridFacet_Buttons">
+                <span class="clc-ProductGridFacet_Close" data-el="collection.facet-close">
+                  {%- render 'bao-icon-filter-close' -%}
+                </span>
+              </div>
+            </header>
+          </div>
+        </details>
+      </div>
+  {%- endcase -%}
+{%- endfor -%}
+
+{% if collection.current_vendor or collection.current_type %}
+  <input
+    type="hidden"
+    name="q"
+    value="{{ collection.current_vendor }}{{ collection.current_type }}"
+  />
+{% endif %}

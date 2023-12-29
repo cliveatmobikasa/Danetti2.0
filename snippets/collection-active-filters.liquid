@@ -1,0 +1,44 @@
+{%- assign current_sort = collection.sort_by | default: collection.default_sort_by -%}
+
+{%- for filter in collection.filters -%}
+  {%- for value in filter.active_values -%}
+    <span class="clc-ActiveFilters_ActiveFacet" data-el="collection.facetRemove">
+      <a class="clc-ActiveFilters_ActiveLink" href="{{ value.url_to_remove }}">
+        {{ value.label | escape }}
+
+        {%- render 'bao-icon-active-filter-close' -%}
+      </a>
+    </span>
+  {%- endfor -%}
+
+  {%- if filter.type == "price_range" -%}
+    {%- if filter.min_value.value != nil or filter.max_value.value != nil -%}
+      <span class="clc-ActiveFilters_ActiveFacet" data-el="collection.facetRemove">
+        <a class="clc-ActiveFilters_ActiveLink" href="{{ filter.url_to_remove }}">
+          {%- if filter.min_value.value -%}
+            {{- filter.min_value.value | money -}}
+          {%- else -%}
+            {{- 0 | money -}}
+          {%- endif -%}
+          &nbsp;-&nbsp;
+          {%- if filter.max_value.value -%}
+            {{- filter.max_value.value | money -}}
+          {%- else -%}
+            {{- filter.range_max | money -}}
+          {%- endif -%}
+
+          {%- render 'bao-icon-active-filter-close' -%}
+        </a>
+      </span>
+    {%- endif -%}
+  {%- endif -%}
+{%- endfor -%}
+
+<span class="clc-Filters_Clear" data-el="collection.facetRemove">
+  <a
+    class="clc-Filters_ClearLink"
+    href="{{ collection.url }}{% if current_sort != blank %}?sort_by={{ current_sort }}{% endif %}"
+  >
+    {{- 'collections.filters.clear_all' | t -}}
+  </a>
+</span>

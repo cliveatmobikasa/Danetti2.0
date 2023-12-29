@@ -107,6 +107,54 @@
     "product_title": "Example product title",
     "collection_title": "Your collection's name"
   },
+  "collections": {
+    "filtering": {
+      "button": "Filter",
+      "title": "Filters",
+      "mobile_filter_message": "Filter by: {{ filter_type }}",
+      "back_button": "Back",
+      "clear_filters": "Clear",
+      "apply_filters": "Apply Filters",
+      "selected_title": "Selected:"
+    },
+    "filters": {
+      "apply": "Apply",
+      "apply_all": "Apply All",
+      "selected_title": "Selected:",
+      "selected": "Selected:",
+      "reset": "Reset",
+      "title": "Filter",
+      "clear_all": "Clear all",
+      "show_results": "Show Results"
+    },
+    "general": {
+      "no_matches": "Sorry, there are no products in this collection",
+      "link_title": "Browse our {{ title }} collection",
+      "shop_now": "Shop now",
+      "read_more": "Read more",
+      "read_less": "Read less",
+      "more_info_on": "More info on "
+    },
+    "per_page": {
+      "title": "Per page"
+    },
+    "sorting": {
+      "title": "Sort by",
+      "featured": "Featured",
+      "best_selling": "Trending",
+      "az": "Alphabetically, A-Z",
+      "za": "Alphabetically, Z-A",
+      "price_ascending": "Price, low to high",
+      "price_descending": "Price, high to low",
+      "date_descending": "Date, new to old",
+      "date_ascending": "Date, old to new"
+    },
+    "mattress_guide": {
+      "title": "Find The Right Mattress For You",
+      "text": "Explore the features and benefits of our full mattress range to match your way of sleeping.",
+      "button_text": "View our helpful mattress guide"
+    }
+  },
   "products": {
     "product": {
       "add_to_cart": "Add to cart",

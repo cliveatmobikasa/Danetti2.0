@@ -1,0 +1,42 @@
+{% liquid
+  if collection.metafields.show_variants.show_variants_as_products
+    assign variants_collection = true
+  endif
+%}
+
+<ul class="clc-ProductGridFacet_List">
+  {%- for value in filter.values -%}
+    {%- liquid
+      for colourTitle in shop.metafields.filter_colour.title
+        if colourTitle == value.label
+          assign hexValue = shop.metafields.filter_colour.colour[forloop.index0]
+          assign addBorder = shop.metafields.filter_colour.add_border[forloop.index0]
+        endif
+      endfor
+    -%}
+
+    <li class="clc-ProductGridFacet_Item">
+      <label
+        class="clc-ProductGridFacet_Label"
+        aria-disabled="{% if value.count == 0 and value.active == false %}true{% else %}false{% endif %}"
+      >
+        <input
+          class="clc-ProductGridFacet_Checkbox{% if addBorder == 'true' %} clc-ProductGridFacet_Checkbox-border{% endif %}{% if hexValue != blank %} clc-ProductGridFacet_Checkbox-swatch{% endif %}"
+          type="checkbox"
+          name="{{ value.param_name }}"
+          value="{{ value.value }}"
+          id="{{ id_prefix }}-{{ filter.label | escape }}-{{ forloop.index }}"
+          {% if hexValue != blank %}
+            style="--Swatch_Color: {{ hexValue }}"
+          {% endif %}
+          {% if value.active %}checked{% endif %}
+          {% if value.count == 0 and value.active == false %}disabled{% endif %}
+        >
+
+        <span class="clc-ProductGridFacet_CheckboxIcon"></span>
+
+        {{ value.label | escape }}{% unless variants_collection %} ({{ value.count }}){% endunless %}
+      </label>
+    </li>
+  {%- endfor -%}
+</ul>

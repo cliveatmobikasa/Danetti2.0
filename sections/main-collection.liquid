@@ -1,0 +1,53 @@
+{%- render 'collection-hero',
+  title: collection.title,
+  text: collection.description,
+  image: collection.image
+-%}
+{%- unless hide_page -%}
+  {%- liquid
+    assign banner_colour = 'var(--Color_Grey-dark)'
+    if collection.metafields.collection_banner.hex != blank
+      assign banner_colour = collection.metafields.collection_banner.hex
+    endif
+  -%}
+
+  {% if section.settings.enable %}
+  <div class="clc-SalesFilter_ToggleContainer" style="--BannerColour: {{ banner_colour }};">
+    <span class="clc-SalesFilter_ToggleLabel">{{ section.settings.label }}</span>
+    <label class="tog-Toggle clc-SalesFilter_Toggle">
+    <input class="tog-Toggle_Input" data-module="collection-sale" type="checkbox" name="filter.p.tag" value="{{ section.settings.tag }}" />
+      <span class="tog-Toggle_Inner">
+        <span class="tog-Toggle_Dot"></span>
+        <span class="tog-Toggle_Label">Yes</span>
+        <span class="tog-Toggle_Label">No</span>
+      </span>
+    </label>
+  </div>
+  {% endif %}
+  {% render 'page-smartbar' %}
+{%- endunless -%}
+
+{% schema %}
+  {
+    "name": "Sales Filter",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "enable",
+        "label": "Enable",
+        "default": false
+      },
+      {
+        "type": "text",
+        "id": "label",
+        "label": "Toggle Label"
+      },
+      {
+        "type": "text",
+        "id": "tag",
+        "label": "Tag name",
+        "default": "The tag name to match on e.g. filter-sale: Black Friday"
+      }
+    ]
+  }
+{% endschema %}

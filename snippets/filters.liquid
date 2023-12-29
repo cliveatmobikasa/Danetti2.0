@@ -1,0 +1,55 @@
+{%- assign collection_url = collection.url -%}
+{%- assign current_sort = collection.sort_by | default: collection.default_sort_by -%}
+
+{%- for filter in collection.filters -%}
+  {%- assign total_active_values = total_active_values | plus: filter.active_values.size -%}
+{%- endfor-%}
+
+<div class="drw-Drawer drw-Drawer-fromLeft" data-module-drawers-drawer="filters">
+  <div class="drw-Drawer_Inner">
+    <div class="drw-Drawer_Header">
+      <div class="drw-Header">
+        <div class="drw-Header_Content">
+          <h2 class="drw-Header_Title fz-28_36">
+            {{ 'collections.filters.title' | t }}
+          </h2>
+        </div>
+
+        <button class="drw-Header_Close" data-module-drawers-close="filters">
+          <span class="drw-Header_CloseIcon">
+            {%- render 'bao-icon-close' -%}
+          </span>
+
+          <span class="util-ScreenReaderOnly">
+            {{ 'layout.navigation.close_menu' | t }}
+          </span>
+        </button>
+      </div>
+    </div>
+
+    <form class="drw-Form" data-el="collection.form">
+      <div class="drw-Drawer_Body">
+        <nav class="drw-Filters" data-el="collection.activeFacets">
+          <section class="clc-ActiveFilters{% if total_active_values >= 1 %} clc-ActiveFilters_Show{% endif %}">
+            <div class="clc-ActiveFilters_Inner">
+              <div class="clc-ActiveFilters_Filters">
+                {% render 'collection-active-filters' %}
+              </div>
+            </div>
+          </section>
+          {% render 'collection-filters-mobile' %}
+        </nav>
+
+        <div class="drw-Filters_Footer">
+          <button
+            class="drw-Filters_Submit btn-Primary"
+            type="button"
+            data-module-drawers-close="filters"
+          >
+            {{ 'collections.filters.show_results' | t }}
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

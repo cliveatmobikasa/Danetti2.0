@@ -1,0 +1,69 @@
+/*
+|--------------------------------------------------------------------------
+| Collection Breadcrumbs
+|--------------------------------------------------------------------------
+| @namespace: clc-Collection
+|
+*/
+.clc-CollectionBreadcrumbs {
+  flex-flow: row wrap;
+  display: flex;
+  padding-top: var(--Grid_Gutter);
+  padding-bottom: 0;
+  font-style: italic;
+  line-height: 120%;
+}
+.clc-CollectionBreadcrumbs_Item {
+  position: relative;
+  align-items: center;
+  display: flex;
+  color: #8e8e8e;
+}
+.clc-CollectionBreadcrumbs_Item::before {
+  content: '';
+  position: absolute;
+  bottom: 1px;
+  left: 0;
+  width: calc(100% - 14px);
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: 100% 0;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+.clc-CollectionBreadcrumbs_Item::after {
+  content: '/';
+  margin: 0 4px;
+}
+.clc-CollectionBreadcrumbs_Item:last-child::after {
+  display: none;
+}
+.clc-CollectionBreadcrumbs_Item:hover::before {
+  transform: scaleX(1);
+  transform-origin: 0 0;
+}
+.clc-Hero-alternate .clc-CollectionBreadcrumbs {
+  padding: 0 0 17px;
+}
+.clc-Hero-alternate .clc-CollectionBreadcrumbs_Item {
+  font-family: var(--Font_Family-sentinel);
+  font-size: 15px;
+  font-style: italic;
+  font-weight: 300;
+  line-height: 16px;
+  color: #696969;
+  leading-trim: both;
+  text-edge: cap;
+}
+.clc-Hero-alternate .clc-CollectionBreadcrumbs_Item:not(:first-child) {
+  color: #0a1e2d;
+}
+.clc-Hero-alternate .clc-CollectionBreadcrumbs_Item::before {
+  width: 100%;
+}
+.clc-Hero-alternate .clc-CollectionBreadcrumbs_Item::after {
+  content: '>';
+}
+.clc-Hero-alternate .clc-CollectionBreadcrumbs_Item:last-of-type::after {
+  display: none;
+}

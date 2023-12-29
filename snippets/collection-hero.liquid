@@ -1,0 +1,130 @@
+{%- liquid
+  assign collection_for_metafields = collection
+
+  if collection.metafields.nosto.sourceHandle != blank
+    assign collection_for_metafields = collections[collection.metafields.nosto.sourceHandle]
+  endif
+
+  assign word_limit = 12
+  assign current_collection = collection.handle
+  assign collection_list_enabled = collection_for_metafields.metafields.collection_list.enable
+  assign module_attributes = ''
+
+  assign collection_for_links = collection_for_metafields
+
+  if collection_for_metafields.metafields.collection_banner.links_from_collection != blank
+    assign collection_for_links = collections[collection_for_metafields.metafields.collection_banner.links_from_collection]
+  endif
+
+  assign collection_handles = collection_for_links.metafields.collection_banner.collections | split: '|'
+
+  assign text_split = text | split: ' '
+
+  if text_split.size > word_limit
+  assign module_attributes = 'data-module="scroll-to"'
+  endif
+
+  assign banner_colour = 'var(--Color_Grey-dark)'
+  if collection_for_metafields.metafields.collection_banner.hex != blank
+    assign banner_colour = collection_for_metafields.metafields.collection_banner.hex
+  endif
+
+  assign hide_page = false
+  if collection.handle == 'vendors' and collection.all_products_count == 0
+    assign hide_page = true
+  endif
+-%}
+
+{% assign truncatedContent = '' %}
+{% assign paragraphs = text | split:'</p>' %}
+{{ 'snippet-collection-hero.css' | asset_url | stylesheet_tag }}
+<section
+  class="clc-Hero {% if collection_for_metafields.metafields.collection_banner.enable_alternative_layout %}clc-Hero-alternate{% endif %}"
+  style="--BannerColour: {{ banner_colour }};"
+  {{ module_attributes }}
+>
+  <div class="clc-Hero_Header" data-module="un-truncate">
+    {%- if collection_for_metafields.metafields.collection_banner.enable_alternative_layout and collection.metafields.breadcrumb.title != blank -%}
+      <div class="clc-Hero_Inner lyt-Container lyt-Container-wide">
+        {%- render 'collection-breadcrumbs',  collection_for_metafields: collection_for_metafields -%}
+      </div>
+    {%- endif -%}
+    <div class="clc-Hero_Inner lyt-Container lyt-Container-wide">
+      <h1 class="clc-Hero_Title">
+        {%- unless hide_page -%}
+          {{ title }}
+        {%- else -%}
+          {{ 'pages.404.title' | t }}
+        {%- endunless -%}
+      </h1>
+
+      {%- if collection.description != blank -%}
+        <div class="clc-Hero_Text rte-RichText">
+          <p>
+
+            <em data-el="un-truncate.content">
+              {{ text | strip_html | truncatewords: word_limit }}
+
+              {%- if text_split.size > word_limit -%}
+                <button type="button" role="button" data-el="un-truncate.triggerOpen">
+                  {{ 'collections.general.read_more' | t }}
+                </button>
+              {%- endif -%}
+            </em>
+
+            <em class="clc-Hero_Text-hidden" data-el="un-truncate.fullContent">
+              {%- for paragraph in paragraphs limit:1 -%}
+                {{ paragraph | strip_html }}
+              {%- endfor -%}
+              <button type="button" role="button" data-el="un-truncate.triggerClose">
+                Read Less
+              </button>
+            </em>
+          </p>
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+
+  {%- if collection_list_enabled and collection_handles.size > 0 -%}
+    <div class="clc-Hero_Inner lyt-Container lyt-Container-wide">
+      <div class="clc-Hero_Body">
+        <div class="clc-Hero_List">
+          <ul class="clc-Hero_Items">
+            {%- for collection_handle in collection_handles -%}
+              {%- liquid
+                assign card_collection = collections[collection_handle]
+                assign is_metafield_image = false
+                assign collection_metafield_image = card_collection.metafields.collection_banner.image.first
+                assign collection_colour_scheme = card_collection.metafields.collection_banner.hex
+              -%}
+
+              <li class="clc-Hero_Item{% if current_collection == collection_handle %} clc-Hero_Item-active{% endif %}">
+                {%- if collection_metafield_image != blank -%}
+                  {%- assign image = collection_metafield_image -%}
+                  {%- assign is_metafield_image = true -%}
+                {%- else -%}
+                  {%- assign image = card_collection.image -%}
+                {%- endif -%}
+
+                {%- render 'collection-hero-card',
+                  image: image,
+                  is_metafield_image: is_metafield_image,
+                  title: card_collection.title,
+                  link: card_collection.url,
+                  colour: collection_colour_scheme
+                -%}
+              </li>
+            {%- endfor -%}
+          </ul>
+        </div>
+
+        {% if collection_for_metafields.metafields.collection_banner.enable_alternative_layout %}
+          <div class="clc-Hero_PseudoTrack"></div>
+        {% endif %}
+
+        <div class="clc-Hero_Gradient"></div>
+      </div>
+    </div>
+  {%- endif -%}
+</section>

@@ -1,0 +1,72 @@
+<div>
+  <ul class="drw-Filters_Items" data-el="collection.facets">
+    {%- for filter in collection.filters -%}
+      {%- assign total_active_values = total_active_values | plus: filter.active_values.size -%}
+
+      {%- case filter.type -%}
+        {%- when 'list' -%}
+          <li
+            class="drw-Filters_Item"
+            is="filter-facet"
+            data-index="MobileFilter-{{ forloop.index }}"
+            data-el="collection.facet"
+          >
+            <div class="drw-FiltersItem">
+              <div class="drw-FiltersItem_Header" aria-expanded="false" data-el="collection.facetSummary" data-filter-facet-el="summary">
+                <h4 class="drw-FiltersItem_Title">{{ filter.label | escape }}{% if filter.active_values.size > 0 %} ({{filter.active_values.size}}){% endif %}</h4>
+
+                <div class="drw-FiltersItem_HeaderIcon">
+                  {%- render 'bao-icon-arrow-down2' -%}
+                </div>
+              </div>
+
+              <div class="drw-FiltersItem_Body">
+                <div class="drw-FiltersItemBody_Header">
+                  <div class="drw-FiltersItemBody_HeaderContent">
+                    <h2 class="drw-FiltersItemBody_Title">
+                      {{ filter.label  }}
+                    </h2>
+                  </div>
+            
+                  <ul class="drw-FiltersItemBody_Tools">
+                    <li class="drw-FiltersItemBody_Tool">
+                      <button class="drw-FiltersItemBody_Back" data-el="collection.facetBack">
+                        {%- render 'bao-icon-full-arrow-left-new' -%}
+          
+                        <span class="util-ScreenReaderOnly">{{ 'layout.navigation.back' | t }}</span>
+                      </button>
+                    </li>
+
+                    <li class="drw-FiltersItemBody_Tool">
+                      <button class="drw-FiltersItemBody_Close" data-module-drawers-close="filters">
+                        {%- render 'bao-icon-close' -%}
+            
+                        <span class="util-ScreenReaderOnly">{{ 'layout.navigation.close_menu' | t }}</span>
+                      </button>
+                    </li>
+                  </ul>
+                </div>
+
+                <div class="drw-FiltersItemBody_Content" data-filter-facet-el="content">
+
+                  {%- case filter.type -%}
+                    {%- when 'list' -%}
+
+                      {%- render 'collection-filter-list-type',
+                        filter: filter
+                      -%}
+
+                    {%- when 'price_range' -%}
+
+                      {%- render 'collection-filter-price-range-type',
+                        filter: filter
+                      -%}
+                  {%- endcase -%}
+                </div>
+              </div>
+            </div>
+          </li>
+      {%- endcase -%}
+    {%- endfor -%}
+  </ul>
+</div>

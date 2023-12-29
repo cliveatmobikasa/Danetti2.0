@@ -1,0 +1,214 @@
+{%- liquid
+  assign hide_page = false
+  if collection.handle == 'vendors' and collection.all_products_count == 0
+    assign hide_page = true
+  endif
+  
+  assign collection_for_metafields = collection
+
+  if collection.metafields.nosto.sourceHandle != blank
+    assign collection_for_metafields = collections[collection.metafields.nosto.sourceHandle]
+  endif
+
+  assign has_promotions = false
+  if collection_for_metafields.metafields.promotions.enable == 'true'
+    assign has_promotions = true
+    assign total_promotion_width = 0
+
+    for promotion in collection_for_metafields.metafields.promotion.width
+      assign promotion_width = collection_for_metafields.metafields.promotion.width[forloop.index0]
+
+      assign total_promotion_width = total_promotion_width | plus: promotion_width
+    endfor
+  endif
+
+  assign total_tiles = section.settings.products_per_page
+	if collection.metafields.clc_pagination.items_per_page != blank
+		assign total_tiles = collection.metafields.clc_pagination.items_per_page | times: 1
+	endif
+
+  assign total_tiles_even_rows = total_tiles | modulo: 4
+  assign pagination_amount = total_tiles | minus: total_tiles_even_rows | minus: total_promotion_width
+
+  assign property_tags = blank
+  assign property_images = blank
+  assign is_mattress = false
+
+  if collection.title contains 'Mattress' or collection.title == 'Firm Tension' or collection.title == 'Medium Tension'
+    assign is_mattress = true
+  endif
+
+  if is_mattress == true
+    assign property_tags = shop.metafields.mattress_properties.property_1_item_tag | concat: shop.metafields.mattress_properties.property_2_item_tag | concat: shop.metafields.mattress_properties.property_3_item_tag | concat: shop.metafields.mattress_properties.property_4_item_tag
+    assign property_images = shop.metafields.mattress_properties.property_1_item_image | concat: shop.metafields.mattress_properties.property_2_item_image | concat: shop.metafields.mattress_properties.property_3_item_image | concat: shop.metafields.mattress_properties.property_4_item_image
+  endif
+-%}
+{%- unless hide_page -%}
+  <div class="clc-List">
+    <div class="clc-List_Inner lyt-Container lyt-Container-wide">
+      <div class="clc-List_HeaderContainer clc-Detail" data-module="collection" data-collection-container-el data-id="{{- section.id -}}">
+        {%- paginate collection.products by pagination_amount -%}
+          {%- if paginate.current_page <= paginate.pages -%}
+            {%- if collection.metafields.breadcrumb.title != blank -%}
+              {% if collection_for_metafields.metafields.collection_banner.enable_alternative_layout  %}
+              {% else %}
+                {%- render 'collection-breadcrumbs' -%}
+              {% endif %}
+            {%- endif -%}
+  
+            <form class="clc-Form" data-el="collection.form">
+              <header class="clc-List_Header" data-el="collection.header">
+                <div class="clc-Filters clc-Filters-desktop">
+                  <div class="clc-ProductGridFacets" data-el="collection.form">
+                    <div class="clc-ProductGridFacets_Facets" data-el="collection.facets">
+                      {%- render 'collection-filters' -%}
+                    </div>
+                  </div>
+                </div>
+                <button class="clc-Filters_Button" data-module-drawers-trigger="filters">
+                  {{ 'collections.filters.title' | t }}
+  
+                  <span class="clc-Filters_ButtonIcon">
+                    {%- render 'bao-icon-filters' -%}
+                  </span>
+                </button>
+                {%- render 'collection-sorting' -%}
+              </header>
+            </form>
+  
+            {%- render 'filters' -%}
+  
+            <section class="clc-ActiveFilters" data-el="collection.activeFacets">
+              <div class="clc-ActiveFilters_Inner">
+                <div class="clc-ActiveFilters_Filters">
+                  {% render 'collection-active-filters' %}
+                </div>
+              </div>
+            </section>
+  
+            <div class="clc-List_Body prd-Grid_Container" data-el="collection.productGrid">
+              <ul
+                class="clc-List_Items"
+                {% if has_promotions == true %} data-module="collection-list-with-promotions"{% endif %}
+                data-bc-sort="{{ collection.default_sort_by }}"
+              >
+  
+                {%- assign counter_index = 1 -%}
+  
+                {%- for product in collection.products -%}
+                  {%- if has_promotions == true -%}
+                    {%- for promotion in collection_for_metafields.metafields.promotion.position -%}
+                      {%- liquid
+                        assign promotion_position = collection_for_metafields.metafields.promotion.position[forloop.index0] | times: 1
+  
+                        assign position_match = false
+                        if promotion_position == counter_index
+                          assign position_match = true
+                        endif
+                      -%}
+  
+                      {%- if position_match -%}
+                        {%- liquid
+                          assign promotion_image = collection_for_metafields.metafields.promotion.image[forloop.index0].first
+                          assign promotion_title = collection_for_metafields.metafields.promotion.title[forloop.index0]
+                          assign promotion_width = collection_for_metafields.metafields.promotion.width[forloop.index0]
+                          assign promotion_subtitle = collection_for_metafields.metafields.promotion.subtitle[forloop.index0]
+                          assign promotion_link = collection_for_metafields.metafields.promotion.link[forloop.index0]
+                        -%}
+  
+                        <li
+                          class="clc-List_Item clc-List_Item-promotion"
+                          data-promotion-width="{{ promotion_width }}"
+                          data-el="collection-list-with-promotions.promotion"
+                        >
+                          <a class="clc-Promotion" href="{{ promotion_link }}">
+                            <div
+                              class="clc-Promotion_ImageContainer"
+                              data-el="collection-list-with-promotions.promotionImage"
+                            >
+                              <div class="clc-Promotion_Image">
+                                {%- render 'responsive-image-metafield',
+                                  image: promotion_image,
+                                  width: 1300,
+                                  height: 760
+                                -%}
+                              </div>
+                            </div>
+  
+                            <div class="clc-Promotion_Content">
+                              <h3 class="clc-Promotion_Title">
+                                {{ promotion_title }}
+                              </h3>
+  
+                              <p class="clc-Promotion_Subtitle">
+                                {{ promotion_subtitle }}
+                              </p>
+                            </div>
+                          </a>
+                        </li>
+  
+                        {%- break -%}
+                      {%- endif -%}
+                    {%- endfor -%}
+                  {%- endif -%}
+  
+                  <li
+                    class="clc-List_Item"
+                    {% if has_promotions %}data-el="collection-list-with-promotions.item"{% endif %}
+                  >
+                    {%- render 'product-card',
+                      product: product,
+                      property_tags: property_tags,
+                      property_images: property_images -%}
+                  </li>
+  
+                  {%- assign counter_index = counter_index | plus: 1 -%}
+  
+                {%- endfor -%}
+              </ul>
+            </div>
+  
+            <div class="clc-Detail_Pagination" data-el="collection.pagination">
+              {%- if paginate.pages > 1 -%}
+                {%- render 'pagination', paginate: paginate -%}
+              {%- endif -%}
+            </div>
+         {%- else -%}
+            <div class="clc-Detail404">
+              <div class="clc-Detail404_Inner">
+                <h2 class="clc-Detail404_Title">
+                  {{ 'pages.404.text' | t }}
+                </h2>
+  
+                <a class="clc-Detail404_Link btn-Primary" href="{{ collection.url }}">
+                  {{ 'pages.404.link_text' | t }}
+                </a>
+              </div>
+            </div>
+         {%- endif -%}
+        {%- endpaginate -%}
+      </div>
+    </div>
+  </div>
+{%- endunless -%}
+
+{% schema %}
+ {
+	"name": "Collection pages",
+	"settings": [
+		{
+			"type": "header",
+			"content": "Product List"
+		},
+		{
+			"type": "range",
+			"id": "products_per_page",
+			"label": "Products per page",
+			"min": 4,
+			"max": 50,
+			"step": 1,
+			"default": 20
+		}
+	]
+}
+{% endschema %}
