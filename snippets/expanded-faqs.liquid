@@ -1,0 +1,105 @@
+{% liquid
+  assign word_limit = 60
+
+  if collection.description != blank
+    assign seo_description = collection.description
+  endif
+
+  if collection_for_metafields.metafields.collection_new_faq.seo_description != blank
+    assign seo_description = collection_for_metafields.metafields.collection_new_faq.seo_description
+  endif
+
+  assign text_split = seo_description | split: ' '
+
+  if collection_for_metafields.metafields.collection_new_faq.seo_title
+    assign collection_title = collection_for_metafields.metafields.collection_new_faq.seo_title
+  endif
+%}
+
+<div class="sec-CollectionFAQs lyt-Container lyt-Container-wide">
+  <div class="sec-CollectionFAQs_Columns"{% if seo_description != blank %} data-module="un-truncate"{% endif %}>
+    <div class="sec-CollectionFAQs_Column">
+
+      {%- if collection_title != blank -%}
+        <h3>{{ collection_title }}</h3>
+      {%- else -%}
+        <h3>{{ 'collections.general.more_info_on' | t }} {{ collection.title }}</h3>
+      {%- endif -%}
+
+      {%- if seo_description != blank -%}
+        <div class="sec-CollectionFAQs_Text">
+          <p data-el="un-truncate.content">
+            {{ seo_description | truncatewords: word_limit }}
+
+            {%- if text_split.size > word_limit -%}
+              <button type="button" role="button" data-el="un-truncate.triggerOpen">
+                {{ 'collections.general.read_more' | t }}
+              </button>
+            {%- endif -%}
+          </p>
+
+          <p class="clc-Hero_Text-hidden" data-el="un-truncate.fullContent">
+              {{ seo_description }}
+            <button type="button" role="button" data-el="un-truncate.triggerClose">
+              {{ 'collections.general.read_less' | t }}
+            </button>
+          </p>
+        </div>
+      {%- endif -%}
+    </div>
+
+    <div class="sec-CollectionFAQs_Column">
+      <h3>{{ collection_for_metafields.metafields.collection_new_faq.still_looking_title }}</h3>
+
+      <p class="sec-CollectionFAQs_Text-italic">{{ collection_for_metafields.metafields.collection_new_faq.still_looking_subtitle }}</p>
+
+      <ul class="sec-CollectionFAQs_PillList">
+        {% for link_url in collection_for_metafields.metafields.more_links.link_url %}
+          {% liquid
+            assign link_text = collection_for_metafields.metafields.more_links.link_text[forloop.index0]
+          %}
+        <li>
+          <a href="{{ link_url }}" class="sec-CollectionFAQs_PillListItem">{{ link_text }}</a>
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+
+  <h3>{{ collection_for_metafields.metafields.collection_new_faq.faq_heading }}</h3>
+
+  <p class="sec-CollectionFAQs_Text-italic">{{ collection_for_metafields.metafields.collection_new_faq.faq_subheading }}</p>
+
+  <ul class="sec-CollectionFAQs_FAQItems">
+    {% for title in collection_for_metafields.metafields.faq_items.title %}
+      {% liquid
+        assign content = collection_for_metafields.metafields.faq_items.content[forloop.index0]
+      %}
+      <li class="sec-Accordion_Item sec-CollectionFAQs_FAQItem" aria-expanded="false">
+        <div class="sec-CollectionFAQs_FAQTitle">
+          {{ title }}
+
+          <div class="sec-Accordion_Icon"></div>
+        </div>
+
+        <div class="sec-CollectionFAQs_FAQContent">
+          <div>
+            {{ content }}
+          </div>
+        </div>
+      </li>
+    {% endfor %}
+  </ul>
+</div>
+<script>
+  document.querySelectorAll('.sec-CollectionFAQs_FAQTitle').forEach(title => {
+    title.addEventListener('click', function (e) {
+      if (this.parentNode.getAttribute('aria-expanded') === 'true') {
+        this.parentNode.setAttribute('aria-expanded', false)
+      } else {
+        this.parentNode.setAttribute('aria-expanded', true)
+      }
+
+    })
+  })
+</script>

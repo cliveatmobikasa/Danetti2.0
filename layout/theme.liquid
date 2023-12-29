@@ -533,7 +533,15 @@
     {%- comment -%} Nosto Start {%- endcomment -%}
     {%- render 'nosto-tagging' -%}
     {%- comment -%} Nosto End {%- endcomment -%}
-
+    <script>
+      const consoleStyle = "border-radius: 2px; background-color:#cdfee1; color: #035132; padding: 2px; border-bottom: 1px dashed #81b49c;font-size: 24px";
+      console.log(
+  `%cIs this live theme? {{ theme.role | replace: 'main', 'YES! Be careful 🤯🤯🤯' | replace: 'unpublished', 'Nahh~ dont worry 😁😁😁' }}
+      Theme: {{ theme.name }}
+      ID: {{ theme.id }}
+      Shop: {{ shop.name }}
+      template: **{{ template }}**`, consoleStyle);
+    </script>
     <script
       async
       type="text/javascript"

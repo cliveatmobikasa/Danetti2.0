@@ -1,0 +1,53 @@
+{%- comment -%}
+  - Only used on collection template if content hasn't moved to the repeatable FAQ Item fields
+  - Also used with Sofas Landing Page
+{%- endcomment -%}
+
+{%- if accordion_title_1 != blank and accordion_content_1 != blank -%}
+  <div
+    class="sec-Accordion_Item"
+    aria-expanded="false"
+    data-el="feature-accordions.accordion"
+    data-title="{{ accordion_title_1 | downcase }}"
+  >
+    <button type="button" class="sec-Accordion_Header" data-el="feature-accordions.trigger">
+      <div class="sec-Accordion_HeaderContent">
+        <h3 class="sec-Accordion_Title">
+          {{ accordion_title_1 }}
+        </h3>
+      </div>
+
+      <div class="sec-Accordion_Icon"></div>
+    </button>
+
+    <div class="sec-Accordion_Body" data-el="feature-accordions.content">
+      <div class="sec-Accordion_Content rte-RichText">
+        {{ accordion_content_1 }}
+      </div>
+    </div>
+  </div>
+{%- endif -%}
+{%- if accordion_title_2 != blank and accordion_content_2 != blank -%}
+  <div
+    class="sec-Accordion_Item"
+    aria-expanded="false"
+    data-el="feature-accordions.accordion"
+    data-title="{{ accordion_title_2 | downcase }}"
+  >
+    <button type="button" class="sec-Accordion_Header" data-el="feature-accordions.trigger">
+      <div class="sec-Accordion_HeaderContent">
+        <h3 class="sec-Accordion_Title">
+          {{ accordion_title_2 }}
+        </h3>
+      </div>
+
+      <div class="sec-Accordion_Icon"></div>
+    </button>
+
+    <div class="sec-Accordion_Body" data-el="feature-accordions.content">
+      <div class="sec-Accordion_Content">
+        {{ accordion_content_2 }}
+      </div>
+    </div>
+  </div>
+{%- endif -%}

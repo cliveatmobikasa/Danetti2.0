@@ -1,0 +1,127 @@
+{%- liquid
+  assign section_foreground = 'standard'
+  assign section_background = '#fff'
+  assign total_articles = 5
+
+  assign article_handles_split = selected_articles | split: "|"
+
+  if article_handles_split.size <= total_articles
+    assign recent_article_handles = blogs['lifestyle'].articles | slice:0, total_articles | map: 'handle'
+    assign related_article_handles = article_handles_split | concat: recent_article_handles | uniq | slice:0, total_articles
+  else
+    assign related_article_handles = article_handles_split
+  endif
+-%}
+
+<section class="sec-Section sec-Style-{{ section_foreground }}" style="--StyleBackground: {{ section_background }};">
+  <div class="sec-Section_Inner lyt-Container">
+    <div class="sec-Section_Header">
+      <h2 class="sec-Section_Title">
+        {{ 'blogs.article.related_articles' | t }}
+      </h2>
+    </div>
+  </div>
+
+  <div class="sec-Section_Body">
+    <div 
+      class="sec-ArticleCarousel_Carousel"
+      {% if related_article_handles.size > 1 %}data-module="article-carousel"{% endif %}
+      data-animate-section
+    >
+      <ul class="sec-ArticleCarousel_Slides car-Carousel_Slides" data-el="article-carousel.slides">
+        {%- for article_handle in related_article_handles -%}
+          {%- assign article_item = articles[article_handle] -%}
+
+          {%- if article_item != blank -%}
+            <li class="sec-ArticleCarousel_Slide car-Carousel_Slide" data-el="article-carousel.slide" data-slide="{{ forloop.index0 }}">
+              {%- liquid
+                if article_item.image == blank
+                  assign article_image = settings.blog_fallback_image
+                else
+                  assign article_image = article_item.image
+                endif
+
+                assign article_category = ''
+                assign article_time = ''
+              
+                for tag in article_item.tags
+                  if tag contains 'Category:'
+                    assign article_category = tag | remove: 'Category: '
+                  endif
+              
+                  if tag contains 'Time:'
+                    assign article_time = tag | remove: 'Time: '
+                  endif
+                endfor
+              -%}
+              
+              <div class="art-CarouselCard">
+                <div class="art-CarouselCard_ImageContainer" data-animate-image>
+                  <div class="art-CarouselCard_Image" data-el="article-carousel.image" data-slide="{{ forloop.index0 }}">
+                    {%- render 'responsive-image' with
+                      image: article_image,
+                      width: 1280,
+                      height: 800
+                    -%}
+                  </div>
+                </div>
+              
+                <div class="art-CarouselCard_Content" data-animate-el>
+                  <a href="{{ article_item.url }}" class="art-CarouselCard_Title">
+                    {{ article_item.title }}
+                  </a>
+              
+                  {%- if article_category != blank or article_time != blank -%}
+                    <div class="art-CarouselCard_Tags">
+                      {%- if article_category != blank -%}
+                        <div class="art-CarouselCard_Tag">
+                          <span class="art-CarouselCard_TagIcon">
+                            {%- render 'bao-icon-tag' -%}
+                          </span>
+              
+                          <span class="art-CarouselCard_TagText">
+                            {{ article_category }}
+                          </span>
+                        </div>
+                      {%- endif -%}
+              
+                      {%- if article_time != blank -%}
+                        <div class="art-CarouselCard_Tag">
+                          <span class="art-CarouselCard_TagIcon">
+                            {%- render 'bao-icon-time' -%}
+                          </span>
+              
+                          <span class="art-CarouselCard_TagText">
+                            {{ article_time }}
+                          </span>
+                        </div>
+                      {%- endif -%}
+                    </div>
+                  {%- endif -%}
+              
+                  <div class="art-CarouselCard_Text rte-RichText">
+                    {{ article_item.excerpt | strip_html }}
+                  </div>
+              
+                  <a href="{{ article_item.url }}" class="art-CarouselCard_Button">
+                    {{ 'blogs.article.read_more' | t }}
+                  </a>
+                </div>
+              </div>
+            </li>
+          {%- endif -%}
+        {%- endfor -%}
+      </ul>
+
+      {%- if related_article_handles.size > 1 -%}
+        <div class="sec-ArticleCarousel_Arrows">
+          <div class="sec-ArticleCarousel_ArrowHolder">
+            <button class="sec-ArticleCarousel_Arrow sec-ArticleCarousel_Arrow-prev" data-el="article-carousel.controlprevious" data-direction="previous"></button>
+
+            <button class="sec-ArticleCarousel_Arrow sec-ArticleCarousel_Arrow-next" data-el="article-carousel.controlnext" data-direction="next"></button>
+          </div>
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+</section>

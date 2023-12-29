@@ -65,18 +65,29 @@
   endif
 -%}
 
-<div class="rsp-Image rsp-Image_Metafield {{ class_name }}" style="--Image_AspectRatio: {{ aspect_ratio_image }}%;">
-  <img
-    class="rsp-Image_MetafieldImage"
-    srcset="
-    {%- for width in image_widths_array -%}
-      {{- img_url | append: width | append: format }} {{ width }}w{%- unless forloop.last -%},{%- endunless -%}
-    {%- endfor -%}"
-    src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
-    alt="{{ alt | escape }}"
-    loading="lazy"
-    sizes="(max-width: 767px) {{ mobile_viewport }}, {{ desktop_viewport }}"
-    width="{{ width_image }}"
-    height="{{ height_image | ceil }}"
-  >
+<div class="rsp-Image rsp-Image_Metafield {{ class_name }}" {% unless video %}style="--Image_AspectRatio: {{ aspect_ratio_image }}%;"{% endunless %}>
+  {%- if video -%}
+    <video
+      class="rsp-Image_MetafieldImage"
+      {% if autoplay %}autoplay{% endif %}
+      loop
+      muted
+    >
+      <source src="{{ image.src }}" type="video/mp4">
+    </video>
+  {%- else -%}
+    <img
+      class="rsp-Image_MetafieldImage"
+      srcset="
+      {%- for width in image_widths_array -%}
+        {{- img_url | append: width | append: format }} {{ width }}w{%- unless forloop.last -%},{%- endunless -%}
+      {%- endfor -%}"
+      src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+      alt="{{ alt | escape }}"
+      loading="lazy"
+      sizes="(max-width: 767px) {{ mobile_viewport }}, {{ desktop_viewport }}"
+      width="{{ width_image }}"
+      height="{{ height_image | ceil }}"
+    >
+  {%- endif -%}
 </div>

@@ -74,6 +74,7 @@
   width: 100%;
   background-color: var(--Color_Grey);
   overflow: hidden;
+  max-height: 390px;
 }
 .clc-Promotion_ImageContainer::after {
   content: '';

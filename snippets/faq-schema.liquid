@@ -1,0 +1,68 @@
+{% liquid
+  if manual_items
+    capture blocks_list
+      if title_1
+        echo '1' | append: '|||'
+        echo title_1 | append: '|||'
+        echo content_1 | append: ':::'
+      endif
+      if title_2
+        echo '2' | append: '|||'
+        echo title_2 | append: '|||'
+        echo content_2 | append: ':::'
+      endif
+      if title_3
+        echo '3' | append: '|||'
+        echo title_3 | append: '|||'
+        echo content_3 | append: ':::'
+      endif
+      if title_4
+        echo '4' | append: '|||'
+        echo title_4 | append: '|||'
+        echo content_4 | append: ':::'
+      endif
+      if title_5
+        echo '5' | append: '|||'
+        echo title_5 | append: '|||'
+        echo content_5 | append: ':::'
+      endif
+    endcapture
+    assign blocks = blocks_list | split: ':::'
+  endif
+%}
+
+<script data-faq-schema type="application/ld+json">
+  {%- capture accordion_js -%}
+    {
+      "@type": "Question",
+      "text": "[[ title ]]",
+      "name": "[[ title ]]",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "[[ text ]]"
+      }
+    }
+  {%- endcapture -%}
+  {
+    "@context": "http://schema.org/",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {%- liquid
+        for block in blocks
+          if manual_items
+            assign block_settings = block | split: '|||'
+            assign title = block_settings[1] | strip_html
+            assign text = block_settings[2] | strip_html
+          else
+            assign title = block.settings.title | strip_html
+            assign text = block.settings.text | strip_html
+          endif
+          echo accordion_js | replace: '[[ title ]]', title | replace: '[[ text ]]', text
+          unless forloop.last
+            echo ','
+          endunless
+        endfor
+      -%}
+    ]
+  }
+</script>

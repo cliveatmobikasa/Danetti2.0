@@ -49,6 +49,8 @@
   {{ 'snippet-filters.css' | asset_url | stylesheet_tag }}
   {{ 'snippet-collection-filters.css' | asset_url | stylesheet_tag }}
   {{ 'snippet-pagination.css' | asset_url | stylesheet_tag }}
+  {{ 'snippet-faqs.css' | asset_url | stylesheet_tag }}
+  {{ 'snippet-accordion.css' | asset_url | stylesheet_tag }}
   <div class="clc-List">
     <div class="clc-List_Inner lyt-Container lyt-Container-wide">
       <div class="clc-List_HeaderContainer clc-Detail" data-module="collection" data-collection-container-el data-id="{{- section.id -}}">
@@ -115,6 +117,7 @@
                       {%- if position_match -%}
                         {%- liquid
                           assign promotion_image = collection_for_metafields.metafields.promotion.image[forloop.index0].first
+                          assign promotion_autoplay = collection_for_metafields.metafields.promotion.enable_autoplay[forloop.index0]
                           assign promotion_title = collection_for_metafields.metafields.promotion.title[forloop.index0]
                           assign promotion_width = collection_for_metafields.metafields.promotion.width[forloop.index0]
                           assign promotion_subtitle = collection_for_metafields.metafields.promotion.subtitle[forloop.index0]
@@ -132,11 +135,21 @@
                               data-el="collection-list-with-promotions.promotionImage"
                             >
                               <div class="clc-Promotion_Image">
-                                {%- render 'responsive-image-metafield',
-                                  image: promotion_image,
-                                  width: 1300,
-                                  height: 760
-                                -%}
+                                {%- if promotion_image.media_type == 'video' -%}
+                                  {%- render 'responsive-image-metafield',
+                                    image: promotion_image,
+                                    width: 1300,
+                                    height: 760,
+                                    video: true
+                                    autoplay: promotion_autoplay
+                                  -%}
+                                {%- else -%}
+                                  {%- render 'responsive-image-metafield',
+                                    image: promotion_image,
+                                    width: 1300,
+                                    height: 760
+                                  -%}
+                              {%- endif -%}
                               </div>
                             </div>
   
@@ -195,6 +208,153 @@
       </div>
     </div>
   </div>
+  {%- liquid
+    assign faq_section_foreground = 'standard'
+    assign faq_section_background = 'var(--Color_Grey-dark)'
+
+    if collection_for_metafields.metafields.collection_faq.text_colour != blank
+      assign faq_section_foreground = collection_for_metafields.metafields.collection_faq.text_colour | downcase
+    endif
+
+    if collection_for_metafields.metafields.collection_faq.hex != blank
+      assign faq_section_background = collection_for_metafields.metafields.collection_faq.hex
+    endif
+
+    if collection_for_metafields.metafields.collection_faq.order != blank
+      assign faq_order = collection_for_metafields.metafields.collection_faq.order
+    endif
+
+    if collection_for_metafields.metafields.collection_faq.title != blank
+      assign faq_title = collection_for_metafields.metafields.collection_faq.title
+    endif
+
+    if collection_for_metafields.metafields.collection_faq.subtitle != blank
+      assign faq_subtitle = collection_for_metafields.metafields.collection_faq.subtitle
+    endif
+
+    if collection_for_metafields.metafields.collection_faq.content != blank
+      assign faq_content = collection_for_metafields.metafields.collection_faq.content
+    endif
+
+    if collection_for_metafields.metafields.collection_faq.image1 != blank
+      assign faq_image1 = collection_for_metafields.metafields.collection_faq.image1
+    endif
+
+    if collection_for_metafields.metafields.collection_faq.image2 != blank
+      assign faq_image2 = collection_for_metafields.metafields.collection_faq.image2
+    endif
+
+    if collection_for_metafields.metafields.collection_faq.button_text != blank
+      assign faq_button_text = collection_for_metafields.metafields.collection_faq.button_text
+    endif
+
+    if collection_for_metafields.metafields.collection_faq.button_url != blank
+      assign faq_button_url = collection_for_metafields.metafields.collection_faq.button_url
+    endif
+
+    if collection_for_metafields.metafields.collection_faq.accordion_title_1 != blank
+      assign faq_accordion_title_1 = collection_for_metafields.metafields.collection_faq.accordion_title_1
+    endif
+
+    if collection_for_metafields.metafields.collection_faq.accordion_content_1 != blank
+      assign faq_accordion_content_1 = collection_for_metafields.metafields.collection_faq.accordion_content_1
+    endif
+
+    if collection_for_metafields.metafields.collection_faq.accordion_title_2 != blank
+      assign faq_accordion_title_2 = collection_for_metafields.metafields.collection_faq.accordion_title_2
+    endif
+
+    if collection_for_metafields.metafields.collection_faq.accordion_content_2 != blank
+      assign faq_accordion_content_2 = collection_for_metafields.metafields.collection_faq.accordion_content_2
+    endif
+
+    if collection_for_metafields.metafields.collection_faq.info_title != blank
+      assign faq_info_title = collection_for_metafields.metafields.collection_faq.info_title
+    endif
+
+    if collection_for_metafields.metafields.collection_faq.info_content != blank
+      assign faq_info_content = collection_for_metafields.metafields.collection_faq.info_content
+    endif
+  -%}
+
+  {%- if collection_for_metafields.metafields.collection_new_faq.show_section -%}
+    {%- render 'expanded-faqs',
+      collection_for_metafields: collection_for_metafields
+    -%}
+  {%- endif -%}
+
+  {%- if collection_for_metafields.metafields.collection_faq.show_section == true or collection_for_metafields.metafields.collection_faq.show_section == 'true' -%}
+    {%- render 'section-image-text-accordion',
+      section_foreground: faq_section_foreground,
+      section_background: faq_section_background,
+      image_text_order: faq_order,
+      image_text_title: faq_title,
+      image_text_subtitle: faq_subtitle,
+      image_text_content: faq_content.html,
+      image_text_metafield_image1: faq_image1.first,
+      image_text_metafield_image2: faq_image2.first,
+      image_text_button_text: faq_button_text,
+      image_text_button_url: faq_button_url,
+
+      accordion_title_1: faq_accordion_title_1,
+      accordion_content_1: faq_accordion_content_1.html,
+
+      accordion_title_2: faq_accordion_title_2,
+      accordion_content_2: faq_accordion_content_2.html,
+
+      info_title: faq_info_title,
+      info_content: faq_info_content.html
+    -%}
+  {%- endif -%}
+
+  {%- liquid
+    assign section_foreground = 'standard'
+    assign section_background = 'var(--Color_Grey-dark)'
+
+    if collection_for_metafields.metafields.collection_banner.text_colour != blank
+      assign section_foreground = collection_for_metafields.metafields.collection_banner.text_colour | downcase
+    endif
+
+    if collection_for_metafields.metafields.collection_banner.hex != blank
+      assign section_background = collection_for_metafields.metafields.collection_banner.hex
+    endif
+
+    if collection_for_metafields.metafields.desc_images.image1 != blank
+      assign image_text_metafield_image = collection_for_metafields.metafields.desc_images.image1.first
+    endif
+
+    if collection_for_metafields.metafields.desc_images.image2 != blank
+      assign image_text_metafield_image2 = collection_for_metafields.metafields.desc_images.image2.first
+    endif
+  -%}
+
+  {%- if collection.description != blank -%}
+    {%- unless collection.metafields.desc.disable -%}
+      {%- render 'section-image-text',
+        section_scroll: 'collection-description',
+        section_foreground: section_foreground,
+        section_background: section_background,
+        image_text_order: 'reverse',
+        image_text_title: collection.title,
+        image_text_subtitle: '',
+        image_text_content: collection.description,
+        image_text_metafield_image1: image_text_metafield_image,
+        image_text_metafield_image2: image_text_metafield_image2
+      -%}
+    {%- endunless -%}
+  {%- endif -%}
+
+  {%- liquid
+    assign collection_for_articles = collection
+
+    if collection_for_metafields.metafields.related_articles.use_other_collections_articles != blank
+      assign collection_for_articles = collections[collection_for_metafields.metafields.related_articles.use_other_collections_articles]
+    endif
+  -%}
+
+  {%- render 'related-articles',
+    selected_articles: collection_for_articles.metafields.related_articles.articles
+  -%}
 {%- endunless -%}
 
 {% schema %}

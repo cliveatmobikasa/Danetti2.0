@@ -297,6 +297,69 @@
 .prd-Colours_Button-border[aria-current='true']::after {
   background-color: var(--Color_Brand);
 }
+/*
+|--------------------------------------------------------------------------
+| Product price
+|--------------------------------------------------------------------------
+| @namespace: prd-
+|
+*/
+.prd-Price {
+  font-weight: 400;
+  text-align: right;
+  white-space: nowrap;
+}
+.prd-Product .prd-Price {
+  font-family: var(--Font_Family-aktivGrotesk);
+  font-weight: 500;
+}
+.prd-Price_Sale {
+  position: relative;
+  display: inline-block;
+  margin-right: 5px;
+  color: var(--Color_Brand);
+}
+.prd-Price_Sale::after {
+  content: '';
+  position: absolute;
+  top: calc(50% - 1px);
+  left: 0;
+  display: block;
+  width: 100%;
+  height: 2px;
+  background-color: var(--Color_Brand);
+}
+.prd-Card .prd-Price_Sale::after {
+  height: 1px;
+}
+.prd-Price_Compare {
+  text-decoration: line-through;
+  display: block;
+}
+.prd-Price_Compare-total {
+  color: var(--Color_Anchor);
+}
+.prd-Price_Value {
+  color: var(--Color_Brand);
+}
+.prd-Price-sale .prd-Price_Value {
+  color: var(--Color_Anchor);
+}
+.prd-Price_ItemValue {
+  display: block;
+  font-size: 12px;
+  line-height: 120%;
+}
+.prd-Price_Free {
+  color: var(--Color_Brand);
+}
+.prd-From {
+  font-family: var(--Font_Family-aktivGrotesk);
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--Color_Brand);
+}
+
 @media screen and (min-width: 768px) {
   .prd-Card {
     flex-direction: column;
@@ -346,6 +409,10 @@
     flex: 0 0 50px;
     margin: 10px;
   }
+  .prd-Price {
+    text-align: left;
+  }
+
 }
 @media screen and (min-width: 1201px) {
   .prd-Card_Tags {
